@@ -13,4 +13,20 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="title_activity_login">Sign in</string>
+
+    <string name="phone_number_your_phone_number">Номер телефона</string>
+    <string name="phone_number_description">Используйте ваш номер телефона для входа в аккаунт.</string>
+    <string name="phone_number_log_in">Войти</string>
+    <string name="next">Далее</string>
+
+    <string name="onboarding_title">Перевозчик\nSnipe</string>
+    <string name="onboarding_description">Работайте на себя на своем грузовом фургоне.</string>
+    <string name="onboarding_log_in">Войти</string>
+    <string name="onboarding_sign_up">Стать перевозчиком</string>
+    <string name="ready">Готово</string>
+    <string name="verify_code_verifying">Подтверждение</string>
+    <string name="verify_code_code">Код подтверждения</string>
+    <string name="verify_code_description">Мы отправили вам код на %1s\nНе получили? </string>
+    <string name="verify_code_send_new">Отправить новый</string>
 </resources>

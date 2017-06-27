@@ -1,11 +1,23 @@
 <resources>
-
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <!--Base-->
+    <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">#ffffff</item>
+        <!--<item name="android:textColorSecondary">@color/textColorSecondary</item>-->
+        <item name="android:windowBackground">@color/colorPrimary</item>
+        <item name="colorControlNormal">@color/colorAccent</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <!--<item name="toolbarStyle">@style/Toolbar</item>-->
+        <!--<item name="android:listDivider">@drawable/divider</item>-->
+        <!--<item name="windowActionModeOverlay">true</item>-->
+        <!--<item name="actionModeStyle">@style/ActionMode</item>-->
+        <!--<item name="actionModeCloseDrawable">@drawable/ic_close</item>-->
+        <!--<item name="alertDialogTheme">@style/AlertDialog</item>-->
+        <!--<item name="popupMenuStyle">@style/PopupMenu</item>-->
+        <!--<item name="searchViewStyle">@style/SearchView</item>-->
     </style>
 
+    <style name="AppTheme" parent="BaseTheme" />
 </resources>
