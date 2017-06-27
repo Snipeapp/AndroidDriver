@@ -18,6 +18,7 @@ import javax.inject.Inject
 class PhoneNumberFragment : MviFragment<PhoneNumberView, PhoneNumberPresenter>(), PhoneNumberView {
     @BindView(R.id.toolbar) lateinit var toolbar: Toolbar
     @BindView(R.id.edittext_phone_number) lateinit var numberInput: EditText
+    @BindView(R.id.layout_phone_number_loading) lateinit var loadingLayout: View
 
     @Inject lateinit var presenter: PhoneNumberPresenter
 
@@ -53,6 +54,14 @@ class PhoneNumberFragment : MviFragment<PhoneNumberView, PhoneNumberPresenter>()
             android.R.id.home -> activity.onBackPressed()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun showLoading() {
+        loadingLayout.visibility = View.VISIBLE
+    }
+
+    override fun hideLoading() {
+        loadingLayout.visibility = View.GONE
     }
 
     override fun createPresenter() = presenter

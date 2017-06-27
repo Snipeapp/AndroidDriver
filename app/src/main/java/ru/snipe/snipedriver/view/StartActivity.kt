@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import ru.snipe.snipedriver.R
 import ru.snipe.snipedriver.view.phone_number.PhoneNumberFragment
 
-class LoginActivity : AppCompatActivity() {
+class StartActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)

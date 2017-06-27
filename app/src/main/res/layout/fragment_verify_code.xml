@@ -1,38 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:title="@string/verify_code_verifying" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/edittext_verify_code"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:title="@string/verify_code_verifying" />
+
+        <EditText
+            android:id="@+id/edittext_verify_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:hint="@string/verify_code_code"
+            android:imeOptions="actionNext"
+            android:inputType="phone"
+            android:maxLines="1"
+            android:textColorHint="#abb4be"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/tv_verify_code_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:text="@string/verify_code_description"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/layout_verify_code_loading"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:hint="@string/verify_code_code"
-        android:imeOptions="actionNext"
-        android:inputType="phone"
-        android:maxLines="1"
-        android:textColorHint="#abb4be"
-        android:textSize="17sp" />
+        android:layout_height="match_parent"
+        android:alpha="0.7"
+        android:background="#2a3d53"
+        android:clickable="true">
 
-    <TextView
-        android:id="@+id/tv_verify_code_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="24dp"
-        android:text="@string/verify_code_description"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        android:textSize="12sp" />
-</LinearLayout>
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminateTint="#97a1ae" />
+    </FrameLayout>
+</FrameLayout>

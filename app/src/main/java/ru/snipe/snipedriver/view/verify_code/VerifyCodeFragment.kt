@@ -17,6 +17,7 @@ import javax.inject.Inject
 class VerifyCodeFragment : MviFragment<VerifyCodeView, VerifyCodePresenter>(), VerifyCodeView {
     @BindView(R.id.toolbar) lateinit var toolbar: Toolbar
     @BindView(R.id.edittext_verify_code) lateinit var codeInput: EditText
+    @BindView(R.id.layout_verify_code_loading) lateinit var loadingLayout: View
 
     @Inject lateinit var presenter: VerifyCodePresenter
 
@@ -50,6 +51,14 @@ class VerifyCodeFragment : MviFragment<VerifyCodeView, VerifyCodePresenter>(), V
             android.R.id.home -> activity.onBackPressed()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun showLoading() {
+        loadingLayout.visibility = View.VISIBLE
+    }
+
+    override fun hideLoading() {
+        loadingLayout.visibility = View.GONE
     }
 
     override fun createPresenter() = presenter
