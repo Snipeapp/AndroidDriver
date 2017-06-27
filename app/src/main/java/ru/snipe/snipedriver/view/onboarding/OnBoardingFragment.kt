@@ -11,6 +11,7 @@ import io.reactivex.Observable
 import ru.snipe.snipedriver.DaggerAppComponent
 import ru.snipe.snipedriver.R
 import ru.snipe.snipedriver.presenter.OnBoardingPresenter
+import ru.snipe.snipedriver.view.phone_number.PhoneNumberFragment
 import javax.inject.Inject
 
 class OnBoardingFragment : MviFragment<OnBoardingView, OnBoardingPresenter>(), OnBoardingView {
@@ -32,11 +33,12 @@ class OnBoardingFragment : MviFragment<OnBoardingView, OnBoardingPresenter>(), O
     @OnClick(R.id.button_onboarding_sign_up, R.id.button_onboarding_log_in)
     fun onClick(v: View) {
         when (v.id) {
-            R.id.button_onboarding_sign_up -> {
-
-            }
-            R.id.button_onboarding_log_in -> {
-
+            R.id.button_onboarding_sign_up, R.id.button_onboarding_log_in -> {
+                activity.supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, PhoneNumberFragment())
+                        .addToBackStack(PhoneNumberFragment::class.java.canonicalName)
+                        .commit()
             }
         }
     }

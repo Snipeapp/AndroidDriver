@@ -1,6 +1,7 @@
 package ru.snipe.snipedriver.view.phone_number
 
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.telephony.PhoneNumberFormattingTextWatcher
@@ -9,18 +10,23 @@ import android.widget.EditText
 import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
-import com.hannesdorfmann.mosby3.mvi.MviFragment
+import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 import ru.snipe.snipedriver.DaggerAppComponent
 import ru.snipe.snipedriver.R
 import ru.snipe.snipedriver.presenter.PhoneNumberPresenter
+import ru.snipe.snipedriver.view.verify_code.VerifyCodeFragment
 import javax.inject.Inject
 
-class PhoneNumberFragment : MviFragment<PhoneNumberView, PhoneNumberPresenter>(), PhoneNumberView {
+class PhoneNumberFragment : Fragment(), PhoneNumberView {
+    //MviFragment<PhoneNumberView, PhoneNumberPresenter>()
     @BindView(R.id.toolbar) lateinit var toolbar: Toolbar
     @BindView(R.id.edittext_phone_number) lateinit var numberInput: EditText
     @BindView(R.id.layout_phone_number_loading) lateinit var loadingLayout: View
 
     @Inject lateinit var presenter: PhoneNumberPresenter
+
+    val phoneSubject: PublishSubject<String> = PublishSubject.create()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         DaggerAppComponent.create().inject(this)
@@ -43,14 +49,22 @@ class PhoneNumberFragment : MviFragment<PhoneNumberView, PhoneNumberPresenter>()
         return view
     }
 
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        presenter.attachView(this)
+    }
+
+    override fun onDestroyView() {
+        presenter.detachView()
+        super.onDestroyView()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) =
             inflater.inflate(R.menu.menu_next, menu)
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_next -> {
-                Toast.makeText(activity, "next", Toast.LENGTH_SHORT).show()
-            }
+            R.id.action_next -> phoneSubject.onNext(numberInput.text.toString())
             android.R.id.home -> activity.onBackPressed()
         }
         return super.onOptionsItemSelected(item)
@@ -64,5 +78,24 @@ class PhoneNumberFragment : MviFragment<PhoneNumberView, PhoneNumberPresenter>()
         loadingLayout.visibility = View.GONE
     }
 
-    override fun createPresenter() = presenter
+    override fun nextClicked(): Observable<String> {
+        return phoneSubject
+    }
+
+    override fun codeSent() {
+        val fragment = VerifyCodeFragment().apply {
+            arguments = Bundle().apply {
+                putString("phone", numberInput.text.toString())
+            }
+        }
+        activity.supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .addToBackStack(fragment::class.java.canonicalName)
+                .commit()
+    }
+
+    override fun showError(error: String) {
+        Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
+    }
 }

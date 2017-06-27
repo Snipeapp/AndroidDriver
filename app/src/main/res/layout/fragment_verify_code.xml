@@ -11,12 +11,18 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:title="@string/verify_code_verifying" />
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="8dp"
+                app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+                app:title="@string/verify_code_verifying" />
+        </android.support.design.widget.AppBarLayout>
 
         <EditText
             android:id="@+id/edittext_verify_code"
@@ -48,7 +54,8 @@
         android:layout_height="match_parent"
         android:alpha="0.7"
         android:background="#2a3d53"
-        android:clickable="true">
+        android:clickable="true"
+        android:visibility="gone">
 
         <ProgressBar
             android:layout_width="wrap_content"

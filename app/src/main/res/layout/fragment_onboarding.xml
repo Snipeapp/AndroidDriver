@@ -2,7 +2,6 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -11,26 +10,29 @@
     <ImageView
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginTop="-8dp"
         app:srcCompat="@drawable/logo" />
+
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
         android:fontFamily="sans-serif-black"
+        android:text="@string/onboarding_title"
         android:textColor="#ffffff"
-        android:textSize="36sp"
-        tools:text="@string/onboarding_title" />
+        android:textSize="36sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="21dp"
+        android:text="@string/onboarding_description"
         android:textColor="#ffffff"
         android:textSize="18sp"
-        android:textStyle="normal"
-        tools:text="@string/onboarding_description" />
+        android:textStyle="normal" />
 
     <android.support.v4.widget.Space
         android:layout_width="match_parent"

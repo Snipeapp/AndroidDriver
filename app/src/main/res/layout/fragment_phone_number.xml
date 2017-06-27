@@ -10,12 +10,17 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:title="@string/phone_number_log_in" />
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+                app:title="@string/phone_number_log_in" />
+        </android.support.design.widget.AppBarLayout>
 
         <EditText
             android:id="@+id/edittext_phone_number"
