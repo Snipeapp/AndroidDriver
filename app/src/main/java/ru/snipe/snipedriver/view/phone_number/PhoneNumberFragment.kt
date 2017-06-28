@@ -12,7 +12,7 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import ru.snipe.snipedriver.DaggerAppComponent
+import ru.snipe.snipedriver.App
 import ru.snipe.snipedriver.R
 import ru.snipe.snipedriver.presenter.PhoneNumberPresenter
 import ru.snipe.snipedriver.view.verify_code.VerifyCodeFragment
@@ -29,7 +29,7 @@ class PhoneNumberFragment : Fragment(), PhoneNumberView {
     val phoneSubject: PublishSubject<String> = PublishSubject.create()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        DaggerAppComponent.create().inject(this)
+        (activity.application as App).component.inject(this)
         super.onCreate(savedInstanceState)
     }
 

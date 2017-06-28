@@ -8,7 +8,7 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import com.hannesdorfmann.mosby3.mvi.MviFragment
 import io.reactivex.Observable
-import ru.snipe.snipedriver.DaggerAppComponent
+import ru.snipe.snipedriver.App
 import ru.snipe.snipedriver.R
 import ru.snipe.snipedriver.presenter.OnBoardingPresenter
 import ru.snipe.snipedriver.view.phone_number.PhoneNumberFragment
@@ -18,7 +18,7 @@ class OnBoardingFragment : MviFragment<OnBoardingView, OnBoardingPresenter>(), O
     @Inject lateinit var presenter: OnBoardingPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        DaggerAppComponent.create().inject(this)
+        (activity.application as App).component.inject(this)
         super.onCreate(savedInstanceState)
     }
 

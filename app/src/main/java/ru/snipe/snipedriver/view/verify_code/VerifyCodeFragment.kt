@@ -18,7 +18,7 @@ import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
 import io.reactivex.subjects.PublishSubject
-import ru.snipe.snipedriver.DaggerAppComponent
+import ru.snipe.snipedriver.App
 import ru.snipe.snipedriver.R
 import ru.snipe.snipedriver.presenter.VerifyCodePresenter
 import javax.inject.Inject
@@ -35,7 +35,7 @@ class VerifyCodeFragment : Fragment(), VerifyCodeView { //MviFragment<VerifyCode
     val readySubject: PublishSubject<String> = PublishSubject.create()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        DaggerAppComponent.create().inject(this)
+        (activity.application as App).component.inject(this)
         super.onCreate(savedInstanceState)
     }
 
