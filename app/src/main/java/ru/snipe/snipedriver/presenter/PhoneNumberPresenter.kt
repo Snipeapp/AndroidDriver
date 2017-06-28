@@ -30,7 +30,7 @@ class PhoneNumberPresenter
     }
 
     override fun detachView() {
-        compositeDisposable.dispose()
+        compositeDisposable.clear()
         super.detachView()
     }
 }

@@ -1,17 +1,17 @@
 package ru.snipe.snipedriver.view.phone_number
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.telephony.PhoneNumberFormattingTextWatcher
 import android.view.*
 import android.widget.EditText
-import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
+import com.jakewharton.rxrelay2.PublishRelay
 import io.reactivex.Observable
-import io.reactivex.subjects.PublishSubject
 import ru.snipe.snipedriver.App
 import ru.snipe.snipedriver.R
 import ru.snipe.snipedriver.presenter.PhoneNumberPresenter
@@ -26,7 +26,7 @@ class PhoneNumberFragment : Fragment(), PhoneNumberView {
 
     @Inject lateinit var presenter: PhoneNumberPresenter
 
-    val phoneSubject: PublishSubject<String> = PublishSubject.create()
+    val phoneSubject: PublishRelay<String> = PublishRelay.create()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         (activity.application as App).component.inject(this)
@@ -64,7 +64,14 @@ class PhoneNumberFragment : Fragment(), PhoneNumberView {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_next -> phoneSubject.onNext(numberInput.text.toString())
+            R.id.action_next -> {
+                val phone = numberInput.text.toString()
+                if (phone.replace("[^0-9]+".toRegex(), "").matches("[0-9]{11}".toRegex())) {
+                    phoneSubject.accept(phone)
+                } else {
+                    showError("Ошибка в номере телефона")
+                }
+            }
             android.R.id.home -> activity.onBackPressed()
         }
         return super.onOptionsItemSelected(item)
@@ -96,6 +103,6 @@ class PhoneNumberFragment : Fragment(), PhoneNumberView {
     }
 
     override fun showError(error: String) {
-        Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
+        Snackbar.make(toolbar, error, Snackbar.LENGTH_SHORT).show()
     }
 }

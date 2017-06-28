@@ -2,6 +2,7 @@ package ru.snipe.snipedriver.view.verify_code
 
 import android.graphics.Color
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
@@ -103,7 +104,7 @@ class VerifyCodeFragment : Fragment(), VerifyCodeView { //MviFragment<VerifyCode
     }
 
     override fun showError(error: String) {
-        Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
+        Snackbar.make(toolbar, error, Snackbar.LENGTH_SHORT).show()
     }
 
     override fun resendClicked() = resendSubject
