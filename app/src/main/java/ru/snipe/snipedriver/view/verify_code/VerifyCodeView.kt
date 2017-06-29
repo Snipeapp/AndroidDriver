@@ -9,6 +9,7 @@ interface VerifyCodeView : MvpView {
     fun hideLoading()
     fun resendClicked(): Subject<Boolean>
     fun readyClicked(): Observable<String>
+    fun codeSent()
     fun codeVerified()
     fun showError(error: String)
 }

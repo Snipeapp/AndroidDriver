@@ -11,8 +11,11 @@
         android:orientation="vertical">
 
         <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:elevation="0dp"
+            app:elevation="0dp">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -20,6 +23,11 @@
                 android:layout_height="wrap_content"
                 app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
                 app:title="@string/phone_number_log_in" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@drawable/toolbar_dropshadow" />
         </android.support.design.widget.AppBarLayout>
 
         <EditText

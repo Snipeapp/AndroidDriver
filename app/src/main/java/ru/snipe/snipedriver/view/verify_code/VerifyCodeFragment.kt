@@ -1,10 +1,15 @@
 package ru.snipe.snipedriver.view.verify_code
 
+import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.support.annotation.ColorRes
+import android.support.annotation.DrawableRes
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
+import android.support.v4.graphics.drawable.DrawableCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.text.Spannable
@@ -66,8 +71,17 @@ class VerifyCodeFragment : Fragment(), VerifyCodeView { //MviFragment<VerifyCode
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         (activity as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
+        toolbar.navigationIcon = getTintedDrawable(activity, R.drawable.back, R.color.colorAccent)
+
+        codeSent()
 
         return view
+    }
+
+    fun getTintedDrawable(context: Context, @DrawableRes drawable: Int, @ColorRes color: Int): Drawable {
+        val d = DrawableCompat.wrap(ContextCompat.getDrawable(context, drawable))
+        DrawableCompat.setTint(d, ContextCompat.getColor(context, color))
+        return d
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -99,8 +113,12 @@ class VerifyCodeFragment : Fragment(), VerifyCodeView { //MviFragment<VerifyCode
         loadingLayout.visibility = View.GONE
     }
 
+    override fun codeSent() {
+        Toast.makeText(context, "Код отправлен", Toast.LENGTH_SHORT).show()
+    }
+
     override fun codeVerified() {
-        Toast.makeText(context, "Верный код", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Код верный", Toast.LENGTH_SHORT).show()
     }
 
     override fun showError(error: String) {

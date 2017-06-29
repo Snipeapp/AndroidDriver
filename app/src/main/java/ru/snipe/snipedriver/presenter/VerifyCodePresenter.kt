@@ -17,7 +17,7 @@ class VerifyCodePresenter
                 add(resendClicked()
                         .doOnNext { view?.showLoading() }
                         .concatMap { dataManager.resendCode(phone) }
-                        .doOnNext { view?.hideLoading() }
+                        .doOnNext { view?.hideLoading(); view?.codeSent() }
                         .subscribe())
 
                 add(readyClicked()
