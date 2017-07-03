@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.support.annotation.ColorRes
 import android.support.annotation.DrawableRes
 import android.support.design.widget.Snackbar
+import android.support.v13.app.ActivityCompat
+import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v4.graphics.drawable.DrawableCompat
@@ -20,8 +22,9 @@ import com.jakewharton.rxrelay2.PublishRelay
 import io.reactivex.Observable
 import ru.snipe.snipedriver.App
 import ru.snipe.snipedriver.R
+import ru.snipe.snipedriver.createIntent
 import ru.snipe.snipedriver.presenter.PhoneNumberPresenter
-import ru.snipe.snipedriver.view.verify_code.VerifyCodeFragment
+import ru.snipe.snipedriver.view.verify_code.VerifyCodeActivity
 import javax.inject.Inject
 
 class PhoneNumberFragment : Fragment(), PhoneNumberView {
@@ -79,7 +82,7 @@ class PhoneNumberFragment : Fragment(), PhoneNumberView {
         when (item.itemId) {
             R.id.action_next -> {
                 val phone = numberInput.text.toString()
-                if (phone.replace("[^0-9]+".toRegex(), "").matches("[0-9]{11}".toRegex())) {
+                if (phone.replace("[^0-9]+".toRegex(), "").matches("[0-9]{11}|9[0-9]{9}".toRegex())) {
                     phoneSubject.accept(phone)
                 } else {
                     showError("Ошибка в номере телефона")
@@ -103,16 +106,9 @@ class PhoneNumberFragment : Fragment(), PhoneNumberView {
     }
 
     override fun codeSent() {
-        val fragment = VerifyCodeFragment().apply {
-            arguments = Bundle().apply {
-                putString("phone", numberInput.text.toString())
-            }
-        }
-        activity.supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .addToBackStack(fragment::class.java.canonicalName)
-                .commit()
+        ActivityCompat.startActivity(context, createIntent(context, VerifyCodeActivity::class.java, {
+            putExtra("phone", numberInput.text.toString())
+        }), ActivityOptionsCompat.makeSceneTransitionAnimation(activity).toBundle())
     }
 
     override fun showError(error: String) {
