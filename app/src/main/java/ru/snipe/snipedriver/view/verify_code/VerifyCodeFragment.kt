@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.os.Handler
 import android.support.annotation.ColorRes
 import android.support.annotation.DrawableRes
 import android.support.design.widget.Snackbar
@@ -18,6 +19,7 @@ import android.text.SpannableStringBuilder
 import android.text.method.LinkMovementMethod
 import android.text.style.ForegroundColorSpan
 import android.view.*
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
@@ -26,7 +28,9 @@ import butterknife.ButterKnife
 import io.reactivex.subjects.PublishSubject
 import ru.snipe.snipedriver.App
 import ru.snipe.snipedriver.R
+import ru.snipe.snipedriver.hideKeyboard
 import ru.snipe.snipedriver.presenter.VerifyCodePresenter
+import ru.snipe.snipedriver.showKeyboard
 import javax.inject.Inject
 
 class VerifyCodeFragment : Fragment(), VerifyCodeView { //MviFragment<VerifyCodeView, VerifyCodePresenter>()
@@ -73,6 +77,15 @@ class VerifyCodeFragment : Fragment(), VerifyCodeView { //MviFragment<VerifyCode
         (activity as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
         toolbar.navigationIcon = getTintedDrawable(activity, R.drawable.back, R.color.colorAccent)
 
+        codeInput.setOnEditorActionListener({ _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                tryGoNext()
+                return@setOnEditorActionListener true
+            }
+            return@setOnEditorActionListener false
+        });
+
+
         codeSent()
 
         return view
@@ -99,10 +112,19 @@ class VerifyCodeFragment : Fragment(), VerifyCodeView { //MviFragment<VerifyCode
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_ready -> readySubject.onNext(codeInput.text.toString())
-            android.R.id.home -> activity.onBackPressed()
+            R.id.action_ready -> {
+                tryGoNext()
+            }
+            android.R.id.home -> {
+                activity.onBackPressed()
+            }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun tryGoNext() {
+        activity.hideKeyboard()
+        readySubject.onNext(codeInput.text.toString())
     }
 
     override fun showLoading() {
@@ -115,6 +137,7 @@ class VerifyCodeFragment : Fragment(), VerifyCodeView { //MviFragment<VerifyCode
 
     override fun codeSent() {
         Toast.makeText(context, "Код отправлен", Toast.LENGTH_SHORT).show()
+        Handler().postDelayed({ activity.showKeyboard() }, 1000)
     }
 
     override fun codeVerified() {
@@ -123,6 +146,7 @@ class VerifyCodeFragment : Fragment(), VerifyCodeView { //MviFragment<VerifyCode
 
     override fun showError(error: String) {
         Snackbar.make(toolbar, error, Snackbar.LENGTH_SHORT).show()
+        Handler().postDelayed({ activity.showKeyboard() }, 1000)
     }
 
     override fun resendClicked() = resendSubject

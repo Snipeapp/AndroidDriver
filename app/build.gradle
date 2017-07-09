@@ -30,6 +30,9 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
+    aaptOptions {
+        additionalParameters "--no-version-vectors"
+    }
     lintOptions {
         abortOnError false
     }
@@ -86,6 +89,8 @@ dependencies {
     compile 'org.jetbrains.kotlin:kotlin-stdlib:1.1.2-5'
     compile 'com.android.support.constraint:constraint-layout:1.1.0-beta1'
     compile 'com.android.support:support-v4:25.3.0'
+    compile 'com.google.android.gms:play-services-maps:10.2.0'
+    compile 'com.android.support:appcompat-v7:25.3.0'
     testCompile 'junit:junit:4.12'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     debugCompile 'com.facebook.stetho:stetho-okhttp3:1.5.0'

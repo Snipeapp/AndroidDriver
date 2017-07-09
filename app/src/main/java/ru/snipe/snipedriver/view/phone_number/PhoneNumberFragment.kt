@@ -15,14 +15,13 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.telephony.PhoneNumberFormattingTextWatcher
 import android.view.*
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.jakewharton.rxrelay2.PublishRelay
 import io.reactivex.Observable
-import ru.snipe.snipedriver.App
-import ru.snipe.snipedriver.R
-import ru.snipe.snipedriver.createIntent
+import ru.snipe.snipedriver.*
 import ru.snipe.snipedriver.presenter.PhoneNumberPresenter
 import ru.snipe.snipedriver.view.verify_code.VerifyCodeActivity
 import javax.inject.Inject
@@ -55,7 +54,13 @@ class PhoneNumberFragment : Fragment(), PhoneNumberView {
         toolbar.navigationIcon = getTintedDrawable(activity, R.drawable.back, R.color.colorAccent)
 
         numberInput.addTextChangedListener(PhoneNumberFormattingTextWatcher())
-
+        numberInput.setOnEditorActionListener({ _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                tryGoNext()
+                return@setOnEditorActionListener true
+            }
+            return@setOnEditorActionListener false
+        });
         return view
     }
 
@@ -75,22 +80,35 @@ class PhoneNumberFragment : Fragment(), PhoneNumberView {
         super.onDestroyView()
     }
 
+    override fun onResume() {
+        super.onResume()
+        activity.showKeyboard()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) =
             inflater.inflate(R.menu.menu_next, menu)
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_next -> {
-                val phone = numberInput.text.toString()
-                if (phone.replace("[^0-9]+".toRegex(), "").matches("[0-9]{11}|9[0-9]{9}".toRegex())) {
-                    phoneSubject.accept(phone)
-                } else {
-                    showError("Ошибка в номере телефона")
-                }
+                tryGoNext()
             }
-            android.R.id.home -> activity.onBackPressed()
+            android.R.id.home -> {
+                activity.hideKeyboard()
+                activity.onBackPressed()
+            }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun tryGoNext() {
+        val phone = numberInput.text.toString()
+        if (phone.replace("[^0-9]+".toRegex(), "").matches("[0-9]{11}|9[0-9]{9}".toRegex())) {
+            activity.hideKeyboard()
+            phoneSubject.accept(phone)
+        } else {
+            showError("Ошибка в номере телефона")
+        }
     }
 
     override fun showLoading() {

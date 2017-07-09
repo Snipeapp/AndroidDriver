@@ -29,4 +29,11 @@
     <string name="verify_code_code">Код подтверждения</string>
     <string name="verify_code_description">Мы отправили вам код на %1s\nНе получили? </string>
     <string name="verify_code_send_new">Отправить новый</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_driver">DriverActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>
