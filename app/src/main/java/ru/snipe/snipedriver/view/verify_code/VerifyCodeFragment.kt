@@ -1,13 +1,16 @@
 package ru.snipe.snipedriver.view.verify_code
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.Handler
+import android.preference.PreferenceManager
 import android.support.annotation.ColorRes
 import android.support.annotation.DrawableRes
 import android.support.design.widget.Snackbar
+import android.support.v13.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v4.graphics.drawable.DrawableCompat
@@ -26,11 +29,9 @@ import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
 import io.reactivex.subjects.PublishSubject
-import ru.snipe.snipedriver.App
-import ru.snipe.snipedriver.R
-import ru.snipe.snipedriver.hideKeyboard
+import ru.snipe.snipedriver.*
 import ru.snipe.snipedriver.presenter.VerifyCodePresenter
-import ru.snipe.snipedriver.showKeyboard
+import ru.snipe.snipedriver.view.driver_mode.DriverActivity
 import javax.inject.Inject
 
 class VerifyCodeFragment : Fragment(), VerifyCodeView { //MviFragment<VerifyCodeView, VerifyCodePresenter>()
@@ -142,6 +143,16 @@ class VerifyCodeFragment : Fragment(), VerifyCodeView { //MviFragment<VerifyCode
 
     override fun codeVerified() {
         Toast.makeText(context, "Код верный", Toast.LENGTH_SHORT).show()
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit()
+                .putBoolean("logged", true)
+                .apply()
+
+        ActivityCompat.startActivity(context,
+                createIntent(context, DriverActivity::class.java, {
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                }),
+                null)
     }
 
     override fun showError(error: String) {

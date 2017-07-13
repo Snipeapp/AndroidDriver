@@ -1,8 +1,12 @@
 package ru.snipe.snipedriver.view.driver_mode
 
+import android.Manifest
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.NavigationView
+import android.support.design.widget.Snackbar
+import android.support.v13.app.ActivityCompat
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
@@ -16,7 +20,10 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.tbruyelle.rxpermissions2.RxPermissions
 import ru.snipe.snipedriver.R
+import ru.snipe.snipedriver.createIntent
+import ru.snipe.snipedriver.view.onboarding.OnBoardingActivity
 
 
 class DriverActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
@@ -60,6 +67,14 @@ class DriverActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         val status = findViewById(R.id.tv_toolbar_status) as TextView
         status.setOnClickListener { status.isActivated = !status.isActivated }
 
+        RxPermissions(this)
+                .request(Manifest.permission.ACCESS_FINE_LOCATION)
+                .subscribe({ granted ->
+                    if (!granted) {
+                        Snackbar.make(toolbar, "Для корректной работы приложению необходимо разрешить доступ к геопозиции", Snackbar.LENGTH_SHORT).show()
+                    }
+                })
+
         goToMap()
     }
 
@@ -85,9 +100,19 @@ class DriverActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-//        when (item.itemId) {
-//            R.id.nav_navigation -> {
-//            }
+        when (item.itemId) {
+            R.id.nav_logout -> {
+                PreferenceManager.getDefaultSharedPreferences(this)
+                        .edit()
+                        .putBoolean("logged", false)
+                        .apply()
+
+                ActivityCompat.startActivity(this,
+                        createIntent(this, OnBoardingActivity::class.java, {}),
+                        null)
+                finish()
+            }
+        }
 //            R.id.nav_stats -> {
 //            }
 //            R.id.nav_feedback -> {
@@ -104,16 +129,6 @@ class DriverActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         return true
     }
 
-
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 

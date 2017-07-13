@@ -1,5 +1,6 @@
 package ru.snipe.snipedriver.view.phone_number
 
+import android.Manifest
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -20,6 +21,7 @@ import android.widget.EditText
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.jakewharton.rxrelay2.PublishRelay
+import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.Observable
 import ru.snipe.snipedriver.*
 import ru.snipe.snipedriver.presenter.PhoneNumberPresenter
@@ -73,6 +75,14 @@ class PhoneNumberFragment : Fragment(), PhoneNumberView {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
+
+        RxPermissions(activity)
+                .request(Manifest.permission.ACCESS_FINE_LOCATION)
+                .subscribe({ granted ->
+                    if (!granted) {
+                        showError("Для корректной работы приложению необходимо разрешить доступ к геопозиции")
+                    }
+                })
     }
 
     override fun onDestroyView() {

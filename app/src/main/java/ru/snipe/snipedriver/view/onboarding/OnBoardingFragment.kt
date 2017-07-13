@@ -1,28 +1,42 @@
 package ru.snipe.snipedriver.view.onboarding
 
 import android.os.Bundle
+import android.preference.PreferenceManager
+import android.support.design.widget.Snackbar
 import android.support.v13.app.ActivityCompat
 import android.support.v4.app.ActivityOptionsCompat
+import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
-import com.hannesdorfmann.mosby3.mvi.MviFragment
-import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 import ru.snipe.snipedriver.App
 import ru.snipe.snipedriver.R
 import ru.snipe.snipedriver.createIntent
 import ru.snipe.snipedriver.presenter.OnBoardingPresenter
+import ru.snipe.snipedriver.view.driver_mode.DriverActivity
 import ru.snipe.snipedriver.view.phone_number.PhoneNumberActivity
 import javax.inject.Inject
 
-class OnBoardingFragment : MviFragment<OnBoardingView, OnBoardingPresenter>(), OnBoardingView {
+class OnBoardingFragment : Fragment(), OnBoardingView {
     @Inject lateinit var presenter: OnBoardingPresenter
+    @BindView(R.id.button_onboarding_sign_up) lateinit var button: Button
+    val clickSubject = PublishSubject.create<Object>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         (activity.application as App).component.inject(this)
         super.onCreate(savedInstanceState)
+
+        if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean("logged", false)) {
+            ActivityCompat.startActivity(context,
+                    createIntent(context, DriverActivity::class.java, {}),
+                    null)
+            activity.finish()
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
@@ -33,18 +47,35 @@ class OnBoardingFragment : MviFragment<OnBoardingView, OnBoardingPresenter>(), O
         return view
     }
 
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        presenter.attachView(this)
+    }
+
+    override fun onDestroyView() {
+        presenter.detachView()
+        super.onDestroyView()
+    }
+
     @OnClick(R.id.button_onboarding_sign_up, R.id.button_onboarding_log_in)
     fun onClick(v: View) {
         when (v.id) {
             R.id.button_onboarding_sign_up, R.id.button_onboarding_log_in -> {
-                ActivityCompat.startActivity(context,
-                        createIntent(context, PhoneNumberActivity::class.java, {}),
-                        ActivityOptionsCompat.makeSceneTransitionAnimation(activity).toBundle())
+                clickSubject.onNext(Object())
             }
         }
     }
 
-    override fun loginButtonClicked(): Observable<Boolean> = Observable.never()
-    override fun signUpButtonClicked(): Observable<Boolean> = Observable.never()
-    override fun createPresenter() = presenter
+    override fun success() {
+        ActivityCompat.startActivity(context,
+                createIntent(context, PhoneNumberActivity::class.java, {}),
+                ActivityOptionsCompat.makeSceneTransitionAnimation(activity).toBundle())
+    }
+
+    override fun showError(error: String) {
+        Snackbar.make(button, error, Snackbar.LENGTH_SHORT).show()
+    }
+
+    override fun loginButtonClicked() = clickSubject
+    override fun signUpButtonClicked() = clickSubject
 }

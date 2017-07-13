@@ -75,8 +75,7 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'
     compile 'com.github.bumptech.glide:glide:3.8.0-SNAPSHOT'
-    compile 'com.jakewharton.rxbinding:rxbinding:1.0.1'
-    compile 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:1.0.1'
+    compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
     compile 'com.hannesdorfmann.mosby3:mvi:3.0.0'
     compile 'com.jakewharton.timber:timber:4.5.1'
     compile 'com.jakewharton:butterknife:8.6.0'
@@ -91,6 +90,7 @@ dependencies {
     compile 'com.android.support:support-v4:25.3.0'
     compile 'com.google.android.gms:play-services-maps:10.2.0'
     compile 'com.android.support:appcompat-v7:25.3.0'
+    compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
     testCompile 'junit:junit:4.12'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     debugCompile 'com.facebook.stetho:stetho-okhttp3:1.5.0'
@@ -101,4 +101,10 @@ dependencies {
     kaptAndroidTest 'com.google.dagger:dagger-compiler:2.9'
     kaptTest 'com.google.dagger:dagger-compiler:2.9'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+
+
+    compile 'com.github.bumptech.glide:glide:4.0.0-RC1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC1'
+
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }
