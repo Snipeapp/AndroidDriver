@@ -14,12 +14,9 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.widget.TextView
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import com.tbruyelle.rxpermissions2.RxPermissions
 import ru.snipe.snipedriver.R
 import ru.snipe.snipedriver.createIntent
@@ -85,8 +82,10 @@ class DriverActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     }
 
     private fun goToMap() {
+        val supportMapFragment = SupportMapFragment()
+        supportMapFragment.getMapAsync(this)
         supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, SupportMapFragment())
+                .replace(R.id.fragment_container, supportMapFragment)
                 .commit()
     }
 
@@ -101,6 +100,21 @@ class DriverActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.nav_navigation -> {
+
+            }
+            R.id.nav_stats -> {
+
+            }
+            R.id.nav_feedback -> {
+
+            }
+            R.id.nav_star -> {
+
+            }
+            R.id.nav_help -> {
+
+            }
             R.id.nav_logout -> {
                 PreferenceManager.getDefaultSharedPreferences(this)
                         .edit()
@@ -113,17 +127,7 @@ class DriverActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 finish()
             }
         }
-//            R.id.nav_stats -> {
-//            }
-//            R.id.nav_feedback -> {
-//            }
-//            R.id.nav_star -> {
-//            }
-//            R.id.nav_help -> {
-//            }
-//            R.id.nav_logout -> {
-//            }
-//        }
+
         val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
         drawer.closeDrawer(GravityCompat.START)
         return true
@@ -131,10 +135,6 @@ class DriverActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-
-        // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        mMap!!.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap!!.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        mMap?.isMyLocationEnabled = true
     }
 }
