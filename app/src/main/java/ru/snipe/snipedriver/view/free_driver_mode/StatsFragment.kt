@@ -1,4 +1,4 @@
-package ru.snipe.snipedriver.view.driver_mode
+package ru.snipe.snipedriver.view.free_driver_mode
 
 import android.os.Bundle
 import android.support.design.widget.TabLayout

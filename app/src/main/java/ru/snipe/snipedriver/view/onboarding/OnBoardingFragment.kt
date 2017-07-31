@@ -18,7 +18,7 @@ import ru.snipe.snipedriver.App
 import ru.snipe.snipedriver.R
 import ru.snipe.snipedriver.createIntent
 import ru.snipe.snipedriver.presenter.OnBoardingPresenter
-import ru.snipe.snipedriver.view.driver_mode.DriverActivity
+import ru.snipe.snipedriver.view.free_driver_mode.FreeDriverActivity
 import ru.snipe.snipedriver.view.phone_number.PhoneNumberActivity
 import javax.inject.Inject
 
@@ -33,7 +33,7 @@ class OnBoardingFragment : Fragment(), OnBoardingView {
 
         if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean("logged", false)) {
             ActivityCompat.startActivity(context,
-                    createIntent(context, DriverActivity::class.java, {}),
+                    createIntent(context, FreeDriverActivity::class.java, {}),
                     null)
             activity.finish()
         }

@@ -31,7 +31,7 @@ import butterknife.ButterKnife
 import io.reactivex.subjects.PublishSubject
 import ru.snipe.snipedriver.*
 import ru.snipe.snipedriver.presenter.VerifyCodePresenter
-import ru.snipe.snipedriver.view.driver_mode.DriverActivity
+import ru.snipe.snipedriver.view.free_driver_mode.FreeDriverActivity
 import javax.inject.Inject
 
 class VerifyCodeFragment : Fragment(), VerifyCodeView { //MviFragment<VerifyCodeView, VerifyCodePresenter>()
@@ -149,7 +149,7 @@ class VerifyCodeFragment : Fragment(), VerifyCodeView { //MviFragment<VerifyCode
                 .apply()
 
         ActivityCompat.startActivity(context,
-                createIntent(context, DriverActivity::class.java, {
+                createIntent(context, FreeDriverActivity::class.java, {
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 }),
                 null)

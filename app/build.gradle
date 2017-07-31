@@ -23,10 +23,9 @@ android {
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "ru.snipe.snipedriver"
-        minSdkVersion 15
         targetSdkVersion 25
-        versionCode 4
-        versionName "0.4"
+        versionCode 5
+        versionName "0.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
@@ -46,12 +45,24 @@ android {
     packagingOptions {
         exclude 'META-INF/rxjava.properties'
     }
+
+    flavorDimensions 'api'
+    productFlavors {
+        dev {
+            dimension 'api'
+            minSdkVersion 25
+        }
+        prod {
+            dimension 'api'
+            minSdkVersion 15
+        }
+    }
 }
 
-ext { supportLibraryVersion = '25.3.0' }
+ext { supportLibraryVersion = '25.4.0' }
 
 dependencies {
-    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.android.support:multidex:1.0.2'
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.3-alpha', {
@@ -74,7 +85,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.1'
     compile 'com.jakewharton.rxrelay2:rxrelay:2.0.0'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'io.reactivex.rxjava2:rxjava:2.1.0'
+    compile 'io.reactivex.rxjava2:rxjava:2.1.1'
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
@@ -90,10 +101,10 @@ dependencies {
     compile 'org.jetbrains.kotlin:kotlin-stdlib:1.1.2-5'
     compile 'com.android.support.constraint:constraint-layout:1.1.0-beta1'
     compile 'com.google.android.gms:play-services-maps:10.2.1'
-    compile 'com.android.support:appcompat-v7:25.3.0'
     compile 'com.github.lzyzsd:circleprogress:1.2.1'
-    compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
 
+    androidTestCompile 'com.android.support:multidex:1.0.2'
+    testCompile 'com.android.support:multidex:1.0.2'
     testCompile 'junit:junit:4.12'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     debugCompile 'com.facebook.stetho:stetho-okhttp3:1.5.0'
@@ -105,3 +116,5 @@ dependencies {
     kaptTest 'com.google.dagger:dagger-compiler:2.9'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 }
+
+apply plugin: 'kotlin-android-extensions'

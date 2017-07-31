@@ -21,7 +21,7 @@ import android.widget.EditText
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.jakewharton.rxrelay2.PublishRelay
-import com.tbruyelle.rxpermissions2.RxPermissions
+import com.tbruyelle.rxpermissions.RxPermissions
 import io.reactivex.Observable
 import ru.snipe.snipedriver.*
 import ru.snipe.snipedriver.presenter.PhoneNumberPresenter

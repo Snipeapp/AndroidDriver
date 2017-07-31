@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="16dp"
+    android:background="@drawable/background_popup"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center_horizontal"
+        android:text="Отменить доставку?"
+        android:textColor="#25364a"
+        android:textSize="18dp"/>
+
+    <TextView
+        android:id="@+id/tv_popup_cancel_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal"
+        android:maxWidth="264dp"
+        android:text="Ваш рейтинг принятия заказов не будет понижен. Оплата с клиента будет взята."
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="#485d73"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="24dp"
+        android:background="#d5d9de"/>
+
+    <TextView
+        android:id="@+id/tv_popup_positive_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:selectableItemBackground"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:minHeight="56dp"
+        android:text="Груз не соответствует фото"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="#2f445d"
+        android:textStyle="normal"/>
+
+    <View
+        android:id="@+id/tv_popup_positive_divider_2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#d5d9de"/>
+
+    <TextView
+        android:id="@+id/tv_popup_positive_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:selectableItemBackground"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:minHeight="56dp"
+        android:text="Нет связи с клиентом"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="#2f445d"
+        android:textStyle="normal"/>
+
+    <View
+        android:id="@+id/tv_popup_positive_divider_3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#d5d9de"/>
+
+    <TextView
+        android:id="@+id/tv_popup_positive_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:selectableItemBackground"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:minHeight="56dp"
+        android:text="Не брать оплату с клиента"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="#2f445d"
+        android:textStyle="normal"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#d5d9de"/>
+
+    <TextView
+        android:id="@+id/tv_popup_negative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:selectableItemBackground"
+        android:gravity="center"
+        android:minHeight="56dp"
+        android:text="Отменить"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="#2f445d"
+        android:textStyle="normal"/>
+</LinearLayout>

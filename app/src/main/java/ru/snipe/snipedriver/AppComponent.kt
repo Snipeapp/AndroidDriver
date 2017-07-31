@@ -6,6 +6,9 @@ import dagger.Component
 import dagger.Module
 import dagger.Provides
 import hu.akarnokd.rxjava.interop.RxJavaInterop
+import ru.snipe.snipedriver.view.driver_mode.DriverActivity
+import ru.snipe.snipedriver.view.driver_mode.DriverFragment
+import ru.snipe.snipedriver.view.free_driver_mode.FreeDriverActivity
 import ru.snipe.snipedriver.view.onboarding.OnBoardingFragment
 import ru.snipe.snipedriver.view.phone_number.PhoneNumberFragment
 import ru.snipe.snipedriver.view.verify_code.VerifyCodeFragment
@@ -17,6 +20,9 @@ interface AppComponent {
     fun inject(phoneNumberFragment: PhoneNumberFragment)
     fun inject(onBoardingFragment: OnBoardingFragment)
     fun inject(verifyCodeFragment: VerifyCodeFragment)
+    fun inject(freeDriverActivity: FreeDriverActivity)
+    fun inject(driverActivity: DriverActivity)
+    fun inject(driverFragment: DriverFragment)
 }
 
 @Module

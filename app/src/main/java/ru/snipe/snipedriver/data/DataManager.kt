@@ -3,14 +3,24 @@ package ru.snipe.snipedriver.data
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.subjects.BehaviorSubject
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class DataManager
 @Inject constructor() {
-    fun login() {
+    private val activatedSubject = BehaviorSubject.create<Boolean>()
 
+    init {
+        activatedSubject.onNext(false)
     }
+
+    fun getStatus(): Observable<Boolean> = activatedSubject
+    fun setStatus(activated: Boolean): Completable =
+            Observable.just(activated)
+                    .delay(1, TimeUnit.SECONDS)
+                    .doOnNext() { activatedSubject.onNext(it) }
+                    .ignoreElements()
 
     fun resendCode(phone: String): Observable<String> =
             Observable.just(phone)
