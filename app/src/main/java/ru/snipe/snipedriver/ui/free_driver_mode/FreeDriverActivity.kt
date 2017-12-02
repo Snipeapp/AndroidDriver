@@ -22,6 +22,9 @@ import ru.snipe.snipedriver.utils.createIntent
 
 class FreeDriverActivity : BaseContentActivity<FreeDriverMainFragment>(), FreeDriverMainHolder,
   NavigationView.OnNavigationItemSelectedListener {
+  override fun onToolbarClicked() {
+    throw UnsupportedOperationException("not implemented")
+  }
 
   companion object {
     fun getIntent(context: Context): Intent {
@@ -34,7 +37,7 @@ class FreeDriverActivity : BaseContentActivity<FreeDriverMainFragment>(), FreeDr
 
   private val drawer by bindView<DrawerLayout>(R.id.drawer_layout)
   private val navigationView by bindView<NavigationView>(R.id.nav_view)
-  private val toolbar by bindView<Toolbar>(R.id.toolbar)
+  override val toolbar by bindView<Toolbar>(R.id.toolbar)
 
   override fun provideContent() = FreeDriverMainFragment()
 

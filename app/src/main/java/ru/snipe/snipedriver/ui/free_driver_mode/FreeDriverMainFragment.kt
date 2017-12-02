@@ -5,8 +5,10 @@ import android.content.Intent
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.BottomSheetDialog
 import android.support.v4.app.ActivityCompat
+import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -18,10 +20,13 @@ import ru.snipe.snipedriver.ui.base.FragmentContentDelegate
 import ru.snipe.snipedriver.ui.base_mvp.BaseMvpFragment
 import ru.snipe.snipedriver.ui.driver_mode.DriverActivity
 import ru.snipe.snipedriver.utils.ContentConfig
+import ru.snipe.snipedriver.utils.isVisible
 
 interface FreeDriverMainHolder {
+  val toolbar: Toolbar
   fun switchToStats()
   fun switchToMap()
+  fun onToolbarClicked()
 }
 
 class FreeDriverMainFragment : BaseMvpFragment<Unit>(), OnMapReadyCallback, FreeDriverMainView {
@@ -30,22 +35,26 @@ class FreeDriverMainFragment : BaseMvpFragment<Unit>(), OnMapReadyCallback, Free
 
   private val shadow by bindView<View>(R.id.view_free_driver_shadow)
   private val progressLayout by bindView<View>(R.id.layout_free_driver_loading)
-  private val status by bindView<View>(R.id.tv_free_driver_toolbar_status)
   private val bottomNavigationView by bindView<BottomNavigationView>(R.id.bottom_nav_view_free_driver)
 
+  private var toolbarTitle by bindProperty<TextView>()
   private var map by bindPropertyOpt<GoogleMap>()
 
   @InjectPresenter
   lateinit var presenter: FreeDriverMainPresenter
 
   @ProvidePresenter
-  fun providePrenenter(): FreeDriverMainPresenter {
+  fun providePresenter(): FreeDriverMainPresenter {
     return context!!.getAppComponent()
       .plusFreeDriverMainComponent(FreeDriverMainModule())
       .presenter()
   }
 
   override fun initView(view: View) {
+    val toolbar = (activity as FreeDriverMainHolder).toolbar
+    toolbar.isVisible = true
+    toolbarTitle = toolbar.findViewById(R.id.toolbar_title)
+
     bottomNavigationView.setOnNavigationItemSelectedListener { item ->
       when (item.itemId) {
         R.id.action_main -> {
@@ -57,7 +66,7 @@ class FreeDriverMainFragment : BaseMvpFragment<Unit>(), OnMapReadyCallback, Free
       }
       true
     }
-    status.setOnClickListener { presenter.statusClicked() }
+    toolbarTitle.setOnClickListener { presenter.statusClicked() }
     goToMap()
   }
 
@@ -66,7 +75,7 @@ class FreeDriverMainFragment : BaseMvpFragment<Unit>(), OnMapReadyCallback, Free
   }
 
   override fun setStatus(activated: Boolean) {
-    status.isActivated = activated
+    toolbarTitle.isActivated = activated
     if (activated) {
       shadow.visibility = View.GONE
       bottomNavigationView.visibility = View.GONE

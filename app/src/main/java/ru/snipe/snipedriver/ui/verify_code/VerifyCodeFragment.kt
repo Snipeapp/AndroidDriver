@@ -45,7 +45,7 @@ class VerifyCodeFragment : BaseMvpFragment<Unit>(), VerifyCodeView {
   }
 
   private val toolbar by bindView<Toolbar>(R.id.toolbar)
-  private val codeInput by bindView<EditText>(R.id.toolbar)
+  private val codeInput by bindView<EditText>(R.id.edittext_verify_code)
   private val description by bindView<TextView>(R.id.tv_verify_code_description)
   private val loadingLayout by bindView<View>(R.id.layout_verify_code_loading)
 

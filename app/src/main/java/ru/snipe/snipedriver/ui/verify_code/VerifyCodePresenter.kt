@@ -1,8 +1,10 @@
 package ru.snipe.snipedriver.ui.verify_code
 
+import com.arellomobile.mvp.InjectViewState
 import ru.snipe.snipedriver.network.DataManager
 import ru.snipe.snipedriver.ui.base_mvp.MoxyRxPresenter
 
+@InjectViewState
 class VerifyCodePresenter(private val dataManager: DataManager,
                           private val phone: String) : MoxyRxPresenter<VerifyCodeView>() {
 

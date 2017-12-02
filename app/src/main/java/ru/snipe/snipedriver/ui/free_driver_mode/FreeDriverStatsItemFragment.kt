@@ -1,17 +1,11 @@
 package ru.snipe.snipedriver.ui.free_driver_mode
 
-import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import butterknife.ButterKnife
 import ru.snipe.snipedriver.R
+import ru.snipe.snipedriver.ui.base.BaseFragment
+import ru.snipe.snipedriver.ui.base.FragmentContentDelegate
+import ru.snipe.snipedriver.utils.ContentConfig
 
-class FreeDriverStatsItemFragment : Fragment() {
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-    val view = inflater.inflate(R.layout.content_stats_inner, container, false)
-    ButterKnife.bind(this, view)
-    return view
-  }
+class FreeDriverStatsItemFragment : BaseFragment() {
+  override val contentDelegate = FragmentContentDelegate(this,
+    ContentConfig(R.layout.content_stats_inner))
 }
