@@ -17,7 +17,6 @@ import android.widget.Button
 import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
-import butterknife.OnClick
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -27,9 +26,14 @@ import ru.snipe.snipedriver.R
 import ru.snipe.snipedriver.ui.base.FragmentContentDelegate
 import ru.snipe.snipedriver.ui.base_mvp.BaseMvpFragment
 import ru.snipe.snipedriver.ui.free_driver_mode.FreeDriverActivity
-import ru.snipe.snipedriver.ui.popup.CancelPopupActivity
 import ru.snipe.snipedriver.ui.popup.PopupActivity
 import ru.snipe.snipedriver.utils.ContentConfig
+
+private const val REQUEST_A = 20
+private const val REQUEST_B = 21
+private const val REQUEST_C = 22
+private const val REQUEST_D = 23
+private const val REQUEST_E = 24
 
 class DriverFragment : BaseMvpFragment<Unit>(), DriverView, OnMapReadyCallback {
   override val contentDelegate = FragmentContentDelegate(this,
@@ -75,15 +79,15 @@ class DriverFragment : BaseMvpFragment<Unit>(), DriverView, OnMapReadyCallback {
 
   override fun askForArrive() {
     startActivityForResult(
-      Intent(activity, PopupActivity::class.java).apply { putExtra("mode", 0) },
-      20,
+      PopupActivity.getIntent(context!!, 0),
+      REQUEST_A,
       ActivityOptionsCompat.makeSceneTransitionAnimation(activity!!).toBundle())
   }
 
   override fun askForDeliveryArrive() {
     startActivityForResult(
-      Intent(activity, PopupActivity::class.java).apply { putExtra("mode", 1) },
-      21,
+      PopupActivity.getIntent(context!!, 1),
+      REQUEST_B,
       ActivityOptionsCompat.makeSceneTransitionAnimation(activity!!).toBundle())
   }
 
@@ -108,33 +112,25 @@ class DriverFragment : BaseMvpFragment<Unit>(), DriverView, OnMapReadyCallback {
   }
 
   override fun deliveryFinished() {
-    ActivityCompat.startActivity(activity!!, Intent(activity, FreeDriverActivity::class.java), null)
+    ActivityCompat.startActivity(activity!!, FreeDriverActivity.getIntent(context!!), null)
     ActivityCompat.finishAfterTransition(activity!!)
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
-    if (requestCode == 20) {
-      if (resultCode == Activity.RESULT_OK) {
-        presenter.driverArrived()
-      }
+    if (requestCode == REQUEST_A && resultCode == Activity.RESULT_OK) {
+      presenter.driverArrived()
     }
-    if (requestCode == 21) {
-      if (resultCode == Activity.RESULT_OK) {
-        presenter.driverDeliveryArrived()
-      }
+    if (requestCode == REQUEST_B && resultCode == Activity.RESULT_OK) {
+      presenter.driverDeliveryArrived()
     }
-    if (requestCode == 22) {
-      if (resultCode == Activity.RESULT_OK) {
-        presenter.driverBeginDeliveryCanceled()
-      }
+    if (requestCode == REQUEST_C && resultCode == Activity.RESULT_OK) {
+      presenter.driverBeginDeliveryCanceled()
     }
-    if (requestCode == 23) {
-      if (resultCode == Activity.RESULT_OK) {
-        presenter.driverDeliveryCanceled()
-      }
+    if (requestCode == REQUEST_D) {
+      presenter.driverDeliveryCanceled()
     }
-    if (requestCode == 24) {
+    if (requestCode == REQUEST_E) {
       if (resultCode == Activity.RESULT_OK) {
         presenter.driverCanceled()
       }
@@ -168,16 +164,16 @@ class DriverFragment : BaseMvpFragment<Unit>(), DriverView, OnMapReadyCallback {
       R.id.action_cancel_delivery -> {
         when (presenter.currentState) {
           0 -> startActivityForResult(
-            Intent(activity, CancelPopupActivity::class.java).apply { putExtra("mode", 2) },
-            24,
+            PopupActivity.getIntent(context!!, 2),
+            REQUEST_E,
             ActivityOptionsCompat.makeSceneTransitionAnimation(activity!!).toBundle())
           1 -> startActivityForResult(
-            Intent(activity, CancelPopupActivity::class.java).apply { putExtra("mode", 0) },
-            22,
+            PopupActivity.getIntent(context!!, 0),
+            REQUEST_C,
             ActivityOptionsCompat.makeSceneTransitionAnimation(activity!!).toBundle())
           2 -> startActivityForResult(
-            Intent(activity, CancelPopupActivity::class.java).apply { putExtra("mode", 1) },
-            23,
+            PopupActivity.getIntent(context!!, 1),
+            REQUEST_D,
             ActivityOptionsCompat.makeSceneTransitionAnimation(activity!!).toBundle())
         }
         return true
@@ -196,9 +192,5 @@ class DriverFragment : BaseMvpFragment<Unit>(), DriverView, OnMapReadyCallback {
 
   override fun showError(error: String) {
     Toast.makeText(activity, error, Toast.LENGTH_SHORT).show()
-  }
-
-  @OnClick(R.id.fab_driver)
-  fun onClick(v: View) {
   }
 }

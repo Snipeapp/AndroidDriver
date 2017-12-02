@@ -1,6 +1,8 @@
 package ru.snipe.snipedriver.ui.free_driver_mode
 
 import android.Manifest
+import android.content.Context
+import android.content.Intent
 import android.preference.PreferenceManager
 import android.support.design.widget.NavigationView
 import android.support.v4.app.ActivityCompat
@@ -21,6 +23,13 @@ import ru.snipe.snipedriver.utils.createIntent
 class FreeDriverActivity : BaseActivity<FreeDriverMainFragment>(), FreeDriverMainHolder,
   NavigationView.OnNavigationItemSelectedListener {
 
+  companion object {
+    fun getIntent(context: Context): Intent {
+      return Intent(context, FreeDriverActivity::class.java)
+    }
+  }
+
+  //TODO: переделать логику провайдинга активити и что-то сделать с базовой активити с фрагментом?
   override var contentDelegate = ActivityContentDelegate(this,
     ContentConfig(R.layout.content_free_driver))
 
