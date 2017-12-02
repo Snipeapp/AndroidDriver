@@ -4,7 +4,6 @@ import com.github.pwittchen.reactivenetwork.library.Connectivity
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import ru.snipe.snipedriver.network.DataManager
-import ru.snipe.snipedriver.ui.base.BasePresenter
 import javax.inject.Inject
 
 class PhoneNumberPresenter

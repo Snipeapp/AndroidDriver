@@ -4,7 +4,6 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import ru.snipe.snipedriver.network.DataManager
-import ru.snipe.snipedriver.ui.base.BasePresenter
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
