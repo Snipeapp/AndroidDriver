@@ -5,12 +5,12 @@ import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
 import dagger.Component
 import dagger.Module
 import dagger.Provides
-import ru.snipe.snipedriver.view.driver_mode.DriverActivity
-import ru.snipe.snipedriver.view.driver_mode.DriverFragment
-import ru.snipe.snipedriver.view.free_driver_mode.FreeDriverActivity
-import ru.snipe.snipedriver.view.onboarding.OnBoardingFragment
-import ru.snipe.snipedriver.view.phone_number.PhoneNumberFragment
-import ru.snipe.snipedriver.view.verify_code.VerifyCodeFragment
+import ru.snipe.snipedriver.ui.driver_mode.DriverActivity
+import ru.snipe.snipedriver.ui.driver_mode.DriverFragment
+import ru.snipe.snipedriver.ui.free_driver_mode.FreeDriverActivity
+import ru.snipe.snipedriver.ui.onboarding.OnBoardingFragment
+import ru.snipe.snipedriver.ui.phone_number.PhoneNumberFragment
+import ru.snipe.snipedriver.ui.verify_code.VerifyCodeFragment
 import javax.inject.Singleton
 
 @Singleton
