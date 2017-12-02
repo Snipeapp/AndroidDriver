@@ -6,8 +6,7 @@ import ru.snipe.snipedriver.network.DataManager
 import ru.snipe.snipedriver.ui.base_mvp.MoxyRxPresenter
 
 @InjectViewState
-class PhoneNumberPresenter(val dataManager: DataManager)
-  : MoxyRxPresenter<PhoneNumberView>() {
+class PhoneNumberPresenter(private val dataManager: DataManager) : MoxyRxPresenter<PhoneNumberView>() {
 
   fun onPhoneValid(phone: String) {
     viewState.showLoading()

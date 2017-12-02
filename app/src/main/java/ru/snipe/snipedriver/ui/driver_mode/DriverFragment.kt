@@ -24,6 +24,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.tbruyelle.rxpermissions.RxPermissions
 import ru.snipe.snipedriver.R
+import ru.snipe.snipedriver.getAppComponent
 import ru.snipe.snipedriver.ui.base.FragmentContentDelegate
 import ru.snipe.snipedriver.ui.base_mvp.BaseMvpFragment
 import ru.snipe.snipedriver.ui.free_driver_mode.FreeDriverActivity
@@ -55,7 +56,11 @@ class DriverFragment : BaseMvpFragment<Unit>(), DriverView, OnMapReadyCallback {
   internal lateinit var presenter: DriverPresenter
 
   @ProvidePresenter
-  fun providePresenter() = DriverPresenter()
+  fun providePresenter(): DriverPresenter {
+    return context!!.getAppComponent()
+      .plusDriverComponent(DriverModule())
+      .presenter()
+  }
 
   override fun initView(view: View) {
     (activity as AppCompatActivity).setSupportActionBar(toolbar)

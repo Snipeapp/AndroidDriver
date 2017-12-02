@@ -27,6 +27,7 @@ import android.widget.Toast
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import ru.snipe.snipedriver.R
+import ru.snipe.snipedriver.getAppComponent
 import ru.snipe.snipedriver.ui.base.FragmentContentDelegate
 import ru.snipe.snipedriver.ui.base_mvp.BaseMvpFragment
 import ru.snipe.snipedriver.ui.free_driver_mode.FreeDriverActivity
@@ -55,8 +56,9 @@ class VerifyCodeFragment : BaseMvpFragment<Unit>(), VerifyCodeView {
 
   @ProvidePresenter
   fun providePresenter(): VerifyCodePresenter {
-    presenter.phone = phone
-    throw UnsupportedOperationException("provide presenter")
+    return context!!.getAppComponent()
+      .plusVerifyCodeComponent(VerifyCodeModule(phone))
+      .presenter()
   }
 
   override fun initView(view: View) {

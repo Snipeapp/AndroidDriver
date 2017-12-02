@@ -8,8 +8,10 @@ import ru.snipe.snipedriver.network.DataManager
 import ru.snipe.snipedriver.ui.base_mvp.MoxyRxPresenter
 
 @InjectViewState
-class OnBoardingPresenter(var dataManager: DataManager,
-                          val networkObservable: Observable<Connectivity>) : MoxyRxPresenter<OnBoardingView>() {
+class OnBoardingPresenter(val dataManager: DataManager,
+                          val networkObservable: Observable<Connectivity>)
+  : MoxyRxPresenter<OnBoardingView>() {
+
   private val networkRelay = BehaviorRelay.create<Connectivity>()
 
   override fun onFirstViewAttach() {

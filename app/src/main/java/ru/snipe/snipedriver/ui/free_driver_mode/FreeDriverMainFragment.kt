@@ -13,6 +13,7 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import ru.snipe.snipedriver.R
+import ru.snipe.snipedriver.getAppComponent
 import ru.snipe.snipedriver.ui.base.FragmentContentDelegate
 import ru.snipe.snipedriver.ui.base_mvp.BaseMvpFragment
 import ru.snipe.snipedriver.ui.driver_mode.DriverActivity
@@ -39,7 +40,9 @@ class FreeDriverMainFragment : BaseMvpFragment<Unit>(), OnMapReadyCallback, Free
 
   @ProvidePresenter
   fun providePrenenter(): FreeDriverMainPresenter {
-    throw UnsupportedOperationException("implement logic to provide presenter")
+    return context!!.getAppComponent()
+      .plusFreeDriverMainComponent(FreeDriverMainModule())
+      .presenter()
   }
 
   override fun initView(view: View) {

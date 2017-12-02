@@ -54,3 +54,7 @@ enum class NavigationIconType {
   Back,
   Close
 }
+
+data class AppConfig(
+  val isReleaseBuild: Boolean
+)

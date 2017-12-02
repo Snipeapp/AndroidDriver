@@ -3,8 +3,8 @@ package ru.snipe.snipedriver.ui.verify_code
 import ru.snipe.snipedriver.network.DataManager
 import ru.snipe.snipedriver.ui.base_mvp.MoxyRxPresenter
 
-class VerifyCodePresenter(private val dataManager: DataManager) : MoxyRxPresenter<VerifyCodeView>() {
-  lateinit var phone: String
+class VerifyCodePresenter(private val dataManager: DataManager,
+                          private val phone: String) : MoxyRxPresenter<VerifyCodeView>() {
 
   fun onCodeValidated(code: String) {
     viewState.showLoading()

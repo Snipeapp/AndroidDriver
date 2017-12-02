@@ -9,6 +9,7 @@ import android.widget.Button
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import ru.snipe.snipedriver.R
+import ru.snipe.snipedriver.getAppComponent
 import ru.snipe.snipedriver.ui.base.FragmentContentDelegate
 import ru.snipe.snipedriver.ui.base_mvp.BaseMvpFragment
 import ru.snipe.snipedriver.ui.free_driver_mode.FreeDriverActivity
@@ -28,7 +29,9 @@ class OnBoardingFragment : BaseMvpFragment<Unit>(), OnBoardingView {
 
   @ProvidePresenter
   fun providePresenter(): OnBoardingPresenter {
-    throw UnsupportedOperationException("add provide presenter logic")
+    return context!!.getAppComponent()
+      .plusOnBoardingComponent(OnBoardingModule())
+      .presenter()
   }
 
   override fun initView(view: View) {

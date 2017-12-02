@@ -17,6 +17,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.tbruyelle.rxpermissions.RxPermissions
 import ru.snipe.snipedriver.R
+import ru.snipe.snipedriver.getAppComponent
 import ru.snipe.snipedriver.ui.base.FragmentContentDelegate
 import ru.snipe.snipedriver.ui.base_mvp.BaseMvpFragment
 import ru.snipe.snipedriver.ui.verify_code.VerifyCodeActivity
@@ -38,7 +39,9 @@ class PhoneNumberFragment : BaseMvpFragment<Unit>(), PhoneNumberView {
 
   @ProvidePresenter
   fun providePresenter(): PhoneNumberPresenter {
-    throw UnsupportedOperationException("provde presenter")
+    return context!!.getAppComponent()
+      .plusPhoneNumberComponent(PhoneNumberModule())
+      .presenter()
   }
 
   override fun initView(view: View) {
