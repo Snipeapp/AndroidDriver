@@ -36,7 +36,6 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".ui.free_driver_mode.FreeDriverActivity"
-            android:label="@string/title_activity_driver"
             android:theme="@style/AppTheme">
         </activity>
         <activity android:name=".ui.driver_mode.DriverActivity"/>

@@ -1,5 +1,4 @@
 <resources>
-    <!--Base-->
     <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -12,16 +11,6 @@
         <item name="colorControlActivated">@color/colorAccent</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
         <item name="actionOverflowButtonStyle">@style/MyOverflowButtonStyle</item>
-
-        <!--<item name="android:textColorSecondary">@color/textColorSecondary</item>-->
-        <!--<item name="toolbarStyle">@style/Toolbar</item>-->
-        <!--<item name="android:listDivider">@drawable/divider</item>-->
-        <!--<item name="windowActionModeOverlay">true</item>-->
-        <!--<item name="actionModeStyle">@style/ActionMode</item>-->
-        <!--<item name="actionModeCloseDrawable">@drawable/ic_close</item>-->
-        <!--<item name="alertDialogTheme">@style/AlertDialog</item>-->
-        <!--<item name="popupMenuStyle">@style/PopupMenu</item>-->
-        <!--<item name="searchViewStyle">@style/SearchView</item>-->
     </style>
 
     <style name="RatingBar" parent="Theme.AppCompat">
