@@ -18,6 +18,7 @@ import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -52,6 +53,9 @@ class DriverFragment : BaseMvpFragment<Unit>(), DriverView, OnMapReadyCallback {
 
   @InjectPresenter
   internal lateinit var presenter: DriverPresenter
+
+  @ProvidePresenter
+  fun providePresenter() = DriverPresenter()
 
   override fun initView(view: View) {
     (activity as AppCompatActivity).setSupportActionBar(toolbar)

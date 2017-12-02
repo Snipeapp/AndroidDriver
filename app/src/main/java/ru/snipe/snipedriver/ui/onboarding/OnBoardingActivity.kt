@@ -1,7 +1,7 @@
 package ru.snipe.snipedriver.ui.onboarding
 
-import ru.snipe.snipedriver.ui.base.BaseActivity
+import ru.snipe.snipedriver.ui.base.BaseContentActivity
 
-class OnBoardingActivity : BaseActivity<OnBoardingFragment>() {
-    override fun getFragment() = OnBoardingFragment()
+class OnBoardingActivity : BaseContentActivity<OnBoardingFragment>() {
+  override fun provideContent() = OnBoardingFragment()
 }

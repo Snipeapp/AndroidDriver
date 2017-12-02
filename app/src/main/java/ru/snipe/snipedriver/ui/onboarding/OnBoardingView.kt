@@ -1,11 +1,8 @@
 package ru.snipe.snipedriver.ui.onboarding
 
-import com.hannesdorfmann.mosby3.mvp.MvpView
-import io.reactivex.Observable
+import ru.snipe.snipedriver.ui.base_mvp.ElceView
 
-interface OnBoardingView : MvpView {
-    fun loginButtonClicked(): Observable<Any>
-    fun signUpButtonClicked(): Observable<Any>
-    fun success()
-    fun showError(error: String)
+interface OnBoardingView : ElceView<Unit> {
+  fun switchToPhoneInsertScreen()
+  fun showErrorMessage(error: String)
 }

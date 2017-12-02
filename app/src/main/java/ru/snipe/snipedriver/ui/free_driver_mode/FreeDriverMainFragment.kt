@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import ru.snipe.snipedriver.R
@@ -36,6 +37,7 @@ class FreeDriverMainFragment : BaseMvpFragment<Unit>(), OnMapReadyCallback, Free
   @InjectPresenter
   lateinit var presenter: FreeDriverMainPresenter
 
+  @ProvidePresenter
   fun providePrenenter(): FreeDriverMainPresenter {
     throw UnsupportedOperationException("implement logic to provide presenter")
   }
