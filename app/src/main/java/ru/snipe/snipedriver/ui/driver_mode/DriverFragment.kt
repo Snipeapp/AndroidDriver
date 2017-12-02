@@ -24,7 +24,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.tbruyelle.rxpermissions.RxPermissions
 import ru.snipe.snipedriver.R
-import ru.snipe.snipedriver.ui.base.ContentDelegate
+import ru.snipe.snipedriver.ui.base.FragmentContentDelegate
 import ru.snipe.snipedriver.ui.base_mvp.BaseMvpFragment
 import ru.snipe.snipedriver.ui.free_driver_mode.FreeDriverActivity
 import ru.snipe.snipedriver.ui.popup.CancelPopupActivity
@@ -32,7 +32,7 @@ import ru.snipe.snipedriver.ui.popup.PopupActivity
 import ru.snipe.snipedriver.utils.ContentConfig
 
 class DriverFragment : BaseMvpFragment<Unit>(), DriverView, OnMapReadyCallback {
-  override val contentDelegate = ContentDelegate(this,
+  override val contentDelegate = FragmentContentDelegate(this,
     ContentConfig(R.layout.content_driver))
 
   private val toolbar by bindView<Toolbar>(R.id.toolbar_driver)

@@ -14,7 +14,7 @@ import butterknife.ButterKnife
 import ru.snipe.snipedriver.R
 import java.util.*
 
-class StatsFragment : Fragment() {
+class FreeDriverStatsFragment : Fragment() {
   @BindView(R.id.tab_layout_stats) lateinit var tabLayout: TabLayout
   @BindView(R.id.view_pager_stats) lateinit var viewPager: ViewPager
 
@@ -29,8 +29,8 @@ class StatsFragment : Fragment() {
 
   private fun setupViewPager(viewPager: ViewPager) {
     val adapter = Adapter(childFragmentManager)
-    adapter.addFragment(InnerStatsFragment(), "Дневная")
-    adapter.addFragment(InnerStatsFragment(), "Недельная")
+    adapter.addFragment(FreeDriverStatsItemFragment(), "Дневная")
+    adapter.addFragment(FreeDriverStatsItemFragment(), "Недельная")
     viewPager.adapter = adapter
   }
 

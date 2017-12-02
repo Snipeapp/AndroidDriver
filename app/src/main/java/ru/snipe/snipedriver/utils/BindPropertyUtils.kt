@@ -173,6 +173,17 @@ fun <VIEW_TYPE : View> Fragment.bindViewOpt(propertyBinder: PropertyBinder,
 }
 
 /**
+ * Same as [bindView] but with nullable support
+ */
+@Suppress("UNCHECKED_CAST")
+fun <VIEW_TYPE : View> Activity.bindViewOpt(propertyBinder: PropertyBinder,
+                                            @IdRes id: Int): ReadOnlyProperty<Activity, VIEW_TYPE?> {
+  return ViewProperty(propertyBinder, {
+    findViewById(id) as? VIEW_TYPE
+  })
+}
+
+/**
  * Function to bind properties in the lifecycle related classes
  * instead of **lateinit** directive to avoid Context leaks
  * (for example, after rotation).

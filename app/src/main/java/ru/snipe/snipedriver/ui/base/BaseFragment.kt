@@ -13,7 +13,7 @@ import ru.snipe.snipedriver.utils.bindViewOpt
 import kotlin.properties.ReadOnlyProperty
 
 abstract class BaseFragment : Fragment(), UnbindableView {
-  protected abstract val contentDelegate: ContentDelegate
+  protected abstract val contentDelegate: FragmentContentDelegate
   override val propertyBinder = PropertyBinder()
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
