@@ -1,38 +1,49 @@
 package ru.snipe.snipedriver
 
 import android.content.Context
-import com.github.pwittchen.reactivenetwork.library.ReactiveNetwork
+import com.github.pwittchen.reactivenetwork.library.rx2.Connectivity
+import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
 import dagger.Component
 import dagger.Module
 import dagger.Provides
-import hu.akarnokd.rxjava.interop.RxJavaInterop
-import ru.snipe.snipedriver.view.driver_mode.DriverActivity
-import ru.snipe.snipedriver.view.driver_mode.DriverFragment
-import ru.snipe.snipedriver.view.free_driver_mode.FreeDriverActivity
-import ru.snipe.snipedriver.view.onboarding.OnBoardingFragment
-import ru.snipe.snipedriver.view.phone_number.PhoneNumberFragment
-import ru.snipe.snipedriver.view.verify_code.VerifyCodeFragment
-import javax.inject.Singleton
+import io.reactivex.Observable
+import ru.snipe.snipedriver.annotations.ApplicationScope
+import ru.snipe.snipedriver.ui.base_mvp.AppInitTaskScheduler
+import ru.snipe.snipedriver.ui.driver_mode.DriverComponent
+import ru.snipe.snipedriver.ui.driver_mode.DriverModule
+import ru.snipe.snipedriver.ui.free_driver_mode.FreeDriverMainComponent
+import ru.snipe.snipedriver.ui.free_driver_mode.FreeDriverMainModule
+import ru.snipe.snipedriver.ui.onboarding.OnBoardingComponent
+import ru.snipe.snipedriver.ui.onboarding.OnBoardingModule
+import ru.snipe.snipedriver.ui.phone_number.PhoneNumberComponent
+import ru.snipe.snipedriver.ui.phone_number.PhoneNumberModule
+import ru.snipe.snipedriver.ui.verify_code.VerifyCodeComponent
+import ru.snipe.snipedriver.ui.verify_code.VerifyCodeModule
 
-@Singleton
+@ApplicationScope
 @Component(modules = arrayOf(AppModule::class))
-interface AppComponent {
-    fun inject(phoneNumberFragment: PhoneNumberFragment)
-    fun inject(onBoardingFragment: OnBoardingFragment)
-    fun inject(verifyCodeFragment: VerifyCodeFragment)
-    fun inject(freeDriverActivity: FreeDriverActivity)
-    fun inject(driverActivity: DriverActivity)
-    fun inject(driverFragment: DriverFragment)
+interface AppComponent : BaseApplicationComponent {
+  fun plusOnBoardingComponent(module: OnBoardingModule): OnBoardingComponent
+  fun plusDriverComponent(module: DriverModule): DriverComponent
+  fun plusFreeDriverMainComponent(module: FreeDriverMainModule): FreeDriverMainComponent
+  fun plusPhoneNumberComponent(module: PhoneNumberModule): PhoneNumberComponent
+  fun plusVerifyCodeComponent(module: VerifyCodeModule): VerifyCodeComponent
 }
 
 @Module
-class AppModule(private var context: Context) {
-    @Singleton
-    @Provides
-    fun provideContext() = context
+class AppModule(private val application: MyApplication) {
+  @Provides
+  @ApplicationScope
+  fun provideContext(): Context = application
 
-    @Singleton
-    @Provides
-    fun network(context: Context) =
-            RxJavaInterop.toV2Observable(ReactiveNetwork.observeNetworkConnectivity(context))
+  @Provides
+  fun provideAppInitTaskScheduler(): AppInitTaskScheduler {
+    return AppInitTaskScheduler(application.appInitEvent())
+  }
+
+  @Provides
+  @ApplicationScope
+  fun provideConnectivityEvents(context: Context): Observable<Connectivity> {
+    return ReactiveNetwork.observeNetworkConnectivity(context)
+  }
 }
