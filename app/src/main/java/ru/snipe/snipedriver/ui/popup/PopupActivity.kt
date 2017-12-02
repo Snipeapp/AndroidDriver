@@ -3,20 +3,21 @@ package ru.snipe.snipedriver.ui.popup
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.support.v4.app.ActivityCompat
-import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.OnClick
 import ru.snipe.snipedriver.R
+import ru.snipe.snipedriver.ui.base.ActivityContentDelegate
+import ru.snipe.snipedriver.ui.base.BaseActivity
+import ru.snipe.snipedriver.utils.ContentConfig
 
 private const val EXTRA_MODE = "mode"
 
-class PopupActivity : AppCompatActivity() {
+class PopupActivity : BaseActivity() {
+  override var contentDelegate = ActivityContentDelegate(this,
+    ContentConfig(R.layout.content_popup))
+
   companion object {
     fun getIntent(context: Context,
                   mode: Int): Intent {
@@ -26,16 +27,12 @@ class PopupActivity : AppCompatActivity() {
     }
   }
 
-  @BindView(R.id.iv_popup_pic) lateinit var pic: ImageView
-  @BindView(R.id.tv_popup_title) lateinit var title: TextView
-  @BindView(R.id.tv_popup_positive) lateinit var posButton: TextView
-  @BindView(R.id.tv_popup_negative) lateinit var negButton: TextView
+  private val pic by bindView<ImageView>(R.id.iv_popup_pic)
+  private val title by bindView<TextView>(R.id.tv_popup_title)
+  private val posButton by bindView<TextView>(R.id.tv_popup_positive)
+  private val negButton by bindView<TextView>(R.id.tv_popup_positive)
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    setContentView(R.layout.content_popup)
-    ButterKnife.bind(this)
-
+  override fun initView(view: Activity) {
     if (intent.extras.getInt(EXTRA_MODE) == 0) {
       title.text = "Вы прибыли на проспект Энгельса, Санкт-Петебург?"
       posButton.text = "Да, прибыл"
@@ -43,10 +40,11 @@ class PopupActivity : AppCompatActivity() {
       title.text = "Вы завершили доставку на проспект Энгельса, 107B?"
       posButton.text = "Да, завершил"
     }
+    posButton.setOnClickListener { processButtonClick(it) }
+    negButton.setOnClickListener { processButtonClick(it) }
   }
 
-  @OnClick(R.id.tv_popup_positive, R.id.tv_popup_negative)
-  fun onClick(v: View) {
+  fun processButtonClick(v: View) {
     when (v.id) {
       R.id.tv_popup_positive -> setResult(Activity.RESULT_OK)
       R.id.tv_popup_negative -> setResult(Activity.RESULT_CANCELED)

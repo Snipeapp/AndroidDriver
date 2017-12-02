@@ -18,9 +18,10 @@ abstract class BaseActivity : AppCompatActivity(), UnbindableView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(contentDelegate.config.contentLayoutResId)
+    initView(this)
   }
 
-  protected open fun initView(view: View) {
+  protected open fun initView(view: Activity) {
   }
 
   protected fun <VIEW_TYPE : View> bindView(@IdRes id: Int): ReadOnlyProperty<Activity, VIEW_TYPE>

@@ -1,6 +1,7 @@
 package ru.snipe.snipedriver.ui.free_driver_mode
 
 import android.Manifest
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.preference.PreferenceManager
@@ -11,7 +12,6 @@ import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
-import android.view.View
 import com.tbruyelle.rxpermissions.RxPermissions
 import ru.snipe.snipedriver.R
 import ru.snipe.snipedriver.ui.base.ActivityContentDelegate
@@ -38,7 +38,7 @@ class FreeDriverActivity : BaseContentActivity<FreeDriverMainFragment>(), FreeDr
 
   override fun provideContent() = FreeDriverMainFragment()
 
-  override fun initView(view: View) {
+  override fun initView(view: Activity) {
     setSupportActionBar(toolbar)
     supportActionBar?.setDisplayShowTitleEnabled(false)
     val toggle = ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
