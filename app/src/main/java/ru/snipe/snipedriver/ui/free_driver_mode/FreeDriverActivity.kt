@@ -15,12 +15,12 @@ import android.view.View
 import com.tbruyelle.rxpermissions.RxPermissions
 import ru.snipe.snipedriver.R
 import ru.snipe.snipedriver.ui.base.ActivityContentDelegate
-import ru.snipe.snipedriver.ui.base.BaseActivity
+import ru.snipe.snipedriver.ui.base.BaseContentActivity
 import ru.snipe.snipedriver.ui.onboarding.OnBoardingActivity
 import ru.snipe.snipedriver.utils.ContentConfig
 import ru.snipe.snipedriver.utils.createIntent
 
-class FreeDriverActivity : BaseActivity<FreeDriverMainFragment>(), FreeDriverMainHolder,
+class FreeDriverActivity : BaseContentActivity<FreeDriverMainFragment>(), FreeDriverMainHolder,
   NavigationView.OnNavigationItemSelectedListener {
 
   companion object {
@@ -29,13 +29,14 @@ class FreeDriverActivity : BaseActivity<FreeDriverMainFragment>(), FreeDriverMai
     }
   }
 
-  //TODO: переделать логику провайдинга активити и что-то сделать с базовой активити с фрагментом?
   override var contentDelegate = ActivityContentDelegate(this,
     ContentConfig(R.layout.content_free_driver))
 
   private val drawer by bindView<DrawerLayout>(R.id.drawer_layout)
   private val navigationView by bindView<NavigationView>(R.id.nav_view)
   private val toolbar by bindView<Toolbar>(R.id.toolbar)
+
+  override fun provideContent() = FreeDriverMainFragment()
 
   override fun initView(view: View) {
     setSupportActionBar(toolbar)
@@ -102,6 +103,4 @@ class FreeDriverActivity : BaseActivity<FreeDriverMainFragment>(), FreeDriverMai
         }
       })
   }
-
-  override fun getFragment() = FreeDriverMainFragment()
 }

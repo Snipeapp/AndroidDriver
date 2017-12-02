@@ -8,6 +8,7 @@ import android.support.v4.app.ActivityCompat
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
+import com.arellomobile.mvp.presenter.InjectPresenter
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import ru.snipe.snipedriver.R
@@ -15,7 +16,6 @@ import ru.snipe.snipedriver.ui.base.FragmentContentDelegate
 import ru.snipe.snipedriver.ui.base_mvp.BaseMvpFragment
 import ru.snipe.snipedriver.ui.driver_mode.DriverActivity
 import ru.snipe.snipedriver.utils.ContentConfig
-import javax.inject.Inject
 
 interface FreeDriverMainHolder {
   fun switchToStats()
@@ -33,7 +33,12 @@ class FreeDriverMainFragment : BaseMvpFragment<Unit>(), OnMapReadyCallback, Free
 
   private var map by bindPropertyOpt<GoogleMap>()
 
-  @Inject lateinit var presenter: FreeDriverMainPresenter
+  @InjectPresenter
+  lateinit var presenter: FreeDriverMainPresenter
+
+  fun providePrenenter(): FreeDriverMainPresenter {
+    throw UnsupportedOperationException("implement logic to provide presenter")
+  }
 
   override fun initView(view: View) {
     bottomNavigationView.setOnNavigationItemSelectedListener { item ->

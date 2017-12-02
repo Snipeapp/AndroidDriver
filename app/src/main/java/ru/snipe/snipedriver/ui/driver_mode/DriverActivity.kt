@@ -1,7 +1,7 @@
 package ru.snipe.snipedriver.ui.driver_mode
 
-import ru.snipe.snipedriver.ui.base.BaseActivity
+import ru.snipe.snipedriver.ui.base.BaseContentActivity
 
-class DriverActivity : BaseActivity<DriverFragment>() {
-  override fun getFragment() = DriverFragment()
+class DriverActivity : BaseContentActivity<DriverFragment>() {
+  override fun provideContent() = DriverFragment()
 }
