@@ -1,6 +1,6 @@
 buildscript {
     repositories { maven { url 'https://maven.fabric.io/public' } }
-    dependencies { classpath 'io.fabric.tools:gradle:1.22.1' }
+    dependencies { classpath 'io.fabric.tools:gradle:1.24.5' }
 }
 
 apply plugin: 'com.android.application'
@@ -8,9 +8,9 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 apply plugin: 'io.fabric'
-apply plugin: 'realm-android'
 apply plugin: 'com.jakewharton.hugo'
 apply plugin: 'com.github.ben-manes.versions'
+apply plugin: 'kotlin-android-extensions'
 
 repositories {
     jcenter()
@@ -19,14 +19,13 @@ repositories {
 }
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 27
+    buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "ru.snipe.snipedriver"
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode 6
         versionName "0.6"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
     }
@@ -59,62 +58,47 @@ android {
     }
 }
 
-ext { supportLibraryVersion = '25.4.0' }
+ext { supportLibraryVersion = '27.0.2' }
 
 dependencies {
-    compile 'com.android.support:multidex:1.0.2'
-
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.3-alpha', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
 
+    compile 'com.android.support:multidex:1.0.2'
     compile "com.android.support:appcompat-v7:$supportLibraryVersion"
     compile "com.android.support:design:$supportLibraryVersion"
     compile "com.android.support:support-fragment:$supportLibraryVersion"
     compile "com.android.support:cardview-v7:$supportLibraryVersion"
-    compile "com.android.support:customtabs:$supportLibraryVersion"
-    compile "com.android.support:support-v13:$supportLibraryVersion"
-    compile "com.android.support:support-v4:$supportLibraryVersion"
     compile "com.android.support:gridlayout-v7:$supportLibraryVersion"
+    compile "com.android.support:support-v4:$supportLibraryVersion"
 
     compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
-        transitive = true;
+        transitive = true
     }
 
     compile 'com.google.code.gson:gson:2.8.1'
     compile 'com.jakewharton.rxrelay2:rxrelay:2.0.0'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'io.reactivex.rxjava2:rxjava:2.1.1'
+    compile 'io.reactivex.rxjava2:rxjava:2.1.7'
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+    compile 'com.github.pwittchen:reactivenetwork-rx2:0.12.2'
     compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
     compile 'com.hannesdorfmann.mosby3:mvi:3.0.0'
     compile 'com.jakewharton.timber:timber:4.5.1'
-    compile 'com.jakewharton:butterknife:8.6.0'
-    compile 'com.github.akarnokd:rxjava2-interop:0.10.1'
-    compile 'com.github.pwittchen:reactivenetwork:0.9.1'
     compile 'com.tbruyelle.rxpermissions:rxpermissions:0.9.1@aar'
-    compile 'com.google.dagger:dagger:2.9'
-    compile 'org.jetbrains.kotlin:kotlin-stdlib:1.1.2-5'
-    compile 'com.android.support.constraint:constraint-layout:1.1.0-beta1'
-    compile 'com.google.android.gms:play-services-maps:10.2.1'
+    compile 'com.google.dagger:dagger:2.11'
+    compile 'com.jakewharton:butterknife:8.6.0'
+    compile 'org.jetbrains.kotlin:kotlin-stdlib:1.2.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.google.android.gms:play-services-maps:11.6.2'
     compile 'com.github.lzyzsd:circleprogress:1.2.1'
 
-    androidTestCompile 'com.android.support:multidex:1.0.2'
-    testCompile 'com.android.support:multidex:1.0.2'
-    testCompile 'junit:junit:4.12'
-    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
-    debugCompile 'com.facebook.stetho:stetho-okhttp3:1.5.0'
-    debugCompile 'com.uphyca:stetho_realm:2.0.0'
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
-    kapt 'com.jakewharton:butterknife-compiler:8.5.1'
-    kapt 'com.google.dagger:dagger-compiler:2.9'
-    kaptAndroidTest 'com.google.dagger:dagger-compiler:2.9'
-    kaptTest 'com.google.dagger:dagger-compiler:2.9'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
+
+    kapt 'com.google.dagger:dagger-compiler:2.11'
+    kapt 'com.jakewharton:butterknife-compiler:8.6.0'
 }
 
-apply plugin: 'kotlin-android-extensions'

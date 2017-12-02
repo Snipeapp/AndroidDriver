@@ -3,7 +3,7 @@ package ru.snipe.snipedriver.view.onboarding
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.design.widget.Snackbar
-import android.support.v13.app.ActivityCompat
+import android.support.v4.app.ActivityCompat
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -25,29 +25,29 @@ import javax.inject.Inject
 class OnBoardingFragment : Fragment(), OnBoardingView {
     @Inject lateinit var presenter: OnBoardingPresenter
     @BindView(R.id.button_onboarding_sign_up) lateinit var button: Button
-    val clickSubject = PublishSubject.create<Object>()
+    val clickSubject = PublishSubject.create<Any>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (activity.application as App).component.inject(this)
+        (activity!!.application as App).component.inject(this)
         super.onCreate(savedInstanceState)
 
         if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean("logged", false)) {
-            ActivityCompat.startActivity(context,
-                    createIntent(context, FreeDriverActivity::class.java, {}),
+            ActivityCompat.startActivity(context!!,
+                    createIntent(context!!, FreeDriverActivity::class.java, {}),
                     null)
-            activity.finish()
+            activity!!.finish()
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        val view = inflater!!.inflate(R.layout.fragment_onboarding, container, false)
+        val view = inflater.inflate(R.layout.fragment_onboarding, container, false)
         ButterKnife.bind(this, view)
 
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
     }
@@ -67,9 +67,9 @@ class OnBoardingFragment : Fragment(), OnBoardingView {
     }
 
     override fun success() {
-        ActivityCompat.startActivity(context,
-                createIntent(context, PhoneNumberActivity::class.java, {}),
-                ActivityOptionsCompat.makeSceneTransitionAnimation(activity).toBundle())
+        ActivityCompat.startActivity(context!!,
+                createIntent(context!!, PhoneNumberActivity::class.java, {}),
+                ActivityOptionsCompat.makeSceneTransitionAnimation(activity!!).toBundle())
     }
 
     override fun showError(error: String) {

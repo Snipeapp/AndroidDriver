@@ -5,13 +5,14 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomSheetDialog
-import android.support.v13.app.ActivityCompat
+import android.support.v4.app.ActivityCompat
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.*
+import android.widget.Button
 import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
@@ -101,7 +102,7 @@ class DriverFragment : Fragment(), DriverView, OnMapReadyCallback {
         bottomSheetDialog.setContentView(R.layout.sheet_rating)
 
         val ratingBar = bottomSheetDialog.findViewById(R.id.rating_bottom_sheet_rating) as RatingBar
-        val btn = bottomSheetDialog.findViewById(R.id.btn_bottom_sheet_rating_ready)
+        val btn = bottomSheetDialog.findViewById<Button>(R.id.btn_bottom_sheet_rating_ready)
         ratingBar.setOnRatingBarChangeListener { _, _, _ ->
             btn?.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent))
             btn?.alpha = 1f

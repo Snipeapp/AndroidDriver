@@ -1,11 +1,10 @@
 package ru.snipe.snipedriver
 
 import android.content.Context
-import com.github.pwittchen.reactivenetwork.library.ReactiveNetwork
+import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
 import dagger.Component
 import dagger.Module
 import dagger.Provides
-import hu.akarnokd.rxjava.interop.RxJavaInterop
 import ru.snipe.snipedriver.view.driver_mode.DriverActivity
 import ru.snipe.snipedriver.view.driver_mode.DriverFragment
 import ru.snipe.snipedriver.view.free_driver_mode.FreeDriverActivity
@@ -34,5 +33,5 @@ class AppModule(private var context: Context) {
     @Singleton
     @Provides
     fun network(context: Context) =
-            RxJavaInterop.toV2Observable(ReactiveNetwork.observeNetworkConnectivity(context))
+      ReactiveNetwork.observeNetworkConnectivity(context)
 }

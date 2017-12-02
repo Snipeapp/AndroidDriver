@@ -7,7 +7,7 @@ import android.preference.PreferenceManager
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.BottomSheetDialog
 import android.support.design.widget.NavigationView
-import android.support.v13.app.ActivityCompat
+import android.support.v4.app.ActivityCompat
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -154,7 +155,7 @@ class FreeDriverActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
             }
         }
 
-        val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
+        val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
         drawer.closeDrawer(GravityCompat.START)
         return true
     }
@@ -188,7 +189,7 @@ class FreeDriverActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
     private fun showBottomSheet() {
         val bottomSheetDialog = BottomSheetDialog(this)
         bottomSheetDialog.setContentView(R.layout.sheet_map)
-        bottomSheetDialog.findViewById(R.id.layout_bottom_sheet_map)?.setOnClickListener { presenter.requestAccepted() }
+        bottomSheetDialog.findViewById<LinearLayout>(R.id.layout_bottom_sheet_map)?.setOnClickListener { presenter.requestAccepted() }
         bottomSheetDialog.show()
     }
 }

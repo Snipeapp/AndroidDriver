@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.support.annotation.ColorRes
 import android.support.annotation.DrawableRes
 import android.support.design.widget.Snackbar
-import android.support.v13.app.ActivityCompat
+import android.support.v4.app.ActivityCompat
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
@@ -29,7 +29,6 @@ import ru.snipe.snipedriver.view.verify_code.VerifyCodeActivity
 import javax.inject.Inject
 
 class PhoneNumberFragment : Fragment(), PhoneNumberView {
-    //MviFragment<PhoneNumberView, PhoneNumberPresenter>()
     @BindView(R.id.toolbar) lateinit var toolbar: Toolbar
     @BindView(R.id.edittext_phone_number) lateinit var numberInput: EditText
     @BindView(R.id.layout_phone_number_loading) lateinit var loadingLayout: View
@@ -39,21 +38,21 @@ class PhoneNumberFragment : Fragment(), PhoneNumberView {
     val phoneSubject: PublishRelay<String> = PublishRelay.create()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (activity.application as App).component.inject(this)
+        (activity!!.application as App).component.inject(this)
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         setHasOptionsMenu(true)
 
-        val view = inflater!!.inflate(R.layout.fragment_phone_number, container, false)
+        val view = inflater.inflate(R.layout.fragment_phone_number, container, false)
         ButterKnife.bind(this, view)
 
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         (activity as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
-        toolbar.navigationIcon = getTintedDrawable(activity, R.drawable.back, R.color.colorAccent)
+        toolbar.navigationIcon = getTintedDrawable(activity!!, R.drawable.back, R.color.colorAccent)
 
         numberInput.addTextChangedListener(PhoneNumberFormattingTextWatcher())
         numberInput.setOnEditorActionListener({ _, actionId, _ ->
@@ -67,16 +66,16 @@ class PhoneNumberFragment : Fragment(), PhoneNumberView {
     }
 
     fun getTintedDrawable(context: Context, @DrawableRes drawable: Int, @ColorRes color: Int): Drawable {
-        val d = DrawableCompat.wrap(ContextCompat.getDrawable(context, drawable))
+        val d = DrawableCompat.wrap(ContextCompat.getDrawable(context, drawable)!!)
         DrawableCompat.setTint(d, ContextCompat.getColor(context, color))
         return d
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
 
-        RxPermissions(activity)
+        RxPermissions(activity!!)
                 .request(Manifest.permission.ACCESS_FINE_LOCATION)
                 .subscribe({ granted ->
                     if (!granted) {
@@ -92,7 +91,7 @@ class PhoneNumberFragment : Fragment(), PhoneNumberView {
 
     override fun onResume() {
         super.onResume()
-        activity.showKeyboard()
+        activity!!.showKeyboard()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) =
@@ -104,8 +103,8 @@ class PhoneNumberFragment : Fragment(), PhoneNumberView {
                 tryGoNext()
             }
             android.R.id.home -> {
-                activity.hideKeyboard()
-                activity.onBackPressed()
+                activity!!.hideKeyboard()
+                activity!!.onBackPressed()
             }
         }
         return super.onOptionsItemSelected(item)
@@ -114,7 +113,7 @@ class PhoneNumberFragment : Fragment(), PhoneNumberView {
     private fun tryGoNext() {
         val phone = numberInput.text.toString()
         if (phone.replace("[^0-9]+".toRegex(), "").matches("[0-9]{11}|9[0-9]{9}".toRegex())) {
-            activity.hideKeyboard()
+            activity!!.hideKeyboard()
             phoneSubject.accept(phone)
         } else {
             showError("Ошибка в номере телефона")
@@ -134,9 +133,9 @@ class PhoneNumberFragment : Fragment(), PhoneNumberView {
     }
 
     override fun codeSent() {
-        ActivityCompat.startActivity(context, createIntent(context, VerifyCodeActivity::class.java, {
+        ActivityCompat.startActivity(context!!, createIntent(context!!, VerifyCodeActivity::class.java, {
             putExtra("phone", numberInput.text.toString())
-        }), ActivityOptionsCompat.makeSceneTransitionAnimation(activity).toBundle())
+        }), ActivityOptionsCompat.makeSceneTransitionAnimation(activity!!).toBundle())
     }
 
     override fun showError(error: String) {

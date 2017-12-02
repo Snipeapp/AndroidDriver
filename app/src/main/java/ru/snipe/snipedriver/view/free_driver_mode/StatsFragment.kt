@@ -15,38 +15,38 @@ import ru.snipe.snipedriver.R
 import java.util.*
 
 class StatsFragment : Fragment() {
-    @BindView(R.id.tab_layout_stats) lateinit var tabLayout: TabLayout
-    @BindView(R.id.view_pager_stats) lateinit var viewPager: ViewPager
+  @BindView(R.id.tab_layout_stats) lateinit var tabLayout: TabLayout
+  @BindView(R.id.view_pager_stats) lateinit var viewPager: ViewPager
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        val view = inflater!!.inflate(R.layout.fragment_stats, container, false)
-        ButterKnife.bind(this, view)
-        setupViewPager(viewPager)
-        tabLayout.setupWithViewPager(viewPager)
-        return view
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                            savedInstanceState: Bundle?): View? {
+    val view = inflater.inflate(R.layout.fragment_stats, container, false)
+    ButterKnife.bind(this, view)
+    setupViewPager(viewPager)
+    tabLayout.setupWithViewPager(viewPager)
+    return view
+  }
+
+  private fun setupViewPager(viewPager: ViewPager) {
+    val adapter = Adapter(childFragmentManager)
+    adapter.addFragment(InnerStatsFragment(), "Дневная")
+    adapter.addFragment(InnerStatsFragment(), "Недельная")
+    viewPager.adapter = adapter
+  }
+
+  inner class Adapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+    private val fragments = ArrayList<Fragment>()
+    private val fragmentTitles = ArrayList<String>()
+
+    fun addFragment(fragment: Fragment, title: String) {
+      fragments.add(fragment)
+      fragmentTitles.add(title)
     }
 
-    private fun setupViewPager(viewPager: ViewPager) {
-        val adapter = Adapter(childFragmentManager)
-        adapter.addFragment(InnerStatsFragment(), "Дневная")
-        adapter.addFragment(InnerStatsFragment(), "Недельная")
-        viewPager.adapter = adapter
-    }
+    override fun getItem(position: Int): Fragment = fragments[position]
 
-    inner class Adapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
-        private val fragments = ArrayList<Fragment>()
-        private val fragmentTitles = ArrayList<String>()
+    override fun getCount(): Int = fragments.size
 
-        fun addFragment(fragment: Fragment, title: String) {
-            fragments.add(fragment)
-            fragmentTitles.add(title)
-        }
-
-        override fun getItem(position: Int): Fragment = fragments[position]
-
-        override fun getCount(): Int = fragments.size
-
-        override fun getPageTitle(position: Int): CharSequence = fragmentTitles[position]
-    }
+    override fun getPageTitle(position: Int): CharSequence = fragmentTitles[position]
+  }
 }

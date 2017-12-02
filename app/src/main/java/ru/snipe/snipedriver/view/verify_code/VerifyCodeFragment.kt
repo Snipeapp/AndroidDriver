@@ -10,7 +10,7 @@ import android.preference.PreferenceManager
 import android.support.annotation.ColorRes
 import android.support.annotation.DrawableRes
 import android.support.design.widget.Snackbar
-import android.support.v13.app.ActivityCompat
+import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v4.graphics.drawable.DrawableCompat
@@ -34,7 +34,7 @@ import ru.snipe.snipedriver.presenter.VerifyCodePresenter
 import ru.snipe.snipedriver.view.free_driver_mode.FreeDriverActivity
 import javax.inject.Inject
 
-class VerifyCodeFragment : Fragment(), VerifyCodeView { //MviFragment<VerifyCodeView, VerifyCodePresenter>()
+class VerifyCodeFragment : Fragment(), VerifyCodeView {
     @BindView(R.id.toolbar) lateinit var toolbar: Toolbar
     @BindView(R.id.edittext_verify_code) lateinit var codeInput: EditText
     @BindView(R.id.tv_verify_code_description) lateinit var description: TextView
@@ -46,18 +46,18 @@ class VerifyCodeFragment : Fragment(), VerifyCodeView { //MviFragment<VerifyCode
     val readySubject: PublishSubject<String> = PublishSubject.create()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (activity.application as App).component.inject(this)
+        (activity!!.application as App).component.inject(this)
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         setHasOptionsMenu(true)
 
-        val phone = arguments.getString("phone", "")
+        val phone = arguments!!.getString("phone", "")
         presenter.phone = phone
 
-        val view = inflater!!.inflate(R.layout.fragment_verify_code, container, false)
+        val view = inflater.inflate(R.layout.fragment_verify_code, container, false)
         ButterKnife.bind(this, view)
 
         description.movementMethod = LinkMovementMethod()
@@ -68,7 +68,7 @@ class VerifyCodeFragment : Fragment(), VerifyCodeView { //MviFragment<VerifyCode
                     append(" ")
                     append(SpannableString(getString(R.string.verify_code_send_new)).apply {
                         setSpan(ResendSpan(this@VerifyCodeFragment), 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                        setSpan(ForegroundColorSpan(ContextCompat.getColor(context, R.color.colorAccent)),
+                        setSpan(ForegroundColorSpan(ContextCompat.getColor(context!!, R.color.colorAccent)),
                                 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                     })
                 }
@@ -76,7 +76,7 @@ class VerifyCodeFragment : Fragment(), VerifyCodeView { //MviFragment<VerifyCode
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         (activity as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
-        toolbar.navigationIcon = getTintedDrawable(activity, R.drawable.back, R.color.colorAccent)
+        toolbar.navigationIcon = getTintedDrawable(activity!!, R.drawable.back, R.color.colorAccent)
 
         codeInput.setOnEditorActionListener({ _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_NEXT) {
@@ -93,12 +93,12 @@ class VerifyCodeFragment : Fragment(), VerifyCodeView { //MviFragment<VerifyCode
     }
 
     fun getTintedDrawable(context: Context, @DrawableRes drawable: Int, @ColorRes color: Int): Drawable {
-        val d = DrawableCompat.wrap(ContextCompat.getDrawable(context, drawable))
+        val d = DrawableCompat.wrap(ContextCompat.getDrawable(context, drawable)!!)
         DrawableCompat.setTint(d, ContextCompat.getColor(context, color))
         return d
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
     }
@@ -117,14 +117,14 @@ class VerifyCodeFragment : Fragment(), VerifyCodeView { //MviFragment<VerifyCode
                 tryGoNext()
             }
             android.R.id.home -> {
-                activity.onBackPressed()
+                activity!!.onBackPressed()
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
     private fun tryGoNext() {
-        activity.hideKeyboard()
+        activity!!.hideKeyboard()
         readySubject.onNext(codeInput.text.toString())
     }
 
@@ -138,7 +138,7 @@ class VerifyCodeFragment : Fragment(), VerifyCodeView { //MviFragment<VerifyCode
 
     override fun codeSent() {
         Toast.makeText(context, "Код отправлен", Toast.LENGTH_SHORT).show()
-        Handler().postDelayed({ activity.showKeyboard() }, 1000)
+        Handler().postDelayed({ activity!!.showKeyboard() }, 1000)
     }
 
     override fun codeVerified() {
@@ -148,8 +148,8 @@ class VerifyCodeFragment : Fragment(), VerifyCodeView { //MviFragment<VerifyCode
                 .putBoolean("logged", true)
                 .apply()
 
-        ActivityCompat.startActivity(context,
-                createIntent(context, FreeDriverActivity::class.java, {
+        ActivityCompat.startActivity(context!!,
+                createIntent(context!!, FreeDriverActivity::class.java, {
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 }),
                 null)
@@ -157,7 +157,7 @@ class VerifyCodeFragment : Fragment(), VerifyCodeView { //MviFragment<VerifyCode
 
     override fun showError(error: String) {
         Snackbar.make(toolbar, error, Snackbar.LENGTH_SHORT).show()
-        Handler().postDelayed({ activity.showKeyboard() }, 1000)
+        Handler().postDelayed({ activity!!.showKeyboard() }, 1000)
     }
 
     override fun resendClicked() = resendSubject
