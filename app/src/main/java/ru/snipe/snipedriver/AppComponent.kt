@@ -21,8 +21,8 @@ import ru.snipe.snipedriver.ui.verify_code.VerifyCodeComponent
 import ru.snipe.snipedriver.ui.verify_code.VerifyCodeModule
 
 @ApplicationScope
-@Component(modules = arrayOf(ApplicationModule::class))
-interface ApplicationComponent : BaseApplicationComponent {
+@Component(modules = arrayOf(AppModule::class))
+interface AppComponent : BaseApplicationComponent {
   fun plusOnBoardingComponent(module: OnBoardingModule): OnBoardingComponent
   fun plusDriverComponent(module: DriverModule): DriverComponent
   fun plusFreeDriverMainComponent(module: FreeDriverMainModule): FreeDriverMainComponent
@@ -31,7 +31,7 @@ interface ApplicationComponent : BaseApplicationComponent {
 }
 
 @Module
-class ApplicationModule(private val application: MyApplication) {
+class AppModule(private val application: MyApplication) {
   @Provides
   @ApplicationScope
   fun provideContext(): Context = application
@@ -43,7 +43,7 @@ class ApplicationModule(private val application: MyApplication) {
 
   @Provides
   @ApplicationScope
-  fun prvideCOnnectivityEvents(context: Context): Observable<Connectivity> {
+  fun provideConnectivityEvents(context: Context): Observable<Connectivity> {
     return ReactiveNetwork.observeNetworkConnectivity(context)
   }
 }

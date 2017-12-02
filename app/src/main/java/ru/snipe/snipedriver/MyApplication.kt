@@ -12,11 +12,11 @@ fun Context.getApplication(): MyApplication {
   return this.applicationContext as MyApplication
 }
 
-fun Context.getAppComponent(): ApplicationComponent {
+fun Context.getAppComponent(): AppComponent {
   return this.getApplication().getApplicationComponent()
 }
 
-class MyApplication : BaseApplication<ApplicationComponent>(AppConfig(isReleaseBuild = !BuildConfig.DEBUG)) {
+class MyApplication : BaseApplication<AppComponent>(AppConfig(isReleaseBuild = !BuildConfig.DEBUG)) {
   var refWatcher: RefWatcher? = null
 
   override fun onCreate() {
@@ -29,17 +29,17 @@ class MyApplication : BaseApplication<ApplicationComponent>(AppConfig(isReleaseB
     refWatcher = LeakCanary.install(this)
   }
 
-  override fun createComponent(): ApplicationComponent {
-    return DaggerApplicationComponent.builder()
-      .applicationModule(ApplicationModule(this))
+  override fun createComponent(): AppComponent {
+    return DaggerAppComponent.builder()
+      .appModule(AppModule(this))
       .build()
   }
 
-  override fun initializeApplication(applicationComponent: ApplicationComponent): Single<Any> {
+  override fun initializeApplication(applicationComponent: AppComponent): Single<Any> {
     return Single.fromCallable {}
   }
 
-  fun getApplicationComponent(): ApplicationComponent {
+  fun getApplicationComponent(): AppComponent {
     return appComponent
   }
 }
