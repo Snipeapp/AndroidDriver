@@ -1,6 +1,5 @@
 package ru.snipe.snipedriver.ui.free_driver_mode
 
-import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -12,7 +11,6 @@ import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
-import com.tbruyelle.rxpermissions.RxPermissions
 import ru.snipe.snipedriver.R
 import ru.snipe.snipedriver.ui.base.ActivityContentDelegate
 import ru.snipe.snipedriver.ui.base.BaseContentActivity
@@ -20,11 +18,12 @@ import ru.snipe.snipedriver.ui.onboarding.OnBoardingActivity
 import ru.snipe.snipedriver.utils.ContentConfig
 import ru.snipe.snipedriver.utils.createIntent
 
+interface FreeDriverMainHolder {
+  val toolbar: Toolbar
+}
+
 class FreeDriverActivity : BaseContentActivity<FreeDriverMainFragment>(), FreeDriverMainHolder,
   NavigationView.OnNavigationItemSelectedListener {
-  override fun onToolbarClicked() {
-    throw UnsupportedOperationException("not implemented")
-  }
 
   companion object {
     fun getIntent(context: Context): Intent {
@@ -86,24 +85,5 @@ class FreeDriverActivity : BaseContentActivity<FreeDriverMainFragment>(), FreeDr
     val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
     drawer.closeDrawer(GravityCompat.START)
     return true
-  }
-
-  override fun switchToStats() {
-    supportFragmentManager.beginTransaction()
-      .replace(R.id.fragment_container, FreeDriverStatsFragment())
-      .commit()
-  }
-
-  override fun switchToMap() {
-    RxPermissions(this)
-      .request(Manifest.permission.ACCESS_FINE_LOCATION)
-      .subscribe({ granted ->
-        if (granted) {
-          val supportMapFragment = FreeDriverMapFragment()
-          supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, supportMapFragment)
-            .commit()
-        }
-      })
   }
 }

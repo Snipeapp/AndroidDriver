@@ -22,7 +22,6 @@ class FreeDriverStatsFragment : BaseFragment() {
   private val viewPager by bindView<ViewPager>(R.id.view_pager_stats)
 
   override fun initView(view: View) {
-    (activity as FreeDriverMainHolder).toolbar.isVisible = false
     setupViewPager(viewPager)
     tabLayout.setupWithViewPager(viewPager)
   }

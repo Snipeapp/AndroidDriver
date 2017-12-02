@@ -1,19 +1,17 @@
 package ru.snipe.snipedriver.ui.free_driver_mode
 
-import android.annotation.SuppressLint
+import android.Manifest
 import android.content.Intent
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.BottomSheetDialog
 import android.support.v4.app.ActivityCompat
-import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
+import com.tbruyelle.rxpermissions.RxPermissions
 import ru.snipe.snipedriver.R
 import ru.snipe.snipedriver.getAppComponent
 import ru.snipe.snipedriver.ui.base.FragmentContentDelegate
@@ -22,14 +20,7 @@ import ru.snipe.snipedriver.ui.driver_mode.DriverActivity
 import ru.snipe.snipedriver.utils.ContentConfig
 import ru.snipe.snipedriver.utils.isVisible
 
-interface FreeDriverMainHolder {
-  val toolbar: Toolbar
-  fun switchToStats()
-  fun switchToMap()
-  fun onToolbarClicked()
-}
-
-class FreeDriverMainFragment : BaseMvpFragment<Unit>(), OnMapReadyCallback, FreeDriverMainView {
+class FreeDriverMainFragment : BaseMvpFragment<Unit>(), FreeDriverMainView {
   override val contentDelegate = FragmentContentDelegate(this,
     ContentConfig(R.layout.content_main_free_driver))
 
@@ -38,10 +29,9 @@ class FreeDriverMainFragment : BaseMvpFragment<Unit>(), OnMapReadyCallback, Free
   private val bottomNavigationView by bindView<BottomNavigationView>(R.id.bottom_nav_view_free_driver)
 
   private var toolbarTitle by bindProperty<TextView>()
-  private var map by bindPropertyOpt<GoogleMap>()
 
   @InjectPresenter
-  lateinit var presenter: FreeDriverMainPresenter
+  internal lateinit var presenter: FreeDriverMainPresenter
 
   @ProvidePresenter
   fun providePresenter(): FreeDriverMainPresenter {
@@ -54,24 +44,39 @@ class FreeDriverMainFragment : BaseMvpFragment<Unit>(), OnMapReadyCallback, Free
     val toolbar = (activity as FreeDriverMainHolder).toolbar
     toolbar.isVisible = true
     toolbarTitle = toolbar.findViewById(R.id.toolbar_title)
+    toolbarTitle.setOnClickListener { presenter.statusClicked() }
 
     bottomNavigationView.setOnNavigationItemSelectedListener { item ->
       when (item.itemId) {
         R.id.action_main -> {
-          goToMap()
+          switchToMap()
         }
         R.id.action_stats -> {
-          (activity as FreeDriverMainHolder).switchToStats()
+          switchToStats()
         }
       }
       true
     }
-    toolbarTitle.setOnClickListener { presenter.statusClicked() }
-    goToMap()
+    switchToMap()
   }
 
-  private fun goToMap() {
-    (activity as FreeDriverMainHolder).switchToMap()
+  private fun switchToStats() {
+    childFragmentManager.beginTransaction()
+      .replace(R.id.fragment_container, FreeDriverStatsFragment())
+      .commit()
+  }
+
+  private fun switchToMap() {
+    RxPermissions(activity!!)
+      .request(Manifest.permission.ACCESS_FINE_LOCATION)
+      .subscribe({ granted ->
+        if (granted) {
+          val supportMapFragment = FreeDriverMapFragment()
+          childFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, supportMapFragment)
+            .commit()
+        }
+      })
   }
 
   override fun setStatus(activated: Boolean) {
@@ -83,12 +88,6 @@ class FreeDriverMainFragment : BaseMvpFragment<Unit>(), OnMapReadyCallback, Free
       shadow.visibility = View.VISIBLE
       bottomNavigationView.visibility = View.VISIBLE
     }
-  }
-
-  @SuppressLint("MissingPermission")
-  override fun onMapReady(googleMap: GoogleMap) {
-    map = googleMap
-    map?.isMyLocationEnabled = true
   }
 
   override fun showLoading() {

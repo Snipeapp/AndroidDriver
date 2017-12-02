@@ -1,18 +1,19 @@
 package ru.snipe.snipedriver.ui.free_driver_mode
 
 import com.arellomobile.mvp.InjectViewState
-import com.arellomobile.mvp.MvpPresenter
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import ru.snipe.snipedriver.network.DataManager
+import ru.snipe.snipedriver.ui.base_mvp.MoxyRxPresenter
 import java.util.concurrent.TimeUnit
 
 @InjectViewState
-class FreeDriverMainPresenter(private val dataManager: DataManager) : MvpPresenter<FreeDriverMainView>() {
+class FreeDriverMainPresenter(private val dataManager: DataManager) : MoxyRxPresenter<FreeDriverMainView>() {
   private var currentStatus: Boolean = false
 
-  override fun attachView(v: FreeDriverMainView) {
-    super.attachView(v)
+  override fun attachView(view: FreeDriverMainView) {
+    super.attachView(view)
+
     dataManager.getStatus()
       .observeOn(AndroidSchedulers.mainThread())
       .doOnNext {
@@ -20,7 +21,7 @@ class FreeDriverMainPresenter(private val dataManager: DataManager) : MvpPresent
           .observeOn(AndroidSchedulers.mainThread())
           .subscribe { viewState.driveRequest() }
       }
-      .subscribe({
+      .subscribeP({
         viewState.setStatus(it)
         currentStatus = it
       })
@@ -32,7 +33,7 @@ class FreeDriverMainPresenter(private val dataManager: DataManager) : MvpPresent
       .concatMap { dataManager.setStatus(it).toObservable<Any>() }
       .observeOn(AndroidSchedulers.mainThread())
       .doOnTerminate { viewState.hideLoading() }
-      .subscribe()
+      .subscribeP({})
   }
 
   fun requestAccepted() {
