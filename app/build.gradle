@@ -57,7 +57,7 @@ android {
         }
         prod {
             dimension 'api'
-            minSdkVersion 15
+            minSdkVersion 16
         }
     }
 }
