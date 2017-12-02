@@ -1,168 +1,157 @@
 package ru.snipe.snipedriver.ui.verify_code
 
-import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.drawable.Drawable
-import android.os.Bundle
 import android.os.Handler
 import android.preference.PreferenceManager
-import android.support.annotation.ColorRes
-import android.support.annotation.DrawableRes
 import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityCompat
-import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
-import android.support.v4.graphics.drawable.DrawableCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
+import android.text.TextPaint
 import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import butterknife.BindView
-import butterknife.ButterKnife
-import io.reactivex.subjects.PublishSubject
-import ru.snipe.snipedriver.*
+import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.presenter.ProvidePresenter
+import ru.snipe.snipedriver.R
+import ru.snipe.snipedriver.ui.base.FragmentContentDelegate
+import ru.snipe.snipedriver.ui.base_mvp.BaseMvpFragment
 import ru.snipe.snipedriver.ui.free_driver_mode.FreeDriverActivity
-import ru.snipe.snipedriver.utils.createIntent
+import ru.snipe.snipedriver.utils.ContentConfig
 import ru.snipe.snipedriver.utils.hideKeyboard
 import ru.snipe.snipedriver.utils.showKeyboard
-import javax.inject.Inject
+import ru.snipe.snipedriver.utils.withTint
 
-class VerifyCodeFragment : Fragment(), VerifyCodeView {
-    @BindView(R.id.toolbar) lateinit var toolbar: Toolbar
-    @BindView(R.id.edittext_verify_code) lateinit var codeInput: EditText
-    @BindView(R.id.tv_verify_code_description) lateinit var description: TextView
-    @BindView(R.id.layout_verify_code_loading) lateinit var loadingLayout: View
+class VerifyCodeFragment : BaseMvpFragment<Unit>(), VerifyCodeView {
+  override val contentDelegate = FragmentContentDelegate(this,
+    ContentConfig(R.layout.content_verify_code))
 
-    @Inject lateinit var presenter: VerifyCodePresenter
+  companion object {
+    const val EXTRA_PHONE = "phone"
+  }
 
-    val resendSubject: PublishSubject<Boolean> = PublishSubject.create()
-    val readySubject: PublishSubject<String> = PublishSubject.create()
+  private val toolbar by bindView<Toolbar>(R.id.toolbar)
+  private val codeInput by bindView<EditText>(R.id.toolbar)
+  private val description by bindView<TextView>(R.id.tv_verify_code_description)
+  private val loadingLayout by bindView<View>(R.id.layout_verify_code_loading)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        (activity!!.application as App).component.inject(this)
-        super.onCreate(savedInstanceState)
+  private val phone by lazy { arguments!!.getString(EXTRA_PHONE, null) }
+
+  @InjectPresenter
+  lateinit var presenter: VerifyCodePresenter
+
+  @ProvidePresenter
+  fun providePresenter(): VerifyCodePresenter {
+    presenter.phone = phone
+    throw UnsupportedOperationException("provide presenter")
+  }
+
+  override fun initView(view: View) {
+    setHasOptionsMenu(true)
+
+    description.movementMethod = LinkMovementMethod()
+    description.highlightColor = Color.TRANSPARENT
+    description.text =
+      SpannableStringBuilder().apply {
+        append(getString(R.string.verify_code_description, phone))
+        append(" ")
+        append(SpannableString(getString(R.string.verify_code_send_new)).apply {
+          val resendSpan = ResendSpan({ presenter.onResendButtonClicked() })
+          setSpan(resendSpan, 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+          setSpan(ForegroundColorSpan(ContextCompat.getColor(context!!, R.color.colorAccent)),
+            0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        })
+      }
+
+    (activity as AppCompatActivity).setSupportActionBar(toolbar)
+    (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    (activity as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
+    toolbar.navigationIcon?.withTint(R.color.colorAccent)
+
+    codeInput.setOnEditorActionListener({ _, actionId, _ ->
+      if (actionId == EditorInfo.IME_ACTION_NEXT) {
+        onCodeValid()
+        return@setOnEditorActionListener true
+      }
+      return@setOnEditorActionListener false
+    })
+    codeSent()
+  }
+
+  override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) =
+    inflater.inflate(R.menu.menu_ready, menu)
+
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    when (item.itemId) {
+      R.id.action_ready -> {
+        onCodeValid()
+      }
+      android.R.id.home -> {
+        activity!!.onBackPressed()
+      }
     }
+    return super.onOptionsItemSelected(item)
+  }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
-        setHasOptionsMenu(true)
+  private fun onCodeValid() {
+    activity!!.hideKeyboard()
+    presenter.onCodeValidated(codeInput.text.toString())
+  }
 
-        val phone = arguments!!.getString("phone", "")
-        presenter.phone = phone
+  override fun showLoading() {
+    loadingLayout.visibility = View.VISIBLE
+  }
 
-        val view = inflater.inflate(R.layout.content_verify_code, container, false)
-        ButterKnife.bind(this, view)
+  override fun hideLoading() {
+    loadingLayout.visibility = View.GONE
+  }
 
-        description.movementMethod = LinkMovementMethod()
-        description.highlightColor = Color.TRANSPARENT
-        description.text =
-                SpannableStringBuilder().apply {
-                    append(getString(R.string.verify_code_description, phone))
-                    append(" ")
-                    append(SpannableString(getString(R.string.verify_code_send_new)).apply {
-                        setSpan(ResendSpan(this@VerifyCodeFragment), 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                        setSpan(ForegroundColorSpan(ContextCompat.getColor(context!!, R.color.colorAccent)),
-                                0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                    })
-                }
+  override fun codeSent() {
+    Toast.makeText(context, "Код отправлен", Toast.LENGTH_SHORT).show()
+    Handler().postDelayed({ activity!!.showKeyboard() }, 1000)
+  }
 
-        (activity as AppCompatActivity).setSupportActionBar(toolbar)
-        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        (activity as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
-        toolbar.navigationIcon = getTintedDrawable(activity!!, R.drawable.ic_back, R.color.colorAccent)
+  override fun codeVerified() {
+    Toast.makeText(context, "Код верный", Toast.LENGTH_SHORT).show()
 
-        codeInput.setOnEditorActionListener({ _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                tryGoNext()
-                return@setOnEditorActionListener true
-            }
-            return@setOnEditorActionListener false
-        });
+    //TODO: Вынести логику сохранения в преференсы в презентер
+    PreferenceManager.getDefaultSharedPreferences(context)
+      .edit()
+      .putBoolean("logged", true)
+      .apply()
 
+    val intent = FreeDriverActivity.getIntent(context!!)
+      .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+    ActivityCompat.startActivity(context!!, intent, null)
+  }
 
-        codeSent()
+  override fun showError(error: String) {
+    Snackbar.make(toolbar, error, Snackbar.LENGTH_SHORT).show()
+    Handler().postDelayed({ activity!!.showKeyboard() }, 1000)
+  }
+}
 
-        return view
-    }
+private class ResendSpan(val onButtonCLickedAction: (Boolean) -> Unit) : ClickableSpan() {
+  override fun onClick(widget: View?) {
+    onButtonCLickedAction.invoke(true)
+  }
 
-    fun getTintedDrawable(context: Context, @DrawableRes drawable: Int, @ColorRes color: Int): Drawable {
-        val d = DrawableCompat.wrap(ContextCompat.getDrawable(context, drawable)!!)
-        DrawableCompat.setTint(d, ContextCompat.getColor(context, color))
-        return d
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        presenter.attachView(this)
-    }
-
-    override fun onDestroyView() {
-        presenter.detachView()
-        super.onDestroyView()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) =
-            inflater.inflate(R.menu.menu_ready, menu)
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.action_ready -> {
-                tryGoNext()
-            }
-            android.R.id.home -> {
-                activity!!.onBackPressed()
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    private fun tryGoNext() {
-        activity!!.hideKeyboard()
-        readySubject.onNext(codeInput.text.toString())
-    }
-
-    override fun showLoading() {
-        loadingLayout.visibility = View.VISIBLE
-    }
-
-    override fun hideLoading() {
-        loadingLayout.visibility = View.GONE
-    }
-
-    override fun codeSent() {
-        Toast.makeText(context, "Код отправлен", Toast.LENGTH_SHORT).show()
-        Handler().postDelayed({ activity!!.showKeyboard() }, 1000)
-    }
-
-    override fun codeVerified() {
-        Toast.makeText(context, "Код верный", Toast.LENGTH_SHORT).show()
-        PreferenceManager.getDefaultSharedPreferences(context)
-                .edit()
-                .putBoolean("logged", true)
-                .apply()
-
-        ActivityCompat.startActivity(context!!,
-          createIntent(context!!, FreeDriverActivity::class.java, {
-              addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-          }),
-                null)
-    }
-
-    override fun showError(error: String) {
-        Snackbar.make(toolbar, error, Snackbar.LENGTH_SHORT).show()
-        Handler().postDelayed({ activity!!.showKeyboard() }, 1000)
-    }
-
-    override fun resendClicked() = resendSubject
-    override fun readyClicked() = readySubject
-//    override fun createPresenter() = presenter
+  override fun updateDrawState(ds: TextPaint?) {
+    super.updateDrawState(ds)
+    ds?.isUnderlineText = false
+    ds?.isFakeBoldText = false
+  }
 }

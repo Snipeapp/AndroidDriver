@@ -1,15 +1,11 @@
 package ru.snipe.snipedriver.ui.verify_code
 
-import com.hannesdorfmann.mosby3.mvp.MvpView
-import io.reactivex.Observable
-import io.reactivex.subjects.Subject
+import ru.snipe.snipedriver.ui.base_mvp.ElceView
 
-interface VerifyCodeView : MvpView {
-    fun showLoading()
-    fun hideLoading()
-    fun resendClicked(): Subject<Boolean>
-    fun readyClicked(): Observable<String>
-    fun codeSent()
-    fun codeVerified()
-    fun showError(error: String)
+interface VerifyCodeView : ElceView<Unit> {
+  fun showLoading()
+  fun hideLoading()
+  fun codeSent()
+  fun codeVerified()
+  fun showError(error: String)
 }

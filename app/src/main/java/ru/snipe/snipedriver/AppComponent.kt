@@ -16,22 +16,22 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = arrayOf(AppModule::class))
 interface AppComponent {
-    fun inject(phoneNumberFragment: PhoneNumberFragment)
-    fun inject(onBoardingFragment: OnBoardingFragment)
-    fun inject(verifyCodeFragment: VerifyCodeFragment)
-    fun inject(freeDriverActivity: FreeDriverActivity)
-    fun inject(driverActivity: DriverActivity)
-    fun inject(driverFragment: DriverFragment)
+  fun inject(phoneNumberFragment: PhoneNumberFragment)
+  fun inject(onBoardingFragment: OnBoardingFragment)
+  fun inject(verifyCodeFragment: VerifyCodeFragment)
+  fun inject(freeDriverActivity: FreeDriverActivity)
+  fun inject(driverActivity: DriverActivity)
+  fun inject(driverFragment: DriverFragment)
 }
 
 @Module
 class AppModule(private var context: Context) {
-    @Singleton
-    @Provides
-    fun provideContext() = context
+  @Singleton
+  @Provides
+  fun provideContext() = context
 
-    @Singleton
-    @Provides
-    fun network(context: Context) =
-      ReactiveNetwork.observeNetworkConnectivity(context)
+  @Singleton
+  @Provides
+  fun network(context: Context) =
+    ReactiveNetwork.observeNetworkConnectivity(context)
 }

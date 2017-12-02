@@ -9,7 +9,7 @@ class VerifyCodeActivity : BaseContentActivity<VerifyCodeFragment>() {
   companion object {
     fun getIntent(context: Context, phone: String): Intent {
       return createIntent(context, VerifyCodeActivity::class.java, {
-        putExtra("phone", phone)
+        putExtra(VerifyCodeFragment.EXTRA_PHONE, phone)
       })
     }
   }
