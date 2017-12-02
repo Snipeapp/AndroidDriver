@@ -1,35 +1,20 @@
 package ru.snipe.snipedriver.ui.phone_number
 
-import com.github.pwittchen.reactivenetwork.library.Connectivity
+import com.arellomobile.mvp.InjectViewState
 import io.reactivex.Observable
-import io.reactivex.disposables.CompositeDisposable
 import ru.snipe.snipedriver.network.DataManager
-import javax.inject.Inject
+import ru.snipe.snipedriver.ui.base_mvp.MoxyRxPresenter
 
-class PhoneNumberPresenter
-@Inject constructor(
-        val dataManager: DataManager,
-        val connectivityObservable: Observable<Connectivity>
-) : BasePresenter<PhoneNumberView>() {
-    val compositeDisposable: CompositeDisposable = CompositeDisposable()
+@InjectViewState
+class PhoneNumberPresenter(val dataManager: DataManager)
+  : MoxyRxPresenter<PhoneNumberView>() {
 
-    override fun attachView(v: PhoneNumberView) {
-        super.attachView(v)
-        view?.apply {
-            compositeDisposable.apply {
-                add(nextClicked()
-                        .doOnNext { view?.showLoading() }
-                        .concatMap { dataManager.sendCode(it).toObservable<Boolean>().concatWith(Observable.just(true)) }
-                        .doOnNext { view?.hideLoading() }
-                        .subscribe({ view?.codeSent() }))
-                return
-            }
-            return
-        }
-    }
-
-    override fun detachView() {
-        compositeDisposable.clear()
-        super.detachView()
-    }
+  fun onPhoneValid(phone: String) {
+    viewState.showLoading()
+    dataManager.sendCode(phone)
+      .toObservable<Boolean>()
+      .concatWith(Observable.just(true))
+      .doOnNext { viewState.hideLoading() }
+      .subscribeP({ viewState.codeSent() })
+  }
 }

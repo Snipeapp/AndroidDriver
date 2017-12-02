@@ -44,7 +44,7 @@ class OnBoardingFragment : BaseMvpFragment<Unit>(), OnBoardingView {
 
   override fun switchToPhoneInsertScreen() {
     ActivityCompat.startActivity(context!!,
-      createIntent(context!!, PhoneNumberActivity::class.java, {}),
+      PhoneNumberActivity.getIntent(context!!),
       ActivityOptionsCompat.makeSceneTransitionAnimation(activity!!).toBundle())
   }
 

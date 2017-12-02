@@ -1,12 +1,10 @@
 package ru.snipe.snipedriver.ui.phone_number
 
-import com.hannesdorfmann.mosby3.mvp.MvpView
-import io.reactivex.Observable
+import ru.snipe.snipedriver.ui.base_mvp.ElceView
 
-interface PhoneNumberView : MvpView {
-    fun showLoading()
-    fun hideLoading()
-    fun nextClicked(): Observable<String>
-    fun codeSent()
-    fun showError(error: String)
+interface PhoneNumberView : ElceView<Unit> {
+  fun showLoading()
+  fun hideLoading()
+  fun codeSent()
+  fun showError(error: String)
 }
