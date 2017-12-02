@@ -2,9 +2,10 @@ package ru.snipe.snipedriver.ui.base_mvp
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-
 import com.arellomobile.mvp.MvpDelegate
 import ru.snipe.snipedriver.ui.base.BaseFragment
+import ru.snipe.snipedriver.utils.EmptyViewConfig
+import ru.snipe.snipedriver.utils.ErrorViewConfig
 
 /**
  * Date: 19-Dec-15
@@ -14,9 +15,15 @@ import ru.snipe.snipedriver.ui.base.BaseFragment
  * @author Yuri Shmakov
  * @author Konstantin Tckhovrebov
  */
-abstract class BaseMvpFragment : BaseFragment() {
+abstract class BaseMvpFragment<in DATA> : BaseFragment(), ElceView<DATA> {
   private val mvpDelegate: MvpDelegate<Fragment> by lazy { MvpDelegate<Fragment>(this) }
   private var mIsStateSaved: Boolean = false
+
+  override fun showContent(data: DATA) {}
+  override fun switchToContentState() {}
+  override fun switchToEmptyState(empty: EmptyViewConfig?) {}
+  override fun switchToErrorState(error: ErrorViewConfig) {}
+  override fun switchToLoadingState() {}
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)

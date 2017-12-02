@@ -1,8 +1,8 @@
 package ru.snipe.snipedriver.ui.driver_mode
 
-import com.hannesdorfmann.mosby3.mvp.MvpView
+import ru.snipe.snipedriver.ui.base_mvp.ElceView
 
-interface DriverView : MvpView {
+interface DriverView : ElceView<Unit> {
     fun showLoading()
     fun hideLoading()
     fun showError(error: String)

@@ -1,4 +1,4 @@
-package ru.snipe.snipedriver.ui
+package ru.snipe.snipedriver.ui.base
 
 import android.os.Bundle
 import android.support.v4.app.Fragment

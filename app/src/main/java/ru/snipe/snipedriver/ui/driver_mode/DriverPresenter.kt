@@ -1,85 +1,80 @@
 package ru.snipe.snipedriver.ui.driver_mode
 
+import com.arellomobile.mvp.InjectViewState
+import com.arellomobile.mvp.MvpPresenter
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import ru.snipe.snipedriver.network.DataManager
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
-class DriverPresenter @Inject constructor(val dataManager: DataManager) : BasePresenter<DriverView>() {
-    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
-    val STATE_RIDING: Int = 0
-    val STATE_BEGIN_DELIVERY: Int = 1
-    val STATE_DELIVERY: Int = 2
-    var state = STATE_RIDING
+private const val STATE_RIDING: Int = 0
+private const val STATE_BEGIN_DELIVERY: Int = 1
+private const val STATE_DELIVERY: Int = 2
 
-    override fun detachView() {
-        compositeDisposable.clear()
-        super.detachView()
-    }
+@InjectViewState
+class DriverPresenter() : MvpPresenter<DriverView>() {
+    var currentState = STATE_RIDING
 
     fun driverArrived() {
-        state = STATE_BEGIN_DELIVERY
+        currentState = STATE_BEGIN_DELIVERY
         Observable.timer(1, TimeUnit.SECONDS)
-                .doOnSubscribe { view?.showLoading() }
+                .doOnSubscribe { viewState.showLoading() }
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnTerminate { view?.hideLoading() }
-                .subscribe { view?.goToBeginDeliveryMode() }
+                .doOnTerminate { viewState.hideLoading() }
+                .subscribe { viewState.goToBeginDeliveryMode() }
     }
 
     fun driverDeliveryArrived() {
         Observable.timer(1, TimeUnit.SECONDS)
-                .doOnSubscribe { view?.showLoading() }
+                .doOnSubscribe { viewState.showLoading() }
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnTerminate { view?.hideLoading() }
-                .subscribe { view?.goToRatingScreen() }
+                .doOnTerminate { viewState.hideLoading() }
+                .subscribe { viewState.goToRatingScreen() }
     }
 
     fun moveToNextState() {
-        when (state) {
-            STATE_RIDING -> view?.askForArrive()
+        when (currentState) {
+            STATE_RIDING -> viewState.askForArrive()
             STATE_BEGIN_DELIVERY -> Observable.timer(1, TimeUnit.SECONDS)
-                    .doOnSubscribe { view?.showLoading() }
+                    .doOnSubscribe { viewState.showLoading() }
                     .observeOn(AndroidSchedulers.mainThread())
-                    .doOnTerminate { view?.hideLoading() }
+                    .doOnTerminate { viewState.hideLoading() }
                     .subscribe {
-                        view?.goToDeliveryMode()
-                        state = STATE_DELIVERY
+                        viewState.goToDeliveryMode()
+                        currentState = STATE_DELIVERY
                     }
-            STATE_DELIVERY -> view?.askForDeliveryArrive()
+            STATE_DELIVERY -> viewState.askForDeliveryArrive()
         }
     }
 
     fun customerRated() {
         Observable.timer(1, TimeUnit.SECONDS)
-                .doOnSubscribe { view?.showLoading() }
+                .doOnSubscribe { viewState.showLoading() }
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnTerminate { view?.hideLoading() }
-                .subscribe { view?.deliveryFinished() }
+                .doOnTerminate { viewState.hideLoading() }
+                .subscribe { viewState.deliveryFinished() }
     }
 
     fun driverDeliveryCanceled() {
         Observable.timer(1, TimeUnit.SECONDS)
-                .doOnSubscribe { view?.showLoading() }
+                .doOnSubscribe { viewState.showLoading() }
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnTerminate { view?.hideLoading() }
-                .subscribe { view?.deliveryFinished() }
+                .doOnTerminate { viewState.hideLoading() }
+                .subscribe { viewState.deliveryFinished() }
     }
 
     fun driverBeginDeliveryCanceled() {
         Observable.timer(1, TimeUnit.SECONDS)
-                .doOnSubscribe { view?.showLoading() }
+                .doOnSubscribe { viewState.showLoading() }
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnTerminate { view?.hideLoading() }
-                .subscribe { view?.deliveryFinished() }
+                .doOnTerminate { viewState.hideLoading() }
+                .subscribe { viewState.deliveryFinished() }
     }
 
     fun driverCanceled() {
         Observable.timer(1, TimeUnit.SECONDS)
-                .doOnSubscribe { view?.showLoading() }
+                .doOnSubscribe { viewState.showLoading() }
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnTerminate { view?.hideLoading() }
-                .subscribe { view?.deliveryFinished() }
+                .doOnTerminate { viewState.hideLoading() }
+                .subscribe { viewState.deliveryFinished() }
     }
 }
