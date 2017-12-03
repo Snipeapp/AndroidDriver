@@ -47,8 +47,7 @@
                             android:paddingStart="24dp"
                             android:paddingTop="7dp"
                             android:text="Свободен"
-                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
-                            android:textColor="@color/toolbar_text_color"
+                            android:textColor="@color/colorPrimaryDark"
                             android:textSize="16dp"/>
                     </android.support.v7.widget.Toolbar>
                 </android.support.design.widget.AppBarLayout>
@@ -67,9 +66,10 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
+            android:background="@color/colorPrimaryDark"
             app:headerLayout="@layout/layout_header_driver"
             app:itemIconTint="@color/colorAccent"
-            app:itemTextAppearance="@style/TextAppearance.AppCompat.Body1"
+            app:itemTextAppearance="@style/TextAppearance.AppCompat.Inverse"
             app:menu="@menu/activity_driver_drawer"/>
 
     </android.support.v4.widget.DrawerLayout>

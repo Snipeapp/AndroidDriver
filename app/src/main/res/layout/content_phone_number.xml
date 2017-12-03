@@ -21,7 +21,6 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
                 app:title="@string/phone_number_log_in" />
 
             <View

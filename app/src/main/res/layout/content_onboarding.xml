@@ -22,7 +22,6 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-black"
         android:text="@string/onboarding_title"
-        android:textColor="#ffffff"
         android:textSize="36sp" />
 
     <TextView
@@ -30,7 +29,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="21dp"
         android:text="@string/onboarding_description"
-        android:textColor="#ffffff"
         android:textSize="18sp"
         android:textStyle="normal" />
 

@@ -24,7 +24,6 @@ import ru.snipe.snipedriver.ui.verify_code.VerifyCodeActivity
 import ru.snipe.snipedriver.utils.ContentConfig
 import ru.snipe.snipedriver.utils.hideKeyboard
 import ru.snipe.snipedriver.utils.showKeyboard
-import ru.snipe.snipedriver.utils.withTint
 
 class PhoneNumberFragment : BaseMvpFragment<Unit>(), PhoneNumberView {
   override val contentDelegate = FragmentContentDelegate(this,
@@ -49,7 +48,6 @@ class PhoneNumberFragment : BaseMvpFragment<Unit>(), PhoneNumberView {
     (activity as AppCompatActivity).setSupportActionBar(toolbar)
     (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
     (activity as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
-    toolbar.navigationIcon?.withTint(R.color.colorAccent)
 
     numberInput.addTextChangedListener(PhoneNumberFormattingTextWatcher())
     numberInput.setOnEditorActionListener({ _, actionId, _ ->

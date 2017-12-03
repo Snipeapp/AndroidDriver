@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#2f445d</color>
-    <color name="colorPrimaryDark">#2a3d53</color>
-    <color name="colorAccent">#f7eb6e</color>
-    <color name="colorPrimaryLight">#43566d</color>
+    <color name="colorPrimary">@color/black</color>
+    <color name="colorPrimaryDark">@color/black</color>
+    <color name="colorAccent">@color/portica</color>
+    <color name="colorPrimaryLight">@color/athens_gray</color>
+    <color name="textColorPrimary">@color/black</color>
+    <color name="textColorSecondary">@color/athens_gray</color>
+    <color name="textColorHint">#abb4be</color>
+
+    <color name="portica">#f7eb6e</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="athens_gray">#e4e7eb</color>
 </resources>

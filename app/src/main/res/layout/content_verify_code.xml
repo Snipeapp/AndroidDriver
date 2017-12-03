@@ -41,7 +41,6 @@
             android:imeOptions="actionNext"
             android:inputType="phone"
             android:maxLines="1"
-            android:textColorHint="#abb4be"
             android:textSize="17sp" />
 
         <TextView

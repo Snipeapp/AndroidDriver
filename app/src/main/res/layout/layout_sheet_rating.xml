@@ -13,7 +13,6 @@
         android:fontFamily="sans-serif-medium"
         android:gravity="center_horizontal"
         android:text="Александр"
-        android:textColor="#25364a"
         android:textSize="18dp"/>
 
     <RatingBar
@@ -21,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="17dp"
-        android:theme="@style/RatingBar"/>
+        android:theme="@style/RatingBarTheme"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -32,7 +31,6 @@
         android:gravity="center"
         android:maxWidth="273dp"
         android:text="Оценка в 3 звезды и ниже означает, что вы не будете получать заказы от этого клиента. "
-        android:textColor="#485d73"
         android:textSize="13dp"
         />
 
@@ -41,7 +39,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="1,568 ₽"
-        android:textColor="#000000"
         android:textSize="37dp"
         android:textStyle="normal"
         />
@@ -57,7 +54,6 @@
         android:padding="17dp"
         android:text="Готово"
         android:textAllCaps="false"
-        android:textColor="@color/sheet_rating_text_color"
         android:textSize="20dp"
         android:textStyle="normal"
         />

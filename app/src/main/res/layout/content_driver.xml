@@ -17,7 +17,7 @@
             android:id="@+id/toolbar_driver"
             android:layout_width="match_parent"
             android:layout_height="?android:actionBarSize"
-            app:popupTheme="@style/MyPopupTheme">
+            app:popupTheme="@style/AppTheme.PopupOverlay">
 
             <ImageView
                 android:layout_width="40dp"
@@ -89,7 +89,7 @@
                     android:layout_marginTop="10dp"
                     android:text="3 МИН"
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                    android:textColor="@color/colorAccent"/>
+                />
 
             </LinearLayout>
         </LinearLayout>
@@ -133,7 +133,6 @@
                     android:text="Изменить адрес"
                     android:textAllCaps="true"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                    android:textColor="#abb4be"
                     android:textSize="13dp"/>
             </LinearLayout>
 
@@ -158,8 +157,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="25 МИН"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                    android:textColor="@color/colorAccent"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
 
             </LinearLayout>
         </LinearLayout>
@@ -204,7 +202,7 @@
                     android:layout_marginTop="10dp"
                     android:text="ВЫЗОВ"
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                    android:textColor="@color/colorAccent"/>
+                />
 
             </LinearLayout>
         </LinearLayout>
@@ -258,7 +256,7 @@
                     android:text="Прибыл на адрес"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title"
                     android:textColor="@color/colorPrimary"
-                    />
+                />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -267,7 +265,7 @@
                     android:text="Александр 5.0 ★"
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                     android:textColor="@color/colorPrimary"
-                    />
+                />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

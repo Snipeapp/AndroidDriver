@@ -34,7 +34,6 @@ import ru.snipe.snipedriver.ui.free_driver_mode.FreeDriverActivity
 import ru.snipe.snipedriver.utils.ContentConfig
 import ru.snipe.snipedriver.utils.hideKeyboard
 import ru.snipe.snipedriver.utils.showKeyboard
-import ru.snipe.snipedriver.utils.withTint
 
 class VerifyCodeFragment : BaseMvpFragment<Unit>(), VerifyCodeView {
   override val contentDelegate = FragmentContentDelegate(this,
@@ -81,7 +80,6 @@ class VerifyCodeFragment : BaseMvpFragment<Unit>(), VerifyCodeView {
     (activity as AppCompatActivity).setSupportActionBar(toolbar)
     (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
     (activity as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
-    toolbar.navigationIcon?.withTint(R.color.colorAccent)
 
     codeInput.setOnEditorActionListener({ _, actionId, _ ->
       if (actionId == EditorInfo.IME_ACTION_NEXT) {

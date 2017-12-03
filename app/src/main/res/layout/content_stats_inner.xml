@@ -20,15 +20,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:text="Всего за 31 Янв. 2017 "
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1" />
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:text="5,676 ₽"
-            android:textColor="#fff"
-            android:textSize="41sp" />
+            android:textSize="41sp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,15 +46,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="5"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline" />
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="9dp"
                     android:text="Заказов"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-                    android:textColor="#f7eb6e" />
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"/>
             </LinearLayout>
 
             <LinearLayout
@@ -69,15 +67,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="8 ч 5 мин"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline" />
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="9dp"
                     android:text="Время"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-                    android:textColor="#f7eb6e" />
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -92,7 +89,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:text="Рейтинг принятых заказов"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1" />
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"/>
 
         <com.github.lzyzsd.circleprogress.DonutProgress
             android:id="@+id/donut_progress"
@@ -109,7 +106,7 @@
             custom:donut_text_color="#fff"
             custom:donut_text_size="28sp"
             custom:donut_unfinished_color="#abb4be"
-            custom:donut_unfinished_stroke_width="7dp" />
+            custom:donut_unfinished_stroke_width="7dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -117,7 +114,6 @@
             android:layout_marginBottom="32dp"
             android:layout_marginTop="16dp"
             android:text="Процент от входящих"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
-            android:textColor="@color/colorAccent" />
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"/>
     </LinearLayout>
 </ScrollView>

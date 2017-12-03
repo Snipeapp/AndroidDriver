@@ -29,7 +29,6 @@
         android:gravity="center"
         android:text="Вы прибыли на проспект Энгельса, Санкт-Петебург?"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        android:textColor="#25364a"
         />
 
     <View
@@ -48,7 +47,6 @@
         android:minHeight="56dp"
         android:text="Да, прибыл"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        android:textColor="#2f445d"
         android:textStyle="normal"/>
 
     <View
@@ -65,6 +63,5 @@
         android:minHeight="56dp"
         android:text="Отменить"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        android:textColor="#2f445d"
         android:textStyle="normal"/>
 </LinearLayout>

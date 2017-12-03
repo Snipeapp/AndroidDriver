@@ -3,27 +3,21 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_main"
-            android:icon="@drawable/ic_wheel"
             android:title="Главная"/>
         <item
             android:id="@+id/nav_navigation"
-            android:icon="@drawable/ic_navigation"
             android:title="Навигация"/>
         <item
             android:id="@+id/nav_feedback"
-            android:icon="@drawable/ic_envelope"
-            android:title="Обратная связь"/>
+            android:title="Поддержка"/>
         <item
             android:id="@+id/nav_star"
-            android:icon="@drawable/ic_like"
             android:title="Оценка в Google Play"/>
         <item
             android:id="@+id/nav_help"
-            android:icon="@drawable/ic_help"
             android:title="Справка"/>
         <item
             android:id="@+id/nav_logout"
-            android:icon="@drawable/ic_log_out"
             android:title="Выйти"/>
     </group>
 </menu>

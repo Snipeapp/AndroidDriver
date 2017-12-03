@@ -9,7 +9,7 @@
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="?attr/colorPrimaryDark"
         android:columnCount="2"
         android:paddingBottom="32dp"
         android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -42,9 +42,4 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             app:layout_gravity="fill_vertical"/>
     </GridLayout>
-
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:background="@color/colorPrimaryLight"/>
 </LinearLayout>
