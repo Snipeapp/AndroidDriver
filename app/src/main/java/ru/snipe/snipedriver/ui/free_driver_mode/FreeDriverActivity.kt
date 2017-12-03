@@ -70,6 +70,7 @@ class FreeDriverActivity : BaseContentActivity<FreeDriverMainFragment>(), FreeDr
       R.id.nav_help -> {
       }
       R.id.nav_logout -> {
+        //TODO: Вынести в презентер
         PreferenceManager.getDefaultSharedPreferences(this)
           .edit()
           .putBoolean("logged", false)

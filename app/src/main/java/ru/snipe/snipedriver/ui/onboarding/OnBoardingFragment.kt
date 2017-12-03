@@ -35,6 +35,7 @@ class OnBoardingFragment : BaseMvpFragment<Unit>(), OnBoardingView {
   }
 
   override fun initView(view: View) {
+    //TODO: вынести в презентер
     if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean("logged", false)) {
       ActivityCompat.startActivity(context!!,
         createIntent(context!!, FreeDriverActivity::class.java, {}),

@@ -16,6 +16,7 @@ import android.support.v4.content.res.ResourcesCompat
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.WindowManager
+import java.io.InvalidObjectException
 
 fun Context.layoutInflater(): LayoutInflater {
   return LayoutInflater.from(this)
@@ -62,3 +63,7 @@ fun Context.getDrawableCompat(@DrawableRes drawableRes: Int,
 
 fun Context.dpToPx(dp: Int) = this.resources.dpToPx(dp)
 
+fun Int.asString(context: Context?,
+                 vararg params: Any = emptyArray()): String {
+  return context?.getString(this, params) ?: throw InvalidObjectException("context shouldn't be null")
+}

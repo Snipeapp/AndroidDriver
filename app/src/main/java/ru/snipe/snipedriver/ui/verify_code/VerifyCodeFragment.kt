@@ -32,6 +32,7 @@ import ru.snipe.snipedriver.ui.base.FragmentContentDelegate
 import ru.snipe.snipedriver.ui.base_mvp.BaseMvpFragment
 import ru.snipe.snipedriver.ui.free_driver_mode.FreeDriverActivity
 import ru.snipe.snipedriver.utils.ContentConfig
+import ru.snipe.snipedriver.utils.asString
 import ru.snipe.snipedriver.utils.hideKeyboard
 import ru.snipe.snipedriver.utils.showKeyboard
 
@@ -67,9 +68,9 @@ class VerifyCodeFragment : BaseMvpFragment<Unit>(), VerifyCodeView {
     description.highlightColor = Color.TRANSPARENT
     description.text =
       SpannableStringBuilder().apply {
-        append(getString(R.string.verify_code_description, phone))
+        append(R.string.verify_code_description.asString(context, phone))
         append(" ")
-        append(SpannableString(getString(R.string.verify_code_send_new)).apply {
+        append(SpannableString(R.string.verify_code_send_new.asString(context)).apply {
           val resendSpan = ResendSpan({ presenter.onResendButtonClicked() })
           setSpan(resendSpan, 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
           setSpan(ForegroundColorSpan(ContextCompat.getColor(context!!, R.color.colorAccent)),
@@ -120,12 +121,12 @@ class VerifyCodeFragment : BaseMvpFragment<Unit>(), VerifyCodeView {
   }
 
   override fun codeSent() {
-    Toast.makeText(context, "Код отправлен", Toast.LENGTH_SHORT).show()
+    Toast.makeText(context, R.string.verify_code_sent_code.asString(context), Toast.LENGTH_SHORT).show()
     Handler().postDelayed({ activity!!.showKeyboard() }, 1000)
   }
 
   override fun codeVerified() {
-    Toast.makeText(context, "Код верный", Toast.LENGTH_SHORT).show()
+    Toast.makeText(context, R.string.verify_code_correct_code.asString(context), Toast.LENGTH_SHORT).show()
 
     //TODO: Вынести логику сохранения в преференсы в презентер
     PreferenceManager.getDefaultSharedPreferences(context)

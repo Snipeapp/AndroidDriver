@@ -22,6 +22,7 @@ import ru.snipe.snipedriver.ui.base.FragmentContentDelegate
 import ru.snipe.snipedriver.ui.base_mvp.BaseMvpFragment
 import ru.snipe.snipedriver.ui.verify_code.VerifyCodeActivity
 import ru.snipe.snipedriver.utils.ContentConfig
+import ru.snipe.snipedriver.utils.asString
 import ru.snipe.snipedriver.utils.hideKeyboard
 import ru.snipe.snipedriver.utils.showKeyboard
 
@@ -61,7 +62,7 @@ class PhoneNumberFragment : BaseMvpFragment<Unit>(), PhoneNumberView {
       .request(Manifest.permission.ACCESS_FINE_LOCATION)
       .subscribe({ granted ->
         if (!granted) {
-          showError("Для корректной работы приложению необходимо разрешить доступ к геопозиции")
+          showError(R.string.phone_number_error_no_geo_permissions.asString(context))
         }
       })
   }
@@ -93,7 +94,7 @@ class PhoneNumberFragment : BaseMvpFragment<Unit>(), PhoneNumberView {
       activity!!.hideKeyboard()
       presenter.onPhoneValid(phone)
     } else {
-      showError("Ошибка в номере телефона")
+      showError(R.string.phone_number_error_wrong_number.asString(context))
     }
   }
 

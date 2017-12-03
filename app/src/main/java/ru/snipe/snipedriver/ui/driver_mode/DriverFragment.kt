@@ -30,6 +30,7 @@ import ru.snipe.snipedriver.ui.base_mvp.BaseMvpFragment
 import ru.snipe.snipedriver.ui.free_driver_mode.FreeDriverActivity
 import ru.snipe.snipedriver.ui.popup.PopupActivity
 import ru.snipe.snipedriver.utils.ContentConfig
+import ru.snipe.snipedriver.utils.asString
 
 private const val REQUEST_A = 20
 private const val REQUEST_B = 21
@@ -150,14 +151,14 @@ class DriverFragment : BaseMvpFragment<Unit>(), DriverView, OnMapReadyCallback {
     toolbarRiding.visibility = View.GONE
     toolbarBeginDelivery.visibility = View.VISIBLE
     toolbarDelivery.visibility = View.GONE
-    title.text = "Начать доставку"
+    title.text = R.string.driver_start_delivery.asString(context)
   }
 
   override fun goToDeliveryMode() {
     toolbarRiding.visibility = View.GONE
     toolbarBeginDelivery.visibility = View.GONE
     toolbarDelivery.visibility = View.VISIBLE
-    title.text = "Завершить заказ"
+    title.text = R.string.driver_finish_order.asString(context)
   }
 
   override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {
@@ -167,7 +168,7 @@ class DriverFragment : BaseMvpFragment<Unit>(), DriverView, OnMapReadyCallback {
   override fun onOptionsItemSelected(item: MenuItem?): Boolean {
     when (item?.itemId) {
       R.id.action_call -> {
-        Toast.makeText(context, "Звонок клиенту", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, R.string.driver_call_client.asString(context), Toast.LENGTH_SHORT).show()
         return true
       }
       R.id.action_cancel_delivery -> {

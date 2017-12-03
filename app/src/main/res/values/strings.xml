@@ -16,4 +16,13 @@
     <string name="verify_code_send_new">Отправить новый</string>
     <string name="navigation_drawer_open">Открыть меню</string>
     <string name="navigation_drawer_close">Закрыть меню</string>
+    <string name="driver_start_delivery">Начать доставку</string>
+    <string name="driver_finish_order">Завершить заказ</string>
+    <string name="driver_call_client">Звонок клиенту</string>
+    <string name="phone_number_error_no_geo_permissions">Для корректной работы приложению необходимо разрешить доступ к геопозиции</string>
+    <string name="phone_number_error_wrong_number">Ошибка в номере телефона</string>
+    <string name="popup_arrived">Да, прибыл</string>
+    <string name="popup_finished">Да, завершил</string>
+    <string name="verify_code_sent_code">Код отправлен</string>
+    <string name="verify_code_correct_code">Код верный</string>
 </resources>
