@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="16dp"
                 android:layout_weight="1"
-                android:text="Проспект Энгельса, Санкт-Петербург"
+                android:text="@string/driver_stub_address"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:textSize="17dp"/>
 
@@ -87,7 +87,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="3 МИН"
+                    android:text="@string/driver_stub_arrive_time"
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 />
 
@@ -121,7 +121,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="16dp"
-                    android:text="Проспект Энгельса, 107Б"
+                    android:text="@string/driver_stub_address_second"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     android:textSize="17dp"/>
 
@@ -130,7 +130,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="16dp"
                     android:layout_marginTop="3dp"
-                    android:text="Изменить адрес"
+                    android:text="@string/driver_change_address_title"
                     android:textAllCaps="true"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     android:textSize="13dp"/>
@@ -156,7 +156,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="25 МИН"
+                    android:text="@string/driver_stub_arrive_time_second"
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
 
             </LinearLayout>
@@ -176,7 +176,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_weight="1"
-                android:text="Свяжитесь с клиентом для последующих действий"
+                android:text="@string/driver_connect_client_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:textSize="17dp"/>
 
@@ -200,7 +200,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="ВЫЗОВ"
+                    android:text="@string/driver_call_title"
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 />
 
@@ -253,7 +253,7 @@
                     android:id="@+id/tv_driver_bottom_sheet_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Прибыл на адрес"
+                    android:text="@string/driver_arrived"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title"
                     android:textColor="@color/colorPrimary"
                 />
@@ -262,7 +262,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="Александр 5.0 ★"
+                    android:text="@string/driver_stub_client_name"
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                     android:textColor="@color/colorPrimary"
                 />

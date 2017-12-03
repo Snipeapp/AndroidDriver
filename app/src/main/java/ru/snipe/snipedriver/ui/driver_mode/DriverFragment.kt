@@ -162,7 +162,7 @@ class DriverFragment : BaseMvpFragment<Unit>(), DriverView, OnMapReadyCallback {
   }
 
   override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {
-    inflater.inflate(R.menu.menu_driver, menu)
+    inflater.inflate(R.menu.item_driver_options, menu)
   }
 
   override fun onOptionsItemSelected(item: MenuItem?): Boolean {

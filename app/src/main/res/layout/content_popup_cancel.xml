@@ -15,7 +15,7 @@
         android:layout_marginTop="40dp"
         android:fontFamily="sans-serif-medium"
         android:gravity="center_horizontal"
-        android:text="Отменить доставку?"
+        tools:text="Отменить доставку?"
         android:textSize="18dp"/>
 
     <TextView
@@ -27,7 +27,7 @@
         android:layout_marginTop="16dp"
         android:gravity="center_horizontal"
         android:maxWidth="264dp"
-        android:text="Ваш рейтинг принятия заказов не будет понижен. Оплата с клиента будет взята."
+        tools:text="Ваш рейтинг принятия заказов не будет понижен. Оплата с клиента будет взята."
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
     <View
@@ -43,7 +43,7 @@
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
         android:minHeight="56dp"
-        android:text="Груз не соответствует фото"
+        tools:text="Груз не соответствует фото"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         android:textStyle="normal"/>
 
@@ -60,7 +60,7 @@
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
         android:minHeight="56dp"
-        android:text="Нет связи с клиентом"
+        tools:text="Нет связи с клиентом"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         android:textStyle="normal"/>
 
@@ -77,7 +77,7 @@
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
         android:minHeight="56dp"
-        android:text="Не брать оплату с клиента"
+        tools:text="Не брать оплату с клиента"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         android:textStyle="normal"/>
 
@@ -92,7 +92,7 @@
         android:background="?android:selectableItemBackground"
         android:gravity="center"
         android:minHeight="56dp"
-        android:text="Отменить"
+        tools:text="Отменить"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         android:textStyle="normal"/>
 </LinearLayout>

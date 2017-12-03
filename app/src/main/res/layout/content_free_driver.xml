@@ -46,7 +46,7 @@
                             android:paddingEnd="24dp"
                             android:paddingStart="24dp"
                             android:paddingTop="7dp"
-                            android:text="Свободен"
+                            android:text="@string/free_driver_free_title"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="16dp"/>
                     </android.support.v7.widget.Toolbar>
@@ -70,7 +70,7 @@
             app:headerLayout="@layout/layout_header_driver"
             app:itemIconTint="@color/colorAccent"
             app:itemTextAppearance="@style/TextAppearance.AppCompat.Inverse"
-            app:menu="@menu/activity_driver_drawer"/>
+            app:menu="@menu/item_free_driver_drawer"/>
 
     </android.support.v4.widget.DrawerLayout>
 </FrameLayout>

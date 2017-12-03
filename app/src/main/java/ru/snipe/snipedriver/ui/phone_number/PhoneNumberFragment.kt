@@ -68,7 +68,7 @@ class PhoneNumberFragment : BaseMvpFragment<Unit>(), PhoneNumberView {
   }
 
   override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) =
-    inflater.inflate(R.menu.menu_next, menu)
+    inflater.inflate(R.menu.item_phone_number, menu)
 
   override fun onResume() {
     super.onResume()

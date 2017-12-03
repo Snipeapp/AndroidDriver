@@ -93,7 +93,7 @@ class VerifyCodeFragment : BaseMvpFragment<Unit>(), VerifyCodeView {
   }
 
   override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) =
-    inflater.inflate(R.menu.menu_ready, menu)
+    inflater.inflate(R.menu.item_verify_code, menu)
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     when (item.itemId) {

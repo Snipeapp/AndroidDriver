@@ -36,10 +36,10 @@ class PopupActivity : BaseActivity() {
   override fun initView(view: Activity) {
     if (intent.extras.getInt(EXTRA_MODE) == 0) {
       title.text = "Вы прибыли на проспект Энгельса, Санкт-Петебург?"
-      posButton.text = R.string.popup_arrived.asString(this)
+      posButton.text = R.string.all_arrived.asString(this)
     } else {
       title.text = "Вы завершили доставку на проспект Энгельса, 107B?"
-      posButton.text = R.string.popup_finished.asString(this)
+      posButton.text = R.string.all_finished.asString(this)
     }
     posButton.setOnClickListener { processButtonClick(it) }
     negButton.setOnClickListener { processButtonClick(it) }

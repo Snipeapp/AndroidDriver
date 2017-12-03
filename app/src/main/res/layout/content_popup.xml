@@ -27,7 +27,7 @@
         android:layout_marginTop="16dp"
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
-        android:text="Вы прибыли на проспект Энгельса, Санкт-Петебург?"
+        android:text="@string/popup_arrived_question"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         />
 
@@ -45,7 +45,7 @@
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
         android:minHeight="56dp"
-        android:text="Да, прибыл"
+        android:text="@string/all_arrived"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         android:textStyle="normal"/>
 
@@ -61,7 +61,7 @@
         android:background="?android:selectableItemBackground"
         android:gravity="center"
         android:minHeight="56dp"
-        android:text="Отменить"
+        android:text="@string/all_cancel"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         android:textStyle="normal"/>
 </LinearLayout>

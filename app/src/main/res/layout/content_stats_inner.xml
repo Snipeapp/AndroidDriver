@@ -19,14 +19,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="Всего за 31 Янв. 2017 "
+            android:text="@string/stats_date_title"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="5,676 ₽"
+            android:text="@string/stats_stub_sum"
             android:textSize="41sp"/>
 
         <LinearLayout
@@ -45,14 +45,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="5"
+                    android:text="@string/stats_stub_orders_count"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="9dp"
-                    android:text="Заказов"
+                    android:text="@string/stats_orders_count_title"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"/>
             </LinearLayout>
 
@@ -66,14 +66,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="8 ч 5 мин"
+                    android:text="@string/stats_stub_orders_time"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="9dp"
-                    android:text="Время"
+                    android:text="@string/stats_orders_time_title"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"/>
             </LinearLayout>
         </LinearLayout>
@@ -88,7 +88,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="Рейтинг принятых заказов"
+            android:text="@string/stats_all_orders_rating_title"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"/>
 
         <com.github.lzyzsd.circleprogress.DonutProgress
@@ -113,7 +113,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
             android:layout_marginTop="16dp"
-            android:text="Процент от входящих"
+            android:text="@string/stats_percent_inner_orders_title"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"/>
     </LinearLayout>
 </ScrollView>

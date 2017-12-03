@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
 
-            app:menu="@menu/driver_bottom_navigation"/>
+            app:menu="@menu/item_free_driver_bottom_nav"/>
     </LinearLayout>
 
     <FrameLayout
