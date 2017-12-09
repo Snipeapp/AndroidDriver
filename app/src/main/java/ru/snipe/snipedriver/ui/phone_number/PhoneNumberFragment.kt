@@ -4,8 +4,6 @@ import android.Manifest
 import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.ActivityOptionsCompat
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
 import android.telephony.PhoneNumberFormattingTextWatcher
 import android.view.Menu
 import android.view.MenuInflater
@@ -21,6 +19,7 @@ import ru.snipe.snipedriver.getAppComponent
 import ru.snipe.snipedriver.ui.base.FragmentContentDelegate
 import ru.snipe.snipedriver.ui.base_mvp.BaseMvpFragment
 import ru.snipe.snipedriver.ui.verify_code.VerifyCodeActivity
+import ru.snipe.snipedriver.ui.views.ToolbarCompat
 import ru.snipe.snipedriver.utils.ContentConfig
 import ru.snipe.snipedriver.utils.asString
 import ru.snipe.snipedriver.utils.hideKeyboard
@@ -30,7 +29,7 @@ class PhoneNumberFragment : BaseMvpFragment<Unit>(), PhoneNumberView {
   override val contentDelegate = FragmentContentDelegate(this,
     ContentConfig(R.layout.content_phone_number))
 
-  private val toolbar by bindView<Toolbar>(R.id.toolbar)
+  private val toolbar by bindView<ToolbarCompat>(R.id.toolbar)
   private val numberInput by bindView<EditText>(R.id.edittext_phone_number)
   private val loadingLayout by bindView<View>(R.id.layout_phone_number_loading)
 
@@ -45,11 +44,7 @@ class PhoneNumberFragment : BaseMvpFragment<Unit>(), PhoneNumberView {
   }
 
   override fun initView(view: View) {
-    setHasOptionsMenu(true)
-    (activity as AppCompatActivity).setSupportActionBar(toolbar)
-    (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    (activity as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
-
+    toolbar.iconClickAction = { activity?.onBackPressed() }
     numberInput.addTextChangedListener(PhoneNumberFormattingTextWatcher())
     numberInput.setOnEditorActionListener({ _, actionId, _ ->
       if (actionId == EditorInfo.IME_ACTION_NEXT) {
