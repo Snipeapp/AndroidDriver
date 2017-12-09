@@ -11,14 +11,6 @@
           app:fontStyle="normal"
           app:fontWeight="400"/>
 
-    <!-- Medium -->
-    <font android:font="@font/roboto_medium"
-          android:fontStyle="normal"
-          android:fontWeight="500"
-          app:font="@font/roboto_medium"
-          app:fontStyle="normal"
-          app:fontWeight="500"/>
-
     <!-- Bold -->
     <font android:font="@font/roboto_bold"
           android:fontStyle="normal"
