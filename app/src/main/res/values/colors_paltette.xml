@@ -2,6 +2,8 @@
 <resources>
     <color name="athens_gray">#e4e7eb</color>
     <color name="yellowish">#f7eb6e</color>
+    <color name="yellowish_light">#b2f7eb6e</color>
+    <color name="yellowish_dark">#f5e320</color>
     <color name="tomato">#ef4639</color>
     <color name="black">#000000</color>
     <color name="almost_black">#040609</color>

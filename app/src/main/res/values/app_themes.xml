@@ -7,13 +7,18 @@
         <item name="colorControlNormal">@color/colorPrimaryLight</item>
         <item name="colorControlActivated">@color/colorPrimaryDark</item>
         <item name="actionMenuTextColor">@color/colorAccent</item>
+        <item name="colorButtonNormal">@color/colorAccent</item>
 
         <item name="android:textColorPrimary">@color/textColorPrimary</item>
         <item name="android:textColorSecondary">@color/textColorSecondary</item>
         <item name="android:textColorHint">@color/textColorHint</item>
         <item name="android:actionMenuTextColor">@color/colorAccent</item>
         <item name="android:windowBackground">@color/white</item>
+        <item name="android:textAppearanceButton">@style/M32Black</item>
 
+        <item name="android:borderlessButtonStyle">@style/Widget.Button.Borderless</item>
+        <item name="roundedButtonStyle">@style/Widget.Button.Rounded</item>
+        <item name="buttonStyle">@style/Widget.Button</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
         <item name="actionOverflowButtonStyle">@style/OverflowButtonStyle</item>
         <item name="android:tabWidgetStyle">@style/TabLayoutStyle</item>
@@ -23,6 +28,10 @@
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="AppThemeInverse">
+        <item name="colorControlNormal">@color/colorAccent</item>
     </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>

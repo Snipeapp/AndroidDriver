@@ -28,4 +28,19 @@
         <item name="colorControlNormal">@color/cool_grey</item>
         <item name="colorControlActivated">@color/colorAccent</item>
     </style>
+
+    <style name="Widget.Button" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/bg_button_flat</item>
+        <item name="android:textAppearance">@style/M32Black</item>
+        <item name="android:stateListAnimator" tools:targetApi="lollipop">@null</item>
+    </style>
+
+    <style name="Widget.Button.Borderless">
+        <item name="android:background">?attr/selectableItemBackground</item>
+
+    </style>
+
+    <style name="Widget.Button.Rounded">
+        <item name="android:background">@drawable/bg_button_rounded</item>
+    </style>
 </resources>
