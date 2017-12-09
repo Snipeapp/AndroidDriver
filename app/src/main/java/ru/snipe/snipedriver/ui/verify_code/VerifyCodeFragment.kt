@@ -6,19 +6,9 @@ import android.os.Handler
 import android.preference.PreferenceManager
 import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
-import android.text.Spannable
-import android.text.SpannableString
 import android.text.SpannableStringBuilder
-import android.text.TextPaint
 import android.text.method.LinkMovementMethod
-import android.text.style.ClickableSpan
-import android.text.style.ForegroundColorSpan
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
+import android.text.style.TextAppearanceSpan
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
@@ -31,10 +21,10 @@ import ru.snipe.snipedriver.getAppComponent
 import ru.snipe.snipedriver.ui.base.FragmentContentDelegate
 import ru.snipe.snipedriver.ui.base_mvp.BaseMvpFragment
 import ru.snipe.snipedriver.ui.free_driver_mode.FreeDriverActivity
-import ru.snipe.snipedriver.utils.ContentConfig
-import ru.snipe.snipedriver.utils.asString
-import ru.snipe.snipedriver.utils.hideKeyboard
-import ru.snipe.snipedriver.utils.showKeyboard
+import ru.snipe.snipedriver.ui.views.OptionsItem
+import ru.snipe.snipedriver.ui.views.SimpleClickableSpan
+import ru.snipe.snipedriver.ui.views.ToolbarCompat
+import ru.snipe.snipedriver.utils.*
 
 class VerifyCodeFragment : BaseMvpFragment<Unit>(), VerifyCodeView {
   override val contentDelegate = FragmentContentDelegate(this,
@@ -44,9 +34,9 @@ class VerifyCodeFragment : BaseMvpFragment<Unit>(), VerifyCodeView {
     const val EXTRA_PHONE = "phone"
   }
 
-  private val toolbar by bindView<Toolbar>(R.id.toolbar)
-  private val codeInput by bindView<EditText>(R.id.edittext_verify_code)
-  private val description by bindView<TextView>(R.id.tv_verify_code_description)
+  private val toolbar by bindView<ToolbarCompat>(R.id.toolbar)
+  private val codeInput by bindView<EditText>(R.id.verify_code_input_phone)
+  private val description by bindView<TextView>(R.id.verify_code_txt_description)
   private val loadingLayout by bindView<View>(R.id.layout_verify_code_loading)
 
   private val phone by lazy { arguments!!.getString(EXTRA_PHONE, null) }
@@ -62,29 +52,17 @@ class VerifyCodeFragment : BaseMvpFragment<Unit>(), VerifyCodeView {
   }
 
   override fun initView(view: View) {
-    setHasOptionsMenu(true)
+    toolbar.titleText = R.string.verify_code_title.asString(context)
+    toolbar.iconClickAction = { activity?.hideKeyboard(); activity?.onBackPressed() }
+    toolbar.optionsItem = OptionsItem(R.string.all_ready.asString(context), 0, { processReadyClick() })
 
     description.movementMethod = LinkMovementMethod()
     description.highlightColor = Color.TRANSPARENT
-    description.text =
-      SpannableStringBuilder().apply {
-        append(R.string.verify_code_description.asString(context, phone))
-        append(" ")
-        append(SpannableString(R.string.verify_code_send_new.asString(context)).apply {
-          val resendSpan = ResendSpan({ presenter.onResendButtonClicked() })
-          setSpan(resendSpan, 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-          setSpan(ForegroundColorSpan(ContextCompat.getColor(context!!, R.color.colorAccent)),
-            0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        })
-      }
-
-    (activity as AppCompatActivity).setSupportActionBar(toolbar)
-    (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    (activity as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
+    description.text = buildDescriptionTitle()
 
     codeInput.setOnEditorActionListener({ _, actionId, _ ->
       if (actionId == EditorInfo.IME_ACTION_NEXT) {
-        onCodeValid()
+        processReadyClick()
         return@setOnEditorActionListener true
       }
       return@setOnEditorActionListener false
@@ -92,23 +70,18 @@ class VerifyCodeFragment : BaseMvpFragment<Unit>(), VerifyCodeView {
     codeSent()
   }
 
-  override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) =
-    inflater.inflate(R.menu.item_verify_code, menu)
-
-  override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    when (item.itemId) {
-      R.id.action_ready -> {
-        onCodeValid()
-      }
-      android.R.id.home -> {
-        activity!!.onBackPressed()
-      }
-    }
-    return super.onOptionsItemSelected(item)
+  private fun buildDescriptionTitle(): SpannableStringBuilder {
+    return SpannableStringBuilder()
+      //TODO: Отображать отформатированный телефон
+      .append(R.string.verify_code_description.asString(context, phone))
+      .appendSpace()
+      .withSpans(R.string.verify_code_send_new.asString(context),
+        SimpleClickableSpan({ presenter.onResendButtonClicked() }),
+        TextAppearanceSpan(context, R.style.M24Black))
   }
 
-  private fun onCodeValid() {
-    activity!!.hideKeyboard()
+  private fun processReadyClick() {
+    activity?.hideKeyboard()
     presenter.onCodeValidated(codeInput.text.toString())
   }
 
@@ -142,17 +115,5 @@ class VerifyCodeFragment : BaseMvpFragment<Unit>(), VerifyCodeView {
   override fun showError(error: String) {
     Snackbar.make(toolbar, error, Snackbar.LENGTH_SHORT).show()
     Handler().postDelayed({ activity!!.showKeyboard() }, 1000)
-  }
-}
-
-private class ResendSpan(val onButtonCLickedAction: (Boolean) -> Unit) : ClickableSpan() {
-  override fun onClick(widget: View?) {
-    onButtonCLickedAction.invoke(true)
-  }
-
-  override fun updateDrawState(ds: TextPaint?) {
-    super.updateDrawState(ds)
-    ds?.isUnderlineText = false
-    ds?.isFakeBoldText = false
   }
 }

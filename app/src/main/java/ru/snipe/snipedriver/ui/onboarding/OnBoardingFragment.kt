@@ -5,9 +5,7 @@ import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.ActivityOptionsCompat
 import android.text.SpannableStringBuilder
-import android.text.TextPaint
 import android.text.method.LinkMovementMethod
-import android.text.style.ClickableSpan
 import android.text.style.TextAppearanceSpan
 import android.view.View
 import android.widget.Button
@@ -20,10 +18,8 @@ import ru.snipe.snipedriver.ui.base.FragmentContentDelegate
 import ru.snipe.snipedriver.ui.base_mvp.BaseMvpFragment
 import ru.snipe.snipedriver.ui.free_driver_mode.FreeDriverActivity
 import ru.snipe.snipedriver.ui.phone_number.PhoneNumberActivity
-import ru.snipe.snipedriver.utils.ContentConfig
-import ru.snipe.snipedriver.utils.asString
-import ru.snipe.snipedriver.utils.createIntent
-import ru.snipe.snipedriver.utils.withSpans
+import ru.snipe.snipedriver.ui.views.SimpleClickableSpan
+import ru.snipe.snipedriver.utils.*
 
 class OnBoardingFragment : BaseMvpFragment<Unit>(), OnBoardingView {
   override val contentDelegate = FragmentContentDelegate(this,
@@ -58,17 +54,9 @@ class OnBoardingFragment : BaseMvpFragment<Unit>(), OnBoardingView {
   private fun buildLoginTitle(): SpannableStringBuilder {
     return SpannableStringBuilder()
       .append(R.string.onboarding_login_title_question.asString(context))
-      .append(" ")
+      .appendSpace()
       .withSpans(R.string.onboarding_login_title_login_word.asString(context),
-        object : ClickableSpan() {
-          override fun onClick(p0: View?) {
-            presenter.onLoginButtonClicked()
-          }
-
-          override fun updateDrawState(ds: TextPaint?) {
-            ds?.isUnderlineText = false
-          }
-        },
+        SimpleClickableSpan({ presenter.onLoginButtonClicked() }),
         TextAppearanceSpan(context, R.style.M28Black))
   }
 

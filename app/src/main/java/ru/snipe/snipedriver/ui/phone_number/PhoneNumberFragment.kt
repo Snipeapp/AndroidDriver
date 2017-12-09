@@ -43,12 +43,13 @@ class PhoneNumberFragment : BaseMvpFragment<Unit>(), PhoneNumberView {
   }
 
   override fun initView(view: View) {
+    toolbar.titleText = R.string.phone_number_title.asString(context)
     toolbar.iconClickAction = { activity?.hideKeyboard(); activity?.onBackPressed() }
-    toolbar.optionsItem = OptionsItem(R.string.all_next.asString(context), 0, { tryGoNext() })
+    toolbar.optionsItem = OptionsItem(R.string.all_next.asString(context), 0, { processNextClick() })
     numberInput.addTextChangedListener(PhoneNumberFormattingTextWatcher())
     numberInput.setOnEditorActionListener({ _, actionId, _ ->
       if (actionId == EditorInfo.IME_ACTION_NEXT) {
-        tryGoNext()
+        processNextClick()
         return@setOnEditorActionListener true
       }
       return@setOnEditorActionListener false
@@ -68,7 +69,7 @@ class PhoneNumberFragment : BaseMvpFragment<Unit>(), PhoneNumberView {
     activity!!.showKeyboard()
   }
 
-  private fun tryGoNext() {
+  private fun processNextClick() {
     activity?.hideKeyboard()
     presenter.onNextClicked(numberInput.text.toString())
   }

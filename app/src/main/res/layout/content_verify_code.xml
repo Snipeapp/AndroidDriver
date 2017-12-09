@@ -11,46 +11,31 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.design.widget.AppBarLayout
+        <ru.snipe.snipedriver.ui.views.ToolbarCompat
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="0dp"
-            app:elevation="0dp">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-                app:title="@string/verify_code_verifying" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@drawable/gd_toolbar_dropshadow" />
-        </android.support.design.widget.AppBarLayout>
+            android:layout_height="wrap_content"/>
 
         <EditText
-            android:id="@+id/edittext_verify_code"
+            android:id="@+id/verify_code_input_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginLeft="@dimen/dimen_20dp"
+            android:layout_marginRight="@dimen/dimen_20dp"
+            android:layout_marginTop="@dimen/dimen_40dp"
             android:hint="@string/verify_code_code"
             android:imeOptions="actionNext"
             android:inputType="phone"
             android:maxLines="1"
-            android:textSize="17sp" />
+            android:textAppearance="@style/R34Black"/>
 
         <TextView
-            android:id="@+id/tv_verify_code_description"
+            android:id="@+id/verify_code_txt_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="24dp"
+            android:layout_margin="@dimen/dimen_24dp"
             android:text="@string/verify_code_description"
-            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-            android:textSize="12sp" />
+            android:textAppearance="@style/R24Black"/>
     </LinearLayout>
 
     <FrameLayout
@@ -66,6 +51,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:indeterminateTint="#97a1ae" />
+            android:indeterminateTint="#97a1ae"/>
     </FrameLayout>
 </FrameLayout>

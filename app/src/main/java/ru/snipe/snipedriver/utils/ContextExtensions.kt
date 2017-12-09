@@ -65,7 +65,8 @@ fun Context.dpToPx(dp: Int) = this.resources.dpToPx(dp)
 
 fun Int.asString(context: Context?,
                  vararg params: Any = emptyArray()): String {
-  return context?.getString(this, params) ?: throw InvalidObjectException("context shouldn't be null")
+  return context?.getString(this, *params)
+    ?: throw InvalidObjectException("context shouldn't be null")
 }
 
 @ColorInt

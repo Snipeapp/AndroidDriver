@@ -69,6 +69,8 @@ fun SpannableStringBuilder.withSpans(text: String, vararg spans: Any): Spannable
   return this
 }
 
+fun SpannableStringBuilder.appendSpace() = this.append(" ")
+
 fun View.tintDrawableRes(@AttrRes colorInt: Int) {
   background.setColorFilter(colorInt, PorterDuff.Mode.SRC_IN)
 }
