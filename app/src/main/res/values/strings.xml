@@ -33,7 +33,7 @@
     <string name="driver_arrived">Прибыл на адрес</string>
 
     <string name="phone_number_your_phone_number">Номер телефона</string>
-    <string name="phone_number_description">Используйте ваш номер телефона для входа в аккаунт.</string>
+    <string name="phone_number_description">Используйте ваш номер телефона\nдля входа в аккаунт.</string>
     <string name="phone_number_log_in">Войти</string>
     <string name="phone_number_error_no_geo_permissions">Для корректной работы приложению необходимо разрешить доступ к геопозиции</string>
     <string name="phone_number_error_wrong_number">Ошибка в номере телефона</string>

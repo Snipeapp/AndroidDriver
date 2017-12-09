@@ -140,7 +140,7 @@
     </style>
 
     <style name="R34Black">
-        <item name="android:textSize">34sp</item>
+        <item name="android:textSize">17sp</item>
         <item name="android:fontFamily">@font/sans_serif</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/almost_black</item>
