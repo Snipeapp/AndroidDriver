@@ -13,9 +13,10 @@
     <string name="free_driver_free_title">Свободен</string>
 
     <string name="onboarding_title">Перевозчик\nSnipe</string>
-    <string name="onboarding_description">Работайте на себя на своем грузовом фургоне.</string>
     <string name="onboarding_log_in">Войти</string>
     <string name="onboarding_sign_up">Стать перевозчиком</string>
+    <string name="onboarding_login_title_question">Уже есть аккаунт в Snipe?</string>
+    <string name="onboarding_login_title_login_word">Войти</string>
 
     <string name="driver_start_delivery">Начать доставку</string>
     <string name="driver_finish_order">Завершить заказ</string>

@@ -8,6 +8,8 @@ import android.support.design.widget.TabLayout
 import android.support.v4.graphics.drawable.DrawableCompat
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.SpannableStringBuilder
+import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -58,6 +60,13 @@ fun Drawable.withTint(@ColorInt tint: Int): Drawable
 
 fun ImageView.tintDrawableRes(@AttrRes colorRes: Int) {
   setImageDrawable(drawable.withTint(context.getColorCompat(colorRes)))
+}
+
+fun SpannableStringBuilder.withSpans(text: String, vararg spans: Any): SpannableStringBuilder {
+  val from = length
+  append(text)
+  spans.forEach { span -> setSpan(span, from, length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE) }
+  return this
 }
 
 fun View.tintDrawableRes(@AttrRes colorInt: Int) {

@@ -67,3 +67,8 @@ fun Int.asString(context: Context?,
                  vararg params: Any = emptyArray()): String {
   return context?.getString(this, params) ?: throw InvalidObjectException("context shouldn't be null")
 }
+
+@ColorInt
+fun Int.asColorInt(context: Context?): Int {
+  return context?.getColorCompat(this) ?: throw InvalidObjectException("context shouldn't be null")
+}

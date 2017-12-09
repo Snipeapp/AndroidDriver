@@ -5,11 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="32dp">
+    android:paddingBottom="@dimen/dimen_36dp"
+    android:paddingLeft="@dimen/dimen_32dp"
+    android:paddingRight="@dimen/dimen_32dp"
+    android:paddingTop="@dimen/dimen_36dp">
 
     <ImageView
-        android:layout_width="43dp"
-        android:layout_height="33dp"
+        android:layout_width="@dimen/dimen_42dp"
+        android:layout_height="@dimen/dimen_32dp"
         app:srcCompat="@drawable/ic_logo"/>
 
     <android.support.v4.widget.Space
@@ -21,33 +24,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/onboarding_title"
-        android:textSize="36sp"/>
+        android:textAppearance="@style/B72Black"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="21dp"
-        android:text="@string/onboarding_description"
-        android:textSize="18sp"
-        android:textStyle="normal"/>
+    <Button
+        android:id="@+id/onboarding_btn_signup"
+        style="?attr/roundedButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginBottom="@dimen/dimen_16dp"
+        android:layout_marginTop="@dimen/dimen_36dp"
+        android:text="@string/onboarding_sign_up"/>
 
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
-    <Button
-        android:id="@+id/button_onboarding_sign_up"
-        style="?attr/roundedButtonStyle"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_marginBottom="16dp"
-        android:text="@string/onboarding_sign_up"/>
-
-    <Button
-        android:id="@+id/button_onboarding_log_in"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:foreground="?selectableItemBackground"
-        android:text="@string/onboarding_log_in"/>
+    <TextView
+        android:id="@+id/onboarding_txt_login_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/onboarding_login_title_question"
+        android:textColorHighlight="@android:color/transparent"
+        android:textAppearance="@style/R28Gray"/>
 </LinearLayout>
