@@ -1,6 +1,7 @@
 package ru.snipe.snipedriver
 
 import android.content.Context
+import android.support.multidex.MultiDex
 import com.crashlytics.android.Crashlytics
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
@@ -37,6 +38,11 @@ class MyApplication : BaseApplication<AppComponent>(AppConfig(isReleaseBuild = !
 
   override fun initializeApplication(applicationComponent: AppComponent): Single<Any> {
     return Single.fromCallable {}
+  }
+
+  override fun attachBaseContext(base: Context?) {
+    super.attachBaseContext(base)
+    MultiDex.install(this)
   }
 
   fun getApplicationComponent(): AppComponent {
