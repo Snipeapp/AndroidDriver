@@ -13,7 +13,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:fontFamily="sans-serif-medium"
         android:gravity="center_horizontal"
         tools:text="Отменить доставку?"
         android:textSize="18dp"/>
@@ -57,7 +56,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:selectableItemBackground"
-        android:fontFamily="sans-serif-medium"
         android:gravity="center"
         android:minHeight="56dp"
         tools:text="Нет связи с клиентом"

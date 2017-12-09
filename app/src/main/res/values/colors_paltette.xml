@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="athens_gray">#e4e7eb</color>
+    <color name="yellowish">#f7eb6e</color>
+    <color name="tomato">#ef4639</color>
+    <color name="black">#000000</color>
+    <color name="almost_black">#040609</color>
+    <color name="slate">#485d73</color>
+    <color name="bluish_grey">#828e9d</color>
+    <color name="white">#ffffff</color>
+    <color name="white_two">#f5f5f5</color>
+    <color name="silver">#d5d9de</color>
+    <color name="cool_grey">#abb4be</color>
+    <color name="dark_grey_blue">#2c405b</color>
+</resources>

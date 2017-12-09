@@ -63,6 +63,7 @@
     <string name="sheet_rating_description">Оценка в 3 звезды и ниже означает, что вы не будете получать заказы от этого клиента.</string>
     <string name="sheet_rating_stub_sum">1,568 ₽</string>
     <string name="sheet_rating_finish_button_title">Готово</string>
+
     <string name="free_driver_drawer_home">Главная</string>
     <string name="free_driver_drawer_navigation">Навигация</string>
     <string name="free_driver_drawer_support">Поддержка</string>

@@ -12,8 +12,8 @@
         android:background="?attr/colorPrimaryDark"
         android:columnCount="2"
         android:paddingBottom="32dp"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingLeft="@dimen/dimen_16dp"
+        android:paddingRight="@dimen/dimen_16dp"
         android:paddingTop="40dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
