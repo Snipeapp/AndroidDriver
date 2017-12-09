@@ -5,9 +5,6 @@ import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.ActivityOptionsCompat
 import android.telephony.PhoneNumberFormattingTextWatcher
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
@@ -19,6 +16,7 @@ import ru.snipe.snipedriver.getAppComponent
 import ru.snipe.snipedriver.ui.base.FragmentContentDelegate
 import ru.snipe.snipedriver.ui.base_mvp.BaseMvpFragment
 import ru.snipe.snipedriver.ui.verify_code.VerifyCodeActivity
+import ru.snipe.snipedriver.ui.views.OptionsItem
 import ru.snipe.snipedriver.ui.views.ToolbarCompat
 import ru.snipe.snipedriver.utils.ContentConfig
 import ru.snipe.snipedriver.utils.asString
@@ -44,7 +42,8 @@ class PhoneNumberFragment : BaseMvpFragment<Unit>(), PhoneNumberView {
   }
 
   override fun initView(view: View) {
-    toolbar.iconClickAction = { activity?.onBackPressed() }
+    toolbar.iconClickAction = { activity?.hideKeyboard(); activity?.onBackPressed() }
+    toolbar.optionsItem = OptionsItem(R.string.all_next.asString(context), 0, { tryGoNext() })
     numberInput.addTextChangedListener(PhoneNumberFormattingTextWatcher())
     numberInput.setOnEditorActionListener({ _, actionId, _ ->
       if (actionId == EditorInfo.IME_ACTION_NEXT) {
@@ -62,25 +61,10 @@ class PhoneNumberFragment : BaseMvpFragment<Unit>(), PhoneNumberView {
       })
   }
 
-  override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) =
-    inflater.inflate(R.menu.item_phone_number, menu)
 
   override fun onResume() {
     super.onResume()
     activity!!.showKeyboard()
-  }
-
-  override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    when (item.itemId) {
-      R.id.action_next -> {
-        tryGoNext()
-      }
-      android.R.id.home -> {
-        activity!!.hideKeyboard()
-        activity!!.onBackPressed()
-      }
-    }
-    return super.onOptionsItemSelected(item)
   }
 
   private fun tryGoNext() {

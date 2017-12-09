@@ -9,6 +9,8 @@ import android.graphics.drawable.RippleDrawable
 import android.graphics.drawable.StateListDrawable
 import android.os.Build
 import android.support.annotation.ColorInt
+import android.support.annotation.DrawableRes
+import android.support.v4.widget.TextViewCompat
 import android.util.AttributeSet
 import android.view.View
 import android.widget.ImageView
@@ -16,6 +18,10 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import ru.snipe.snipedriver.R
 import ru.snipe.snipedriver.utils.*
+
+data class OptionsItem(val optionTitle: String?,
+                       @DrawableRes val optionImage: Int,
+                       val clickAction: ((View) -> Unit)?)
 
 class ToolbarCompat : RelativeLayout {
   @ColorInt
@@ -49,6 +55,16 @@ class ToolbarCompat : RelativeLayout {
 
   var optionsClickAction: ((View) -> Unit)? = null
 
+  var optionsItem: OptionsItem? = null
+    set(value) {
+      field = value
+      optionsView.isVisible = value != null
+      optionsView.text = value?.optionTitle ?: ""
+      val endDrawableRes = value?.optionImage ?: 0
+      TextViewCompat.setCompoundDrawablesRelativeWithIntrinsicBounds(optionsView, 0, 0, endDrawableRes, 0)
+      optionsView.setOnClickListener { value?.clickAction?.invoke(this) }
+    }
+
   private val iconView: ImageView
   private val titleView: TextView
   private val optionsView: TextView
@@ -71,23 +87,25 @@ class ToolbarCompat : RelativeLayout {
     iconColor = colorPrimary
     titleColor = titleTextColor
     optionsColor = colorPrimary
+    optionsItem = null
     titleText = R.string.app_name.asString(context)
     iconView.setOnClickListener { iconClickAction?.invoke(it) }
     optionsView.setOnClickListener { optionsClickAction?.invoke(it) }
     setBackgroundColor(toolbarColor)
-    initRipple()
+    iconView.showRipple()
+    optionsView.showRipple(60)
   }
 
-  private fun initRipple() {
+  private fun View.showRipple(sizeDp: Int = 20) {
     val colorHighlight = context.getThemeColor(R.attr.colorControlHighlight)
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-      iconView.background = RippleDrawable(
+      background = RippleDrawable(
         ColorStateList.valueOf(colorHighlight),
         null,
         object : SimpleDrawable() {
 
           private val paint = Paint()
-          private val size = context.dpToPx(20).toFloat()
+          private val size = context.dpToPx(sizeDp).toFloat()
 
           override fun draw(canvas: Canvas?) {
             canvas?.drawCircle(
@@ -98,7 +116,7 @@ class ToolbarCompat : RelativeLayout {
           }
         })
     } else {
-      iconView.background = StateListDrawable().apply {
+      background = StateListDrawable().apply {
         addState(intArrayOf(android.R.attr.state_pressed), ColorDrawable(colorHighlight))
       }
     }
