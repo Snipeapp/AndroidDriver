@@ -1,6 +1,7 @@
 package ru.snipe.snipedriver.ui.phone_number
 
 import android.Manifest
+import android.support.annotation.StringRes
 import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.ActivityOptionsCompat
@@ -56,7 +57,7 @@ class PhoneNumberFragment : BaseMvpFragment<Unit>(), PhoneNumberView {
       .request(Manifest.permission.ACCESS_FINE_LOCATION)
       .subscribe({ granted ->
         if (!granted) {
-          showError(R.string.phone_number_error_no_geo_permissions.asString(context))
+          showError(R.string.phone_number_error_no_geo_permissions)
         }
       })
   }
@@ -68,13 +69,8 @@ class PhoneNumberFragment : BaseMvpFragment<Unit>(), PhoneNumberView {
   }
 
   private fun tryGoNext() {
-    val phone = numberInput.text.toString()
-    if (phone.replace("[^0-9]+".toRegex(), "").matches("[0-9]{11}|9[0-9]{9}".toRegex())) {
-      activity!!.hideKeyboard()
-      presenter.onPhoneValid(phone)
-    } else {
-      showError(R.string.phone_number_error_wrong_number.asString(context))
-    }
+    activity?.hideKeyboard()
+    presenter.onNextClicked(numberInput.text.toString())
   }
 
   override fun showLoading() {
@@ -91,7 +87,7 @@ class PhoneNumberFragment : BaseMvpFragment<Unit>(), PhoneNumberView {
       ActivityOptionsCompat.makeSceneTransitionAnimation(activity!!).toBundle())
   }
 
-  override fun showError(error: String) {
-    Snackbar.make(toolbar, error, Snackbar.LENGTH_SHORT).show()
+  override fun showError(@StringRes errorRes: Int) {
+    Snackbar.make(toolbar, errorRes, Snackbar.LENGTH_SHORT).show()
   }
 }
