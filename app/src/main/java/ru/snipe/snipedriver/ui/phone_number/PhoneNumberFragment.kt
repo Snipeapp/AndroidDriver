@@ -40,7 +40,7 @@ class PhoneNumberFragment : BaseMvpFragment<Unit>(), PhoneNumberView {
 
   override fun initView(view: View) {
     toolbar.titleText = R.string.phone_number_title.asString(context)
-    toolbar.iconClickAction = { activity?.hideKeyboard(); activity?.onBackPressed() }
+    toolbar.navigationClickAction = { activity?.hideKeyboard(); activity?.onBackPressed() }
     toolbar.optionItem = OptionsItem(R.string.all_next.asString(context), 0, { _, _ -> processNextClick() })
     numberInput.addTextChangedListener(PhoneNumberFormattingTextWatcher())
     numberInput.setOnEditorActionListener({ _, actionId, _ ->

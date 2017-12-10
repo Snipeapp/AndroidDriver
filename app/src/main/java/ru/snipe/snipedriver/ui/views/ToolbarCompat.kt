@@ -14,6 +14,19 @@ import ru.snipe.snipedriver.utils.*
 
 class ToolbarCompat : RelativeLayout {
 
+  var navigationType: NavigationIconType = NavigationIconType.None
+    set(value) {
+      field = value
+      val drawableRes: Int? = when (value) {
+        NavigationIconType.Back -> R.drawable.ic_arrow_back_black
+        NavigationIconType.Close -> R.drawable.ic_close_black
+        NavigationIconType.Menu -> R.drawable.ic_dehaze_black
+        NavigationIconType.None -> null
+      }
+      drawableRes?.let { navigationView.setImageResource(it) }
+      navigationView.isInvisible = drawableRes == null
+    }
+
   var titleText: String = ""
     set(value) {
       field = value
@@ -24,7 +37,7 @@ class ToolbarCompat : RelativeLayout {
   var iconColor: Int = 0
     set(value) {
       field = value
-      iconView.setImageDrawable(iconView.drawable.withTint(value))
+      navigationView.setImageDrawable(navigationView.drawable.withTint(value))
     }
 
   @ColorInt
@@ -41,9 +54,7 @@ class ToolbarCompat : RelativeLayout {
       titleView.setTextColor(value)
     }
 
-  var iconClickAction: ((View) -> Unit)? = null
-
-  var optionsClickAction: ((View) -> Unit)? = null
+  var navigationClickAction: ((View) -> Unit)? = null
 
   var optionItem: OptionsItem? = null
     set(value) {
@@ -73,16 +84,17 @@ class ToolbarCompat : RelativeLayout {
       optionsView.text = ""
     }
 
-  private var optionsMenu: PopupMenu? = null
-  private val iconView: ImageView
+  private val navigationView: ImageView
   private val titleView: TextView
   private val optionsView: TextView
+
+  private var optionsMenu: PopupMenu? = null
 
   constructor(context: Context) : this(context, null)
   constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
   constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
     context.layoutInflater().inflate(R.layout.layout_toolbar, this, true)
-    iconView = findView(R.id.toolbar_icon)
+    navigationView = findView(R.id.toolbar_icon)
     titleView = findView(R.id.toolbar_title)
     optionsView = findView(R.id.toolbar_options)
     initView(context)
@@ -96,12 +108,14 @@ class ToolbarCompat : RelativeLayout {
     iconColor = colorPrimary
     titleColor = titleTextColor
     optionsColor = colorPrimary
-    optionItem = null
-    titleText = R.string.app_name.asString(context)
-    iconView.setDebouncingOnClickListener { iconClickAction?.invoke(it) }
-    optionsView.setDebouncingOnClickListener { optionsClickAction?.invoke(it) }
     setBackgroundColor(toolbarColor)
-    iconView.showRipple(20)
+    optionItem = null
+    optionItems = null
+    optionsMenu = null
+    titleText = R.string.app_name.asString(context)
+    navigationView.setDebouncingOnClickListener { navigationClickAction?.invoke(it) }
+    navigationView.showRipple(20)
     optionsView.showRipple(60)
+    navigationType = NavigationIconType.Back
   }
 }

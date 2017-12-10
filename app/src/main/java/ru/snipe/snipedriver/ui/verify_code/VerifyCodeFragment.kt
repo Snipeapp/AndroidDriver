@@ -52,7 +52,7 @@ class VerifyCodeFragment : BaseMvpFragment<Unit>(), VerifyCodeView {
 
   override fun initView(view: View) {
     toolbar.titleText = R.string.verify_code_title.asString(context)
-    toolbar.iconClickAction = { activity?.hideKeyboard(); activity?.onBackPressed() }
+    toolbar.navigationClickAction = { activity?.hideKeyboard(); activity?.onBackPressed() }
     toolbar.optionItem = OptionsItem(R.string.all_ready.asString(context), 0, { _, _ -> processReadyClick() })
 
     description.movementMethod = LinkMovementMethod()

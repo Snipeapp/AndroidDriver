@@ -32,6 +32,12 @@ var View.isVisible: Boolean
     this.visibility = if (value) View.VISIBLE else View.GONE
   }
 
+var View.isInvisible: Boolean
+  get() = this.visibility == View.INVISIBLE
+  set(value) {
+    this.visibility = if (value) View.INVISIBLE else View.VISIBLE
+  }
+
 fun RecyclerView.init(adapter: RecyclerView.Adapter<*>,
                       spanCount: Int = 0,
                       spanSizeLookup: GridLayoutManager.SpanSizeLookup,
