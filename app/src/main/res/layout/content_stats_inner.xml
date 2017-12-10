@@ -4,36 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    tools:context="ru.snipe.snipedriver.ui.free_driver_mode.FreeDriverStatsFragment">
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:orientation="vertical"
-        tools:context="ru.snipe.snipedriver.ui.free_driver_mode.FreeDriverStatsFragment">
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="Всего за 31 Янв. 2017 "
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1" />
+            android:layout_marginTop="@dimen/dimen_32dp"
+            android:text="@string/stats_date_title"
+            android:textAppearance="@style/R26Black"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="5,676 ₽"
-            android:textColor="#fff"
-            android:textSize="41sp" />
+            android:layout_marginTop="@dimen/dimen_32dp"
+            android:text="@string/stats_stub_sum"
+            android:textAppearance="@style/R82Black"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="@dimen/dimen_32dp"
             android:baselineAligned="false">
 
             <LinearLayout
@@ -46,16 +42,15 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="5"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline" />
+                    android:text="@string/stats_stub_orders_count"
+                    android:textAppearance="@style/R48Black"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="9dp"
-                    android:text="Заказов"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-                    android:textColor="#f7eb6e" />
+                    android:layout_marginTop="@dimen/dimen_9dp"
+                    android:text="@string/stats_orders_count_title"
+                    android:textAppearance="@style/R24Gray"/>
             </LinearLayout>
 
             <LinearLayout
@@ -68,56 +63,54 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="8 ч 5 мин"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline" />
+                    android:text="@string/stats_stub_orders_time"
+                    android:textAppearance="@style/R48Black"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="9dp"
-                    android:text="Время"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-                    android:textColor="#f7eb6e" />
+                    android:layout_marginTop="@dimen/dimen_9dp"
+                    android:text="@string/stats_orders_time_title"
+                    android:textAppearance="@style/R24Gray"/>
             </LinearLayout>
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="32dp"
-            android:background="@color/colorPrimaryLight"/>
+            android:layout_height="?android:attr/dividerHeight"
+            android:layout_marginTop="@dimen/dimen_32dp"
+            android:background="@color/dividerColor"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="Рейтинг принятых заказов"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1" />
+            android:layout_marginTop="@dimen/dimen_32dp"
+            android:text="@string/stats_all_orders_rating_title"
+            android:textAppearance="@style/R26Black"/>
 
         <com.github.lzyzsd.circleprogress.DonutProgress
             android:id="@+id/donut_progress"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_marginTop="32dp"
-            custom:donut_finished_color="@color/colorAccent"
-            custom:donut_finished_stroke_width="7dp"
+            android:layout_width="@dimen/dimen_120dp"
+            android:layout_height="@dimen/dimen_120dp"
+            android:layout_marginTop="@dimen/dimen_32dp"
+            custom:donut_finished_color="?attr/colorAccent"
+            custom:donut_finished_stroke_width="@dimen/dimen_9dp"
             custom:donut_max="100"
             custom:donut_prefix_text="3"
             custom:donut_progress="24"
             custom:donut_suffix_text="2"
             custom:donut_text="24%"
             custom:donut_text_color="#fff"
-            custom:donut_text_size="28sp"
-            custom:donut_unfinished_color="#abb4be"
-            custom:donut_unfinished_stroke_width="7dp" />
+            custom:donut_text_size="@dimen/dimen_28sp"
+            custom:donut_unfinished_color="@color/yellowish_light"
+            custom:donut_unfinished_stroke_width="@dimen/dimen_9dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            android:layout_marginTop="16dp"
-            android:text="Процент от входящих"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
-            android:textColor="@color/colorAccent" />
+            android:layout_marginBottom="@dimen/dimen_32dp"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:text="@string/stats_percent_inner_orders_title"
+            android:textAppearance="@style/R24Gray"/>
     </LinearLayout>
 </ScrollView>

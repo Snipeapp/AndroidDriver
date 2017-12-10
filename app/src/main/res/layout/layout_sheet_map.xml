@@ -1,33 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:id="@+id/layout_bottom_sheet_map"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_bottom_sheet_map"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent"
-    android:elevation="8dp"
+    android:elevation="@dimen/dimen_9dp"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="@dimen/dimen_16dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="Принять заказ"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        android:textColor="@color/colorPrimary"
-        />
+        android:layout_marginTop="@dimen/dimen_6dp"
+        android:text="@string/sheet_map_accept_order_title"
+        android:textAppearance="@style/M42Black"
+        android:textColor="@color/colorPrimary"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="3 МИН ОТ ВАС"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="@color/colorPrimary"
-        />
+        android:layout_marginTop="@dimen/dimen_9dp"
+        android:text="@string/sheet_map_stub_distance"
+        android:textAllCaps="true"
+        android:textAppearance="@style/R26Black"
+        android:textColor="@color/colorPrimary"/>
 
     <ImageView
         android:layout_width="152dp"
@@ -38,9 +36,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Александр 5.0 ★"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        android:textColor="@color/colorPrimary"
-        />
+        android:layout_marginTop="@dimen/dimen_20dp"
+        android:text="@string/sheet_map_stub_client_name"
+        android:textAppearance="@style/R32Black"
+        android:textColor="@color/colorPrimary"/>
 </LinearLayout>

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:layout_margin="16dp"
+    android:layout_margin="@dimen/dimen_16dp"
     android:background="@drawable/bg_popup"
     android:gravity="center"
     android:orientation="vertical">
@@ -12,12 +13,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:fontFamily="sans-serif-medium"
+        android:layout_marginTop="@dimen/dimen_40dp"
         android:gravity="center_horizontal"
-        android:text="Отменить доставку?"
-        android:textColor="#25364a"
-        android:textSize="18dp"/>
+        android:textAppearance="@style/M36Black"
+        tools:text="Отменить доставку?"/>
 
     <TextView
         android:id="@+id/tv_popup_cancel_title"
@@ -28,71 +27,62 @@
         android:layout_marginTop="16dp"
         android:gravity="center_horizontal"
         android:maxWidth="264dp"
-        android:text="Ваш рейтинг принятия заказов не будет понижен. Оплата с клиента будет взята."
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="#485d73"/>
+        android:textAppearance="@style/R26Gray"
+        tools:text="Ваш рейтинг принятия заказов не будет понижен. Оплата с клиента будет взята."/>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="24dp"
-        android:background="#d5d9de"/>
+        android:layout_height="?android:attr/dividerHeight"
+        android:layout_marginTop="@dimen/dimen_24dp"
+        android:background="@color/dividerColor"/>
 
     <TextView
         android:id="@+id/tv_popup_positive_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:selectableItemBackground"
-        android:fontFamily="sans-serif-medium"
         android:gravity="center"
-        android:minHeight="56dp"
-        android:text="Груз не соответствует фото"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        android:textColor="#2f445d"
-        android:textStyle="normal"/>
+        android:minHeight="@dimen/dimen_54dp"
+        android:textAppearance="@style/M32Black"
+        tools:text="Груз не соответствует фото"/>
 
     <View
         android:id="@+id/tv_popup_positive_divider_2"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#d5d9de"/>
+        android:layout_height="?android:attr/dividerHeight"
+        android:background="@color/dividerColor"/>
 
     <TextView
         android:id="@+id/tv_popup_positive_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:selectableItemBackground"
-        android:fontFamily="sans-serif-medium"
         android:gravity="center"
-        android:minHeight="56dp"
-        android:text="Нет связи с клиентом"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        android:textColor="#2f445d"
-        android:textStyle="normal"/>
+        android:minHeight="@dimen/dimen_54dp"
+        android:textAppearance="@style/M32Black"
+        tools:text="Нет связи с клиентом"/>
 
     <View
         android:id="@+id/tv_popup_positive_divider_3"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#d5d9de"/>
+        android:layout_height="?android:attr/dividerHeight"
+        android:background="@color/dividerColor"/>
 
     <TextView
         android:id="@+id/tv_popup_positive_3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:selectableItemBackground"
-        android:fontFamily="sans-serif-medium"
         android:gravity="center"
-        android:minHeight="56dp"
-        android:text="Не брать оплату с клиента"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        android:textColor="#2f445d"
-        android:textStyle="normal"/>
+        android:minHeight="@dimen/dimen_54dp"
+        android:textAppearance="@style/M32Black"
+        tools:text="Не брать оплату с клиента"/>
 
     <View
+        android:id="@+id/tv_popup_positive_divider_4"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#d5d9de"/>
+        android:layout_height="?android:attr/dividerHeight"
+        android:background="@color/dividerColor"/>
 
     <TextView
         android:id="@+id/tv_popup_negative"
@@ -100,9 +90,7 @@
         android:layout_height="wrap_content"
         android:background="?android:selectableItemBackground"
         android:gravity="center"
-        android:minHeight="56dp"
-        android:text="Отменить"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        android:textColor="#2f445d"
-        android:textStyle="normal"/>
+        android:minHeight="@dimen/dimen_54dp"
+        android:textAppearance="@style/R32Black"
+        tools:text="Отменить"/>
 </LinearLayout>

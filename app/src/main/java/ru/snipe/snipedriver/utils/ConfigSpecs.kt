@@ -1,10 +1,7 @@
 package ru.snipe.snipedriver.utils
 
 import android.content.Context
-import android.support.annotation.LayoutRes
-import android.support.annotation.MenuRes
-import android.support.annotation.StringRes
-import android.support.annotation.StyleRes
+import android.support.annotation.*
 import android.view.View
 import ru.snipe.snipedriver.R
 
@@ -54,6 +51,10 @@ enum class NavigationIconType {
   Back,
   Close
 }
+
+data class OptionsItem(val optionTitle: String?,
+                       @DrawableRes val optionImage: Int,
+                       val clickAction: ((view: View?, position: Int) -> Unit)?)
 
 data class AppConfig(
   val isReleaseBuild: Boolean

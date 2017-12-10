@@ -11,6 +11,8 @@ import ru.snipe.snipedriver.R
 import ru.snipe.snipedriver.ui.base.ActivityContentDelegate
 import ru.snipe.snipedriver.ui.base.BaseActivity
 import ru.snipe.snipedriver.utils.ContentConfig
+import ru.snipe.snipedriver.utils.asString
+import ru.snipe.snipedriver.utils.setDebouncingOnClickListener
 
 private const val EXTRA_MODE = "mode"
 
@@ -35,16 +37,16 @@ class PopupActivity : BaseActivity() {
   override fun initView(view: Activity) {
     if (intent.extras.getInt(EXTRA_MODE) == 0) {
       title.text = "Вы прибыли на проспект Энгельса, Санкт-Петебург?"
-      posButton.text = "Да, прибыл"
+      posButton.text = R.string.all_arrived.asString(this)
     } else {
       title.text = "Вы завершили доставку на проспект Энгельса, 107B?"
-      posButton.text = "Да, завершил"
+      posButton.text = R.string.all_finished.asString(this)
     }
-    posButton.setOnClickListener { processButtonClick(it) }
-    negButton.setOnClickListener { processButtonClick(it) }
+    posButton.setDebouncingOnClickListener { processButtonClick(it) }
+    negButton.setDebouncingOnClickListener { processButtonClick(it) }
   }
 
-  fun processButtonClick(v: View) {
+  private fun processButtonClick(v: View) {
     when (v.id) {
       R.id.tv_popup_positive -> setResult(Activity.RESULT_OK)
       R.id.tv_popup_negative -> setResult(Activity.RESULT_CANCELED)

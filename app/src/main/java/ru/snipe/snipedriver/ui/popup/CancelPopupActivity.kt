@@ -10,6 +10,7 @@ import ru.snipe.snipedriver.R
 import ru.snipe.snipedriver.ui.base.ActivityContentDelegate
 import ru.snipe.snipedriver.ui.base.BaseActivity
 import ru.snipe.snipedriver.utils.ContentConfig
+import ru.snipe.snipedriver.utils.setDebouncingOnClickListener
 
 private const val EXTRA_MODE = "mode"
 
@@ -62,10 +63,10 @@ class CancelPopupActivity : BaseActivity() {
         divider3.visibility = View.GONE
       }
     }
-    posButton1.setOnClickListener { processButtonClick(it) }
-    posButton2.setOnClickListener { processButtonClick(it) }
-    posButton3.setOnClickListener { processButtonClick(it) }
-    negButton.setOnClickListener { processButtonClick(it) }
+    posButton1.setDebouncingOnClickListener { processButtonClick(it) }
+    posButton2.setDebouncingOnClickListener { processButtonClick(it) }
+    posButton3.setDebouncingOnClickListener { processButtonClick(it) }
+    negButton.setDebouncingOnClickListener { processButtonClick(it) }
   }
 
   fun processButtonClick(v: View) {

@@ -20,8 +20,7 @@
         <View
             android:id="@+id/view_free_driver_shadow"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@drawable/gd_toolbar_dropshadow"
+            android:layout_height="@dimen/dimen_2dp"
             android:rotation="180"/>
 
         <android.support.design.widget.BottomNavigationView
@@ -29,24 +28,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            app:itemIconTint="@drawable/cs_nav_item_state"
-            app:itemTextColor="@drawable/cs_nav_item_state"
-            app:menu="@menu/driver_bottom_navigation"/>
+
+            app:menu="@menu/item_free_driver_bottom_nav"/>
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/layout_free_driver_loading"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:alpha="0.7"
-        android:background="#2a3d53"
-        android:clickable="true"
-        android:visibility="gone">
-
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:indeterminateTint="#97a1ae"/>
-    </FrameLayout>
+    <include layout="@layout/layout_progress"
+             tools:visibility="gone"/>
 </FrameLayout>

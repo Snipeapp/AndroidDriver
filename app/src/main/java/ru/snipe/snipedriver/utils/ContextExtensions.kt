@@ -12,10 +12,10 @@ import android.support.annotation.ColorInt
 import android.support.annotation.ColorRes
 import android.support.annotation.DrawableRes
 import android.support.v4.content.ContextCompat
-import android.support.v4.content.res.ResourcesCompat
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.WindowManager
+import java.io.InvalidObjectException
 
 fun Context.layoutInflater(): LayoutInflater {
   return LayoutInflater.from(this)
@@ -57,8 +57,18 @@ fun Activity.setStatusBarColorCompat(@ColorInt colorRes: Int) {
 
 fun Context.getDrawableCompat(@DrawableRes drawableRes: Int,
                               theme: Resources.Theme? = null): Drawable? {
-  return ResourcesCompat.getDrawable(this.resources, drawableRes, theme)
+  return ContextCompat.getDrawable(this, drawableRes)
 }
 
 fun Context.dpToPx(dp: Int) = this.resources.dpToPx(dp)
 
+fun Int.asString(context: Context?,
+                 vararg params: Any = emptyArray()): String {
+  return context?.getString(this, *params)
+    ?: throw InvalidObjectException("context shouldn't be null")
+}
+
+@ColorInt
+fun Int.asColorInt(context: Context?): Int {
+  return context?.getColorCompat(this) ?: throw InvalidObjectException("context shouldn't be null")
+}

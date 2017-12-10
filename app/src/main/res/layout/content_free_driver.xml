@@ -9,8 +9,7 @@
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:openDrawer="left">
+        android:layout_height="match_parent">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -24,33 +23,31 @@
                 <android.support.design.widget.AppBarLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:theme="@style/AppTheme.AppBarOverlay"
+                    android:elevation="0dp"
                     app:elevation="0dp">
 
-                    <android.support.v7.widget.Toolbar
+                    <ru.snipe.snipedriver.ui.views.ToolbarCompat
                         android:id="@+id/toolbar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:popupTheme="@style/AppTheme.PopupOverlay">
+                        app:tcShowElevation="false"
+                        app:tcShowNavigationIcon="false"
+                        app:tcShowTitle="false">
 
                         <TextView
-                            android:id="@+id/toolbar_title"
+                            android:id="@+id/toolbar_button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginBottom="12dp"
-                            android:layout_marginLeft="-28dp"
-                            android:layout_marginTop="12dp"
-                            android:background="@drawable/gb_toolbar_text"
-                            android:paddingBottom="7dp"
-                            android:paddingEnd="24dp"
-                            android:paddingStart="24dp"
-                            android:paddingTop="7dp"
-                            android:text="Свободен"
-                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
-                            android:textColor="@color/toolbar_text_color"
-                            android:textSize="16dp"/>
-                    </android.support.v7.widget.Toolbar>
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/cs_toolbar_text"
+                            android:paddingBottom="@dimen/dimen_7dp"
+                            android:paddingEnd="@dimen/dimen_24dp"
+                            android:paddingStart="@dimen/dimen_24dp"
+                            android:paddingTop="@dimen/dimen_7dp"
+                            android:text="@string/free_driver_free_title"
+                            android:textAppearance="@style/M32Black"/>
+                    </ru.snipe.snipedriver.ui.views.ToolbarCompat>
                 </android.support.design.widget.AppBarLayout>
 
                 <FrameLayout
@@ -67,10 +64,10 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
+            android:background="@color/colorPrimaryDark"
             app:headerLayout="@layout/layout_header_driver"
-            app:itemIconTint="@color/colorAccent"
-            app:itemTextAppearance="@style/TextAppearance.AppCompat.Body1"
-            app:menu="@menu/activity_driver_drawer"/>
+            app:itemTextAppearance="@style/R34White"
+            app:menu="@menu/item_free_driver_drawer"/>
 
     </android.support.v4.widget.DrawerLayout>
 </FrameLayout>

@@ -1,18 +1,28 @@
 package ru.snipe.snipedriver.utils
 
+import android.content.res.ColorStateList
 import android.graphics.*
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.RippleDrawable
+import android.graphics.drawable.StateListDrawable
+import android.os.Build
+import android.os.SystemClock
 import android.support.annotation.AttrRes
 import android.support.annotation.ColorInt
 import android.support.design.widget.TabLayout
 import android.support.v4.graphics.drawable.DrawableCompat
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.SpannableStringBuilder
+import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.ImageView
+import ru.snipe.snipedriver.R
+import ru.snipe.snipedriver.ui.views.SimpleDrawable
 
 fun View.layoutInflater(): LayoutInflater = this.context.layoutInflater()
 
@@ -20,6 +30,12 @@ var View.isVisible: Boolean
   get() = this.visibility == View.VISIBLE
   set(value) {
     this.visibility = if (value) View.VISIBLE else View.GONE
+  }
+
+var View.isInvisible: Boolean
+  get() = this.visibility == View.INVISIBLE
+  set(value) {
+    this.visibility = if (value) View.INVISIBLE else View.VISIBLE
   }
 
 fun RecyclerView.init(adapter: RecyclerView.Adapter<*>,
@@ -59,6 +75,15 @@ fun Drawable.withTint(@ColorInt tint: Int): Drawable
 fun ImageView.tintDrawableRes(@AttrRes colorRes: Int) {
   setImageDrawable(drawable.withTint(context.getColorCompat(colorRes)))
 }
+
+fun SpannableStringBuilder.withSpans(text: String, vararg spans: Any): SpannableStringBuilder {
+  val from = length
+  append(text)
+  spans.forEach { span -> setSpan(span, from, length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE) }
+  return this
+}
+
+fun SpannableStringBuilder.appendSpace() = this.append(" ")
 
 fun View.tintDrawableRes(@AttrRes colorInt: Int) {
   background.setColorFilter(colorInt, PorterDuff.Mode.SRC_IN)
@@ -116,4 +141,49 @@ fun View.toBitmap(): Bitmap {
     targetCanvas.drawColor(Color.WHITE)
   this.draw(targetCanvas)
   return returnedBitmap
+}
+
+/**
+ * Sets up a click listener so that it will be protected from multiple subsequent clicks which come very fast.
+ * It will ignore clicks which are too close in time (1 second by default)
+ */
+fun View.setDebouncingOnClickListener(listener: ((View) -> Unit)?) {
+  setOnClickListener(if (listener != null) DebouncingOnClickListener(targetListener = listener) else null)
+}
+
+private class DebouncingOnClickListener(private val targetListener: (View) -> Unit) : View.OnClickListener {
+  private var lastClickTime = 0L
+  override fun onClick(v: View) {
+    if (SystemClock.elapsedRealtime() - lastClickTime < CLICK_DELAY_MS) {
+      return // clicking too fast, not allowed
+    }
+    lastClickTime = SystemClock.elapsedRealtime()
+    targetListener.invoke(v)
+  }
+}
+
+fun View.showRipple(rippleSizeDp: Int) {
+  val colorHighlight = context.getThemeColor(R.attr.colorControlHighlight)
+  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+    background = RippleDrawable(
+      ColorStateList.valueOf(colorHighlight),
+      null,
+      object : SimpleDrawable() {
+
+        private val paint = Paint()
+        private val size = context.dpToPx(rippleSizeDp).toFloat()
+
+        override fun draw(canvas: Canvas?) {
+          canvas?.drawCircle(
+            bounds.centerX().toFloat(),
+            bounds.centerY().toFloat(),
+            size,
+            paint)
+        }
+      })
+  } else {
+    background = StateListDrawable().apply {
+      addState(intArrayOf(android.R.attr.state_pressed), ColorDrawable(colorHighlight))
+    }
+  }
 }

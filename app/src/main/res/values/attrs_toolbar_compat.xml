@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ToolbarCompat">
+        <attr name="tcShowElevation" format="boolean"/>
+        <attr name="tcShowTitle" format="boolean"/>
+        <attr name="tcShowNavigationIcon" format="boolean"/>
+    </declare-styleable>
+</resources>

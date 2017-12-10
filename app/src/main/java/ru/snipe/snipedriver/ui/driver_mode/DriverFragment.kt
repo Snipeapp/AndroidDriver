@@ -3,15 +3,8 @@ package ru.snipe.snipedriver.ui.driver_mode
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
-import android.support.design.widget.BottomSheetDialog
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.ActivityOptionsCompat
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.RatingBar
@@ -29,7 +22,8 @@ import ru.snipe.snipedriver.ui.base.FragmentContentDelegate
 import ru.snipe.snipedriver.ui.base_mvp.BaseMvpFragment
 import ru.snipe.snipedriver.ui.free_driver_mode.FreeDriverActivity
 import ru.snipe.snipedriver.ui.popup.PopupActivity
-import ru.snipe.snipedriver.utils.ContentConfig
+import ru.snipe.snipedriver.ui.views.ToolbarCompat
+import ru.snipe.snipedriver.utils.*
 
 private const val REQUEST_A = 20
 private const val REQUEST_B = 21
@@ -41,8 +35,8 @@ class DriverFragment : BaseMvpFragment<Unit>(), DriverView, OnMapReadyCallback {
   override val contentDelegate = FragmentContentDelegate(this,
     ContentConfig(R.layout.content_driver))
 
-  private val toolbar by bindView<Toolbar>(R.id.toolbar_driver)
-  private val progressLayout by bindView<View>(R.id.layout_driver_loading)
+  private val toolbar by bindView<ToolbarCompat>(R.id.toolbar_driver)
+  private val progressLayout by bindView<View>(R.id.progress_container)
   private val title by bindView<TextView>(R.id.tv_driver_bottom_sheet_title)
   private val bottomSheet by bindView<View>(R.id.layout_driver_bottom_sheet)
   private val toolbarRiding by bindView<View>(R.id.layout_driver_toolbar_riding)
@@ -63,9 +57,31 @@ class DriverFragment : BaseMvpFragment<Unit>(), DriverView, OnMapReadyCallback {
   }
 
   override fun initView(view: View) {
-    (activity as AppCompatActivity).setSupportActionBar(toolbar)
-    (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
+    toolbar.navigationType = NavigationIconType.None
+    toolbar.optionItems = listOf(
+      OptionsItem(R.string.driver_options_call.asString(context), 0, { _, _ ->
+        Toast.makeText(context, R.string.driver_call_client.asString(context), Toast.LENGTH_SHORT).show()
+      }),
+      OptionsItem(R.string.driver_options_cancel_delivery.asString(context), 0, { _, _ ->
+        //TODO: Вынести в презентер
+        when (presenter.currentState) {
+          0 -> startActivityForResult(
+            PopupActivity.getIntent(context!!, 2),
+            REQUEST_E,
+            ActivityOptionsCompat.makeSceneTransitionAnimation(activity!!).toBundle())
+          1 -> startActivityForResult(
+            PopupActivity.getIntent(context!!, 0),
+            REQUEST_C,
+            ActivityOptionsCompat.makeSceneTransitionAnimation(activity!!).toBundle())
+          2 -> startActivityForResult(
+            PopupActivity.getIntent(context!!, 1),
+            REQUEST_D,
+            ActivityOptionsCompat.makeSceneTransitionAnimation(activity!!).toBundle())
+        }
+      })
+    )
 
+    //TODO: Заменить на другой фреймворк
     RxPermissions(activity!!)
       .request(Manifest.permission.ACCESS_FINE_LOCATION)
       .subscribe({ granted ->
@@ -78,8 +94,7 @@ class DriverFragment : BaseMvpFragment<Unit>(), DriverView, OnMapReadyCallback {
         }
       })
 
-    bottomSheet.setOnClickListener { presenter.moveToNextState() }
-    setHasOptionsMenu(true)
+    bottomSheet.setDebouncingOnClickListener { presenter.moveToNextState() }
   }
 
   override fun onMapReady(googleMap: GoogleMap?) {
@@ -101,21 +116,16 @@ class DriverFragment : BaseMvpFragment<Unit>(), DriverView, OnMapReadyCallback {
   }
 
   override fun goToRatingScreen() {
-    val bottomSheetDialog = BottomSheetDialog(context!!)
+    val bottomSheetDialog = context.createBottomSheetThemed()
     bottomSheetDialog.setContentView(R.layout.layout_sheet_rating)
 
-    val ratingBar = bottomSheetDialog.findViewById<RatingBar>(R.id.rating_bottom_sheet_rating)
-    val btn = bottomSheetDialog.findViewById<Button>(R.id.btn_bottom_sheet_rating_ready)
-    ratingBar?.setOnRatingBarChangeListener { _, _, _ ->
-      btn?.setBackgroundColor(ContextCompat.getColor(context!!, R.color.colorAccent))
-      btn?.alpha = 1f
-      btn?.isEnabled = true
-    }
-    btn?.setOnClickListener {
+    val ratingBar = bottomSheetDialog.findViewById<RatingBar>(R.id.rating_bottom_sheet_rating)!!
+    val btn = bottomSheetDialog.findViewById<Button>(R.id.btn_bottom_sheet_rating_ready)!!
+    ratingBar.setOnRatingBarChangeListener { _, _, _ -> btn.isEnabled = true }
+    btn.setDebouncingOnClickListener {
       bottomSheetDialog.dismiss()
       presenter.customerRated()
     }
-
     bottomSheetDialog.setCancelable(false)
     bottomSheetDialog.show()
   }
@@ -150,45 +160,14 @@ class DriverFragment : BaseMvpFragment<Unit>(), DriverView, OnMapReadyCallback {
     toolbarRiding.visibility = View.GONE
     toolbarBeginDelivery.visibility = View.VISIBLE
     toolbarDelivery.visibility = View.GONE
-    title.text = "Начать доставку"
+    title.text = R.string.driver_start_delivery.asString(context)
   }
 
   override fun goToDeliveryMode() {
     toolbarRiding.visibility = View.GONE
     toolbarBeginDelivery.visibility = View.GONE
     toolbarDelivery.visibility = View.VISIBLE
-    title.text = "Завершить заказ"
-  }
-
-  override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {
-    inflater.inflate(R.menu.menu_driver, menu)
-  }
-
-  override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-    when (item?.itemId) {
-      R.id.action_call -> {
-        Toast.makeText(context, "Звонок клиенту", Toast.LENGTH_SHORT).show()
-        return true
-      }
-      R.id.action_cancel_delivery -> {
-        when (presenter.currentState) {
-          0 -> startActivityForResult(
-            PopupActivity.getIntent(context!!, 2),
-            REQUEST_E,
-            ActivityOptionsCompat.makeSceneTransitionAnimation(activity!!).toBundle())
-          1 -> startActivityForResult(
-            PopupActivity.getIntent(context!!, 0),
-            REQUEST_C,
-            ActivityOptionsCompat.makeSceneTransitionAnimation(activity!!).toBundle())
-          2 -> startActivityForResult(
-            PopupActivity.getIntent(context!!, 1),
-            REQUEST_D,
-            ActivityOptionsCompat.makeSceneTransitionAnimation(activity!!).toBundle())
-        }
-        return true
-      }
-    }
-    return false
+    title.text = R.string.driver_finish_order.asString(context)
   }
 
   override fun showLoading() {

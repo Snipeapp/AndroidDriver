@@ -20,12 +20,12 @@ repositories {
 
 android {
     compileSdkVersion 27
-    buildToolsVersion "26.0.2"
+    buildToolsVersion "27.0.1"
     defaultConfig {
         applicationId "ru.snipe.snipedriver"
         targetSdkVersion 27
         versionCode 6
-        versionName "0.6"
+        versionName "0.7"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
     }
@@ -36,6 +36,7 @@ android {
         abortOnError false
     }
     buildTypes {
+        //TODO: Add keys
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'

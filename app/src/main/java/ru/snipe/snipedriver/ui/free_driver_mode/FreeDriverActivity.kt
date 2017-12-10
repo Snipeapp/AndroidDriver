@@ -8,18 +8,18 @@ import android.support.design.widget.NavigationView
 import android.support.v4.app.ActivityCompat
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
-import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import ru.snipe.snipedriver.R
 import ru.snipe.snipedriver.ui.base.ActivityContentDelegate
 import ru.snipe.snipedriver.ui.base.BaseContentActivity
 import ru.snipe.snipedriver.ui.onboarding.OnBoardingActivity
+import ru.snipe.snipedriver.ui.views.ToolbarCompat
 import ru.snipe.snipedriver.utils.ContentConfig
+import ru.snipe.snipedriver.utils.NavigationIconType
 import ru.snipe.snipedriver.utils.createIntent
 
 interface FreeDriverMainHolder {
-  val toolbar: Toolbar
+  val toolbar: ToolbarCompat
 }
 
 class FreeDriverActivity : BaseContentActivity<FreeDriverMainFragment>(), FreeDriverMainHolder,
@@ -36,16 +36,13 @@ class FreeDriverActivity : BaseContentActivity<FreeDriverMainFragment>(), FreeDr
 
   private val drawer by bindView<DrawerLayout>(R.id.drawer_layout)
   private val navigationView by bindView<NavigationView>(R.id.nav_view)
-  override val toolbar by bindView<Toolbar>(R.id.toolbar)
+  override val toolbar by bindView<ToolbarCompat>(R.id.toolbar)
 
   override fun provideContent() = FreeDriverMainFragment()
 
   override fun initView(view: Activity) {
-    setSupportActionBar(toolbar)
-    supportActionBar?.setDisplayShowTitleEnabled(false)
-    val toggle = ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-    drawer.addDrawerListener(toggle)
-    toggle.syncState()
+    toolbar.navigationClickAction = { drawer.openDrawer(GravityCompat.START) }
+    toolbar.navigationType = NavigationIconType.Menu
     navigationView.setNavigationItemSelectedListener(this)
   }
 
@@ -70,6 +67,7 @@ class FreeDriverActivity : BaseContentActivity<FreeDriverMainFragment>(), FreeDr
       R.id.nav_help -> {
       }
       R.id.nav_logout -> {
+        //TODO: Вынести в презентер
         PreferenceManager.getDefaultSharedPreferences(this)
           .edit()
           .putBoolean("logged", false)
@@ -81,8 +79,6 @@ class FreeDriverActivity : BaseContentActivity<FreeDriverMainFragment>(), FreeDr
         finish()
       }
     }
-
-    val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
     drawer.closeDrawer(GravityCompat.START)
     return true
   }

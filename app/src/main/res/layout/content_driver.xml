@@ -4,36 +4,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="ru.snipe.snipedriver.ui.driver_mode.DriverActivity">
+    android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay"
+        android:elevation="0dp"
         app:elevation="0dp">
 
-        <android.support.v7.widget.Toolbar
+        <ru.snipe.snipedriver.ui.views.ToolbarCompat
             android:id="@+id/toolbar_driver"
             android:layout_width="match_parent"
-            android:layout_height="?android:actionBarSize"
-            app:popupTheme="@style/MyPopupTheme">
+            android:layout_height="wrap_content"
+            app:tcShowNavigationIcon="false"
+            app:tcShowTitle="false">
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="32dp"
-                android:layout_marginBottom="12dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"
+                android:layout_width="@dimen/dimen_40dp"
+                android:layout_height="@dimen/dimen_32dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dimen_16dp"
+                android:layout_marginStart="@dimen/dimen_16dp"
                 app:srcCompat="@drawable/ic_logo"/>
 
-        </android.support.v7.widget.Toolbar>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorPrimaryLight"/>
+        </ru.snipe.snipedriver.ui.views.ToolbarCompat>
     </android.support.design.widget.AppBarLayout>
 
     <LinearLayout
@@ -50,27 +44,26 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="23dp"
-                android:layout_height="23dp"
-                android:layout_marginBottom="28dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="28dp"
+                android:layout_width="@dimen/dimen_24dp"
+                android:layout_height="@dimen/dimen_24dp"
+                android:layout_marginBottom="@dimen/dimen_28dp"
+                android:layout_marginLeft="@dimen/dimen_16dp"
+                android:layout_marginRight="@dimen/dimen_16dp"
+                android:layout_marginTop="@dimen/dimen_28dp"
                 app:srcCompat="@drawable/ic_dot"/>
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="16dp"
+                android:layout_marginRight="@dimen/dimen_16dp"
                 android:layout_weight="1"
-                android:text="Проспект Энгельса, Санкт-Петербург"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textSize="17dp"/>
+                android:text="@string/driver_stub_address"
+                android:textAppearance="@style/M34Black"/>
 
             <View
-                android:layout_width="1dp"
+                android:layout_width="?android:attr/dividerHeight"
                 android:layout_height="match_parent"
-                android:background="@color/colorPrimaryLight"/>
+                android:background="@color/dividerColor"/>
 
             <LinearLayout
                 android:layout_width="84dp"
@@ -79,17 +72,18 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="20dp"
+                    android:layout_width="@dimen/dimen_16dp"
+                    android:layout_height="@dimen/dimen_20dp"
                     app:srcCompat="@drawable/ic_navigation"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="3 МИН"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                    android:textColor="@color/colorAccent"/>
+                    android:layout_marginTop="@dimen/dimen_10dp"
+                    android:text="@string/driver_stub_arrive_time"
+                    android:textAllCaps="true"
+                    android:textAppearance="@style/R26Black"
+                />
 
             </LinearLayout>
         </LinearLayout>
@@ -100,15 +94,16 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:visibility="gone">
+            android:visibility="gone"
+            tools:visibility="visible">
 
             <ImageView
-                android:layout_width="23dp"
-                android:layout_height="23dp"
-                android:layout_marginBottom="28dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="28dp"
+                android:layout_width="@dimen/dimen_24dp"
+                android:layout_height="@dimen/dimen_24dp"
+                android:layout_marginBottom="@dimen/dimen_28dp"
+                android:layout_marginLeft="@dimen/dimen_16dp"
+                android:layout_marginRight="@dimen/dimen_16dp"
+                android:layout_marginTop="@dimen/dimen_28dp"
                 app:srcCompat="@drawable/ic_dot"/>
 
             <LinearLayout
@@ -120,27 +115,25 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="16dp"
-                    android:text="Проспект Энгельса, 107Б"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                    android:textSize="17dp"/>
+                    android:layout_marginRight="@dimen/dimen_16dp"
+                    android:singleLine="true"
+                    android:text="@string/driver_stub_address_second"
+                    android:textAppearance="@style/M34Black"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginTop="3dp"
-                    android:text="Изменить адрес"
+                    android:layout_marginRight="@dimen/dimen_16dp"
+                    android:layout_marginTop="@dimen/dimen_2dp"
+                    android:text="@string/driver_change_address_title"
                     android:textAllCaps="true"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                    android:textColor="#abb4be"
-                    android:textSize="13dp"/>
+                    android:textAppearance="@style/R24Gray"/>
             </LinearLayout>
 
             <View
-                android:layout_width="1dp"
+                android:layout_width="?android:attr/dividerHeight"
                 android:layout_height="match_parent"
-                android:background="@color/colorPrimaryLight"/>
+                android:background="@color/dividerColor"/>
 
             <LinearLayout
                 android:layout_width="84dp"
@@ -149,17 +142,18 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="20dp"
+                    android:layout_width="@dimen/dimen_16dp"
+                    android:layout_height="@dimen/dimen_20dp"
                     app:srcCompat="@drawable/ic_navigation"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="25 МИН"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                    android:textColor="@color/colorAccent"/>
+                    android:layout_marginTop="@dimen/dimen_10dp"
+                    android:text="@string/driver_stub_arrive_time"
+                    android:textAllCaps="true"
+                    android:textAppearance="@style/R26Black"
+                />
 
             </LinearLayout>
         </LinearLayout>
@@ -170,7 +164,8 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:visibility="gone">
+            android:visibility="gone"
+            tools:visibility="visible">
 
             <TextView
                 android:layout_width="0dp"
@@ -178,14 +173,13 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_weight="1"
-                android:text="Свяжитесь с клиентом для последующих действий"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textSize="17dp"/>
+                android:text="@string/driver_connect_client_title"
+                android:textAppearance="@style/M34Black"/>
 
             <View
-                android:layout_width="1dp"
+                android:layout_width="?android:attr/dividerHeight"
                 android:layout_height="match_parent"
-                android:background="@color/colorPrimaryLight"/>
+                android:background="@color/dividerColor"/>
 
             <LinearLayout
                 android:layout_width="84dp"
@@ -194,17 +188,18 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="20dp"
+                    android:layout_width="@dimen/dimen_16dp"
+                    android:layout_height="@dimen/dimen_20dp"
                     app:srcCompat="@drawable/ic_phone"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="ВЫЗОВ"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                    android:textColor="@color/colorAccent"/>
+                    android:layout_marginTop="@dimen/dimen_10dp"
+                    android:text="@string/driver_stub_arrive_time"
+                    android:textAllCaps="true"
+                    android:textAppearance="@style/R26Black"
+                />
 
             </LinearLayout>
         </LinearLayout>
@@ -223,11 +218,10 @@
                 android:id="@+id/fab_driver"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|right"
+                android:layout_gravity="bottom|end"
                 android:layout_margin="16dp"
-                android:background="#ffffff"
-                android:backgroundTint="#ffffff"
                 android:tint="#4285f4"
+                app:backgroundTint="@color/white"
                 app:fabSize="mini"
                 app:srcCompat="@drawable/ic_my_location"/>
         </FrameLayout>
@@ -236,55 +230,41 @@
             android:id="@+id/layout_driver_bottom_sheet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
+            android:background="?attr/colorAccent"
             android:gravity="center_vertical">
 
             <ImageView
-                android:layout_width="112dp"
-                android:layout_height="112dp"
+                android:layout_width="@dimen/dimen_112dp"
+                android:layout_height="@dimen/dimen_112dp"
+                android:background="@color/white"
                 app:srcCompat="@drawable/ic_logo"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="24dp"
-                android:layout_marginRight="24dp"
+                android:layout_marginLeft="@dimen/dimen_24dp"
+                android:layout_marginRight="@dimen/dimen_24dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tv_driver_bottom_sheet_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Прибыл на адрес"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    android:textColor="@color/colorPrimary"
-                    />
+                    android:text="@string/driver_arrived"
+                    android:textAppearance="@style/M42Black"
+                />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="Александр 5.0 ★"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                    android:textColor="@color/colorPrimary"
-                    />
+                    android:layout_marginTop="@dimen/dimen_12dp"
+                    android:text="@string/driver_stub_client_name"
+                    android:textAppearance="@style/R32Black"
+                />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/layout_driver_loading"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:alpha="0.7"
-        android:background="#2a3d53"
-        android:clickable="true"
-        android:visibility="gone">
-
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:indeterminateTint="#97a1ae"/>
-    </FrameLayout>
+    <include layout="@layout/layout_progress"
+             tools:visibility="gone"/>
 </android.support.design.widget.CoordinatorLayout>

@@ -3,17 +3,77 @@
 
     <string name="all_next">Далее</string>
     <string name="all_ready">Готово</string>
-    <string name="phone_number_your_phone_number">Номер телефона</string>
-    <string name="phone_number_description">Используйте ваш номер телефона для входа в аккаунт.</string>
-    <string name="phone_number_log_in">Войти</string>
+    <string name="all_open_menu">Открыть меню</string>
+    <string name="all_close_menu">Закрыть меню</string>
+    <string name="all_arrived">Да, прибыл</string>
+    <string name="all_finished">Да, завершил</string>
+    <string name="all_cancel">Отменить</string>
+
+    <string name="popup_arrived_question">Вы прибыли на проспект Энгельса, Санкт-Петебург?</string>
+    <string name="free_driver_free_title">Свободен</string>
+
     <string name="onboarding_title">Перевозчик\nSnipe</string>
-    <string name="onboarding_description">Работайте на себя на своем грузовом фургоне.</string>
     <string name="onboarding_log_in">Войти</string>
     <string name="onboarding_sign_up">Стать перевозчиком</string>
-    <string name="verify_code_verifying">Подтверждение</string>
+    <string name="onboarding_login_title_question">Уже есть аккаунт в Snipe?</string>
+    <string name="onboarding_login_title_login_word">Войти</string>
+
+    <string name="driver_start_delivery">Начать доставку</string>
+    <string name="driver_finish_order">Завершить заказ</string>
+    <string name="driver_call_client">Звонок клиенту</string>
+
+    <string name="driver_stub_address">Проспект Энгельса, Санкт-Петербург</string>
+    <string name="driver_stub_address_second">Проспект Энгельса, 107Б</string>
+    <string name="driver_stub_arrive_time">3 МИН</string>
+    <string name="driver_stub_arrive_time_second">25 МИН</string>
+    <string name="driver_stub_client_name">Александр 5.0 ★</string>
+    <string name="driver_change_address_title">Изменить адрес</string>
+    <string name="driver_connect_client_title">Свяжитесь с клиентом для последующих действий</string>
+    <string name="driver_call_title">ВЫЗОВ</string>
+    <string name="driver_arrived">Прибыл на адрес</string>
+
+    <string name="phone_number_your_phone_number">Номер телефона</string>
+    <string name="phone_number_description">Используйте ваш номер телефона\nдля входа в аккаунт.</string>
+    <string name="phone_number_title">Войти</string>
+    <string name="phone_number_error_no_geo_permissions">Для корректной работы приложению необходимо разрешить доступ к геопозиции</string>
+    <string name="phone_number_error_wrong_number">Ошибка в номере телефона</string>
+
+    <string name="verify_code_title">Подтверждение</string>
     <string name="verify_code_code">Код подтверждения</string>
     <string name="verify_code_description">Мы отправили вам код на %1s\nНе получили?</string>
-    <string name="verify_code_send_new">Отправить новый</string>
-    <string name="navigation_drawer_open">Открыть меню</string>
-    <string name="navigation_drawer_close">Закрыть меню</string>
+    <string name="verify_code_send_new">Отправить новый.</string>
+    <string name="verify_code_sent_code">Код отправлен</string>
+    <string name="verify_code_correct_code">Код верный</string>
+
+    <string name="stats_date_title">Всего за 31 Янв. 2017</string>
+    <string name="stats_stub_sum">5,676 ₽</string>
+    <string name="stats_stub_orders_count">5</string>
+    <string name="stats_orders_count_title">Заказов</string>
+    <string name="stats_stub_orders_time">8 ч 5 мин</string>
+    <string name="stats_orders_time_title">Время</string>
+    <string name="stats_all_orders_rating_title">Рейтинг принятых заказов</string>
+    <string name="stats_percent_inner_orders_title">Процент от входящих</string>
+
+    <string name="header_driver_stub_driver_name">Константин</string>
+    <string name="header_driver_show_profile_title">Показать профиль</string>
+
+    <string name="sheet_map_accept_order_title">Принять заказ</string>
+    <string name="sheet_map_stub_distance">3 МИН ОТ ВАС</string>
+    <string name="sheet_map_stub_client_name">Александр 5.0 ★</string>
+    <string name="sheet_rating_stub_client_name">Александр</string>
+    <string name="sheet_rating_description">Оценка в 3 звезды и ниже означает, что вы не будете получать заказы от этого клиента.</string>
+    <string name="sheet_rating_stub_sum">1,568 ₽</string>
+    <string name="sheet_rating_finish_button_title">Готово</string>
+
+    <string name="free_driver_drawer_home">Главная</string>
+    <string name="free_driver_drawer_navigation">Навигация</string>
+    <string name="free_driver_drawer_support">Поддержка</string>
+    <string name="free_driver_drawer_google_play_rate">Оценка в Google Play</string>
+    <string name="free_driver_drawer_info">Справка</string>
+    <string name="free_driver_drawer_log_out">Выйти</string>
+
+    <string name="driver_bottom_nav_home">Главная</string>
+    <string name="driver_bottom_nav_stats">Статистика</string>
+    <string name="driver_options_call">Позвонить</string>
+    <string name="driver_options_cancel_delivery">Отменить доставку</string>
 </resources>

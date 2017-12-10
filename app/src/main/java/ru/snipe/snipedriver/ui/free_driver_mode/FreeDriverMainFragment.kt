@@ -19,16 +19,17 @@ import ru.snipe.snipedriver.ui.base_mvp.BaseMvpFragment
 import ru.snipe.snipedriver.ui.driver_mode.DriverActivity
 import ru.snipe.snipedriver.utils.ContentConfig
 import ru.snipe.snipedriver.utils.isVisible
+import ru.snipe.snipedriver.utils.setDebouncingOnClickListener
 
 class FreeDriverMainFragment : BaseMvpFragment<Unit>(), FreeDriverMainView {
   override val contentDelegate = FragmentContentDelegate(this,
     ContentConfig(R.layout.content_main_free_driver))
 
   private val shadow by bindView<View>(R.id.view_free_driver_shadow)
-  private val progressLayout by bindView<View>(R.id.layout_free_driver_loading)
+  private val progressLayout by bindView<View>(R.id.progress_container)
   private val bottomNavigationView by bindView<BottomNavigationView>(R.id.bottom_nav_view_free_driver)
 
-  private var toolbarTitle by bindProperty<TextView>()
+  private var toolbarButton by bindProperty<TextView>()
 
   @InjectPresenter
   internal lateinit var presenter: FreeDriverMainPresenter
@@ -43,8 +44,8 @@ class FreeDriverMainFragment : BaseMvpFragment<Unit>(), FreeDriverMainView {
   override fun initView(view: View) {
     val toolbar = (activity as FreeDriverMainHolder).toolbar
     toolbar.isVisible = true
-    toolbarTitle = toolbar.findViewById(R.id.toolbar_title)
-    toolbarTitle.setOnClickListener { presenter.statusClicked() }
+    toolbarButton = toolbar.findViewById(R.id.toolbar_button)
+    toolbarButton.setDebouncingOnClickListener { presenter.statusClicked() }
 
     bottomNavigationView.setOnNavigationItemSelectedListener { item ->
       when (item.itemId) {
@@ -80,7 +81,7 @@ class FreeDriverMainFragment : BaseMvpFragment<Unit>(), FreeDriverMainView {
   }
 
   override fun setStatus(activated: Boolean) {
-    toolbarTitle.isActivated = activated
+    toolbarButton.isActivated = activated
     if (activated) {
       shadow.visibility = View.GONE
       bottomNavigationView.visibility = View.GONE
@@ -114,7 +115,7 @@ class FreeDriverMainFragment : BaseMvpFragment<Unit>(), FreeDriverMainView {
   private fun showBottomSheet() {
     val bottomSheetDialog = BottomSheetDialog(context!!)
     bottomSheetDialog.setContentView(R.layout.layout_sheet_map)
-    bottomSheetDialog.findViewById<LinearLayout>(R.id.layout_bottom_sheet_map)?.setOnClickListener { presenter.requestAccepted() }
+    bottomSheetDialog.findViewById<LinearLayout>(R.id.layout_bottom_sheet_map)?.setDebouncingOnClickListener { presenter.requestAccepted() }
     bottomSheetDialog.show()
   }
 }
