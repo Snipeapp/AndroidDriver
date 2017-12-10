@@ -3,10 +3,10 @@ package ru.snipe.snipedriver.ui.views
 import android.content.Context
 import android.support.annotation.ColorInt
 import android.support.v4.widget.TextViewCompat
+import android.support.v7.widget.ListPopupWindow
 import android.util.AttributeSet
 import android.view.View
 import android.widget.ImageView
-import android.widget.ListPopupWindow
 import android.widget.RelativeLayout
 import android.widget.TextView
 import ru.snipe.snipedriver.R

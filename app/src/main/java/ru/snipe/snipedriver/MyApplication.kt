@@ -2,6 +2,7 @@ package ru.snipe.snipedriver
 
 import android.content.Context
 import android.support.multidex.MultiDex
+import android.support.v7.app.AppCompatDelegate
 import com.crashlytics.android.Crashlytics
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
@@ -24,6 +25,7 @@ class MyApplication : BaseApplication<AppComponent>(AppConfig(isReleaseBuild = !
     super.onCreate()
     setupLeakAnalysis()
     Fabric.with(this, Crashlytics())
+    AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
   }
 
   private fun setupLeakAnalysis() {

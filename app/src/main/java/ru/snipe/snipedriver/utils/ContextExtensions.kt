@@ -12,7 +12,6 @@ import android.support.annotation.ColorInt
 import android.support.annotation.ColorRes
 import android.support.annotation.DrawableRes
 import android.support.v4.content.ContextCompat
-import android.support.v4.content.res.ResourcesCompat
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.WindowManager
@@ -58,7 +57,7 @@ fun Activity.setStatusBarColorCompat(@ColorInt colorRes: Int) {
 
 fun Context.getDrawableCompat(@DrawableRes drawableRes: Int,
                               theme: Resources.Theme? = null): Drawable? {
-  return ResourcesCompat.getDrawable(this.resources, drawableRes, theme)
+  return ContextCompat.getDrawable(this, drawableRes)
 }
 
 fun Context.dpToPx(dp: Int) = this.resources.dpToPx(dp)
