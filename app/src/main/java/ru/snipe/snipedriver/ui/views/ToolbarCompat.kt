@@ -57,7 +57,7 @@ class ToolbarCompat : RelativeLayout {
       optionsView.text = value?.optionTitle ?: ""
       val endDrawableRes = value?.optionImage ?: 0
       TextViewCompat.setCompoundDrawablesRelativeWithIntrinsicBounds(optionsView, 0, 0, endDrawableRes, 0)
-      optionsView.setOnClickListener { value?.clickAction?.invoke(this) }
+      optionsView.setDebouncingOnClickListener { value?.clickAction?.invoke(this) }
     }
 
   private val iconView: ImageView
@@ -84,8 +84,8 @@ class ToolbarCompat : RelativeLayout {
     optionsColor = colorPrimary
     optionsItem = null
     titleText = R.string.app_name.asString(context)
-    iconView.setOnClickListener { iconClickAction?.invoke(it) }
-    optionsView.setOnClickListener { optionsClickAction?.invoke(it) }
+    iconView.setDebouncingOnClickListener { iconClickAction?.invoke(it) }
+    optionsView.setDebouncingOnClickListener { optionsClickAction?.invoke(it) }
     setBackgroundColor(toolbarColor)
     iconView.showRipple(20)
     optionsView.showRipple(60)

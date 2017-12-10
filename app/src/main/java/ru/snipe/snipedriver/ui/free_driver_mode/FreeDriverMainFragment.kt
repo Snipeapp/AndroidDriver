@@ -19,6 +19,7 @@ import ru.snipe.snipedriver.ui.base_mvp.BaseMvpFragment
 import ru.snipe.snipedriver.ui.driver_mode.DriverActivity
 import ru.snipe.snipedriver.utils.ContentConfig
 import ru.snipe.snipedriver.utils.isVisible
+import ru.snipe.snipedriver.utils.setDebouncingOnClickListener
 
 class FreeDriverMainFragment : BaseMvpFragment<Unit>(), FreeDriverMainView {
   override val contentDelegate = FragmentContentDelegate(this,
@@ -44,7 +45,7 @@ class FreeDriverMainFragment : BaseMvpFragment<Unit>(), FreeDriverMainView {
     val toolbar = (activity as FreeDriverMainHolder).toolbar
     toolbar.isVisible = true
     toolbarTitle = toolbar.findViewById(R.id.toolbar_title)
-    toolbarTitle.setOnClickListener { presenter.statusClicked() }
+    toolbarTitle.setDebouncingOnClickListener { presenter.statusClicked() }
 
     bottomNavigationView.setOnNavigationItemSelectedListener { item ->
       when (item.itemId) {
@@ -114,7 +115,7 @@ class FreeDriverMainFragment : BaseMvpFragment<Unit>(), FreeDriverMainView {
   private fun showBottomSheet() {
     val bottomSheetDialog = BottomSheetDialog(context!!)
     bottomSheetDialog.setContentView(R.layout.layout_sheet_map)
-    bottomSheetDialog.findViewById<LinearLayout>(R.id.layout_bottom_sheet_map)?.setOnClickListener { presenter.requestAccepted() }
+    bottomSheetDialog.findViewById<LinearLayout>(R.id.layout_bottom_sheet_map)?.setDebouncingOnClickListener { presenter.requestAccepted() }
     bottomSheetDialog.show()
   }
 }

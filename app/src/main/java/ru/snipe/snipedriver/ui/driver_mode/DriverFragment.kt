@@ -31,6 +31,7 @@ import ru.snipe.snipedriver.ui.free_driver_mode.FreeDriverActivity
 import ru.snipe.snipedriver.ui.popup.PopupActivity
 import ru.snipe.snipedriver.utils.ContentConfig
 import ru.snipe.snipedriver.utils.asString
+import ru.snipe.snipedriver.utils.setDebouncingOnClickListener
 
 private const val REQUEST_A = 20
 private const val REQUEST_B = 21
@@ -79,7 +80,7 @@ class DriverFragment : BaseMvpFragment<Unit>(), DriverView, OnMapReadyCallback {
         }
       })
 
-    bottomSheet.setOnClickListener { presenter.moveToNextState() }
+    bottomSheet.setDebouncingOnClickListener { presenter.moveToNextState() }
     setHasOptionsMenu(true)
   }
 
@@ -112,7 +113,7 @@ class DriverFragment : BaseMvpFragment<Unit>(), DriverView, OnMapReadyCallback {
       btn?.alpha = 1f
       btn?.isEnabled = true
     }
-    btn?.setOnClickListener {
+    btn?.setDebouncingOnClickListener {
       bottomSheetDialog.dismiss()
       presenter.customerRated()
     }

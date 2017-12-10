@@ -46,7 +46,7 @@ class OnBoardingFragment : BaseMvpFragment<Unit>(), OnBoardingView {
         null)
       activity!!.finish()
     }
-    signUpButton.setOnClickListener { presenter.onSignUpButtonClicked() }
+    signUpButton.setDebouncingOnClickListener { presenter.onSignUpButtonClicked() }
     loginTitle.text = buildLoginTitle()
     loginTitle.movementMethod = LinkMovementMethod.getInstance()
   }

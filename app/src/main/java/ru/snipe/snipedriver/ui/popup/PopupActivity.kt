@@ -12,6 +12,7 @@ import ru.snipe.snipedriver.ui.base.ActivityContentDelegate
 import ru.snipe.snipedriver.ui.base.BaseActivity
 import ru.snipe.snipedriver.utils.ContentConfig
 import ru.snipe.snipedriver.utils.asString
+import ru.snipe.snipedriver.utils.setDebouncingOnClickListener
 
 private const val EXTRA_MODE = "mode"
 
@@ -41,8 +42,8 @@ class PopupActivity : BaseActivity() {
       title.text = "Вы завершили доставку на проспект Энгельса, 107B?"
       posButton.text = R.string.all_finished.asString(this)
     }
-    posButton.setOnClickListener { processButtonClick(it) }
-    negButton.setOnClickListener { processButtonClick(it) }
+    posButton.setDebouncingOnClickListener { processButtonClick(it) }
+    negButton.setDebouncingOnClickListener { processButtonClick(it) }
   }
 
   private fun processButtonClick(v: View) {
