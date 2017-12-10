@@ -1,110 +1,124 @@
 buildscript {
-    repositories { maven { url 'https://maven.fabric.io/public' } }
-    dependencies { classpath 'io.fabric.tools:gradle:1.24.5' }
+  repositories { maven { url 'https://maven.fabric.io/public' } }
+  dependencies { classpath 'io.fabric.tools:gradle:1.24.5' }
 }
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-
 apply plugin: 'io.fabric'
-apply plugin: 'com.jakewharton.hugo'
-apply plugin: 'com.github.ben-manes.versions'
 apply plugin: 'kotlin-android-extensions'
 
-repositories {
-    jcenter()
-    maven { url 'https://maven.fabric.io/public' }
-    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-}
-
 android {
-    compileSdkVersion 27
-    buildToolsVersion "27.0.1"
-    defaultConfig {
-        applicationId "ru.snipe.snipedriver"
-        targetSdkVersion 27
-        versionCode 6
-        versionName "0.7"
-        vectorDrawables.useSupportLibrary = true
-        multiDexEnabled true
-    }
-    aaptOptions {
-        additionalParameters "--no-version-vectors"
-    }
-    lintOptions {
-        abortOnError false
-    }
-    buildTypes {
-        //TODO: Add keys
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-    packagingOptions {
-        exclude 'META-INF/rxjava.properties'
-    }
+  compileSdkVersion 27
+  buildToolsVersion "27.0.1"
 
-    kapt {
-        generateStubs = true
-    }
+  defaultConfig {
+    applicationId "ru.snipe.snipedriver"
+    targetSdkVersion 27
+    versionCode 6
+    versionName "0.7"
+    vectorDrawables.useSupportLibrary = true
+    multiDexEnabled true
+  }
 
-    flavorDimensions 'api'
-    productFlavors {
-        dev {
-            dimension 'api'
-            minSdkVersion 25
-        }
-        prod {
-            dimension 'api'
-            minSdkVersion 16
-        }
+  aaptOptions {
+    additionalParameters "--no-version-vectors"
+  }
+
+  lintOptions {
+    abortOnError false
+  }
+
+  signingConfigs {
+    debug {
+      storeFile file("$rootProject.rootDir/keystore/debug.keystore")
     }
+    release {
+      storeFile file("$rootProject.rootDir/keystore/release-keystore.jks")
+      storePassword ''
+      keyAlias 'snipe-driver'
+      keyPassword ''
+    }
+  }
+
+  flavorDimensions 'api'
+  productFlavors {
+    dev {
+      dimension 'api'
+      minSdkVersion 25
+      applicationIdSuffix '.dev'
+    }
+    prod {
+      dimension 'api'
+      minSdkVersion 16
+    }
+  }
+
+  buildTypes {
+    //TODO: Add keys
+    debug {
+      minifyEnabled false
+      versionNameSuffix '.dbg'
+      signingConfig signingConfigs.debug
+    }
+    release {
+      minifyEnabled false
+      signingConfig signingConfigs.release
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+
+  packagingOptions {
+    exclude 'META-INF/rxjava.properties'
+  }
+
+  kapt {
+    generateStubs = true
+  }
 }
 
 ext { supportLibraryVersion = '27.0.2' }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+  compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile 'com.android.support:multidex:1.0.2'
-    compile "com.android.support:appcompat-v7:$supportLibraryVersion"
-    compile "com.android.support:design:$supportLibraryVersion"
-    compile "com.android.support:support-fragment:$supportLibraryVersion"
-    compile "com.android.support:cardview-v7:$supportLibraryVersion"
-    compile "com.android.support:gridlayout-v7:$supportLibraryVersion"
-    compile "com.android.support:support-v4:$supportLibraryVersion"
+  compile 'com.android.support:multidex:1.0.2'
+  compile "com.android.support:appcompat-v7:$supportLibraryVersion"
+  compile "com.android.support:design:$supportLibraryVersion"
+  compile "com.android.support:support-fragment:$supportLibraryVersion"
+  compile "com.android.support:cardview-v7:$supportLibraryVersion"
+  compile "com.android.support:gridlayout-v7:$supportLibraryVersion"
+  compile "com.android.support:support-v4:$supportLibraryVersion"
 
-    compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
-        transitive = true
-    }
+  compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
+    transitive = true
+  }
 
-    compile 'com.google.code.gson:gson:2.8.1'
-    compile 'com.jakewharton.rxrelay2:rxrelay:2.0.0'
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'io.reactivex.rxjava2:rxjava:2.1.7'
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'
-    compile 'com.github.pwittchen:reactivenetwork-rx2:0.12.2'
-    compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
-    compile 'com.jakewharton.timber:timber:4.5.1'
-    compile 'com.tbruyelle.rxpermissions:rxpermissions:0.9.1@aar'
-    compile 'com.google.dagger:dagger:2.11'
-    compile 'org.jetbrains.kotlin:kotlin-stdlib:1.2.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.google.android.gms:play-services-maps:11.6.2'
-    compile 'com.github.lzyzsd:circleprogress:1.2.1'
-    compile 'com.arello-mobile:moxy:1.5.3'
-    compile 'com.arello-mobile:moxy-app-compat:1.5.3'
-    compile 'com.squareup.picasso:picasso:2.5.3-SNAPSHOT'
+  compile 'com.google.code.gson:gson:2.8.1'
+  compile 'com.jakewharton.rxrelay2:rxrelay:2.0.0'
+  compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+  compile 'io.reactivex.rxjava2:rxjava:2.1.7'
+  compile 'com.squareup.retrofit2:retrofit:2.3.0'
+  compile 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
+  compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+  compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+  compile 'com.github.pwittchen:reactivenetwork-rx2:0.12.2'
+  compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+  compile 'com.jakewharton.timber:timber:4.6.0'
+  compile 'com.tbruyelle.rxpermissions:rxpermissions:0.9.1@aar'
+  compile 'com.google.dagger:dagger:2.11'
+  compile 'org.jetbrains.kotlin:kotlin-stdlib:1.2.0'
+  compile 'com.android.support.constraint:constraint-layout:1.0.2'
+  compile 'com.google.android.gms:play-services-maps:11.6.2'
+  compile 'com.github.lzyzsd:circleprogress:1.2.1'
+  compile 'com.arello-mobile:moxy:1.5.3'
+  compile 'com.arello-mobile:moxy-app-compat:1.5.3'
+  compile 'com.squareup.picasso:picasso:2.5.3-SNAPSHOT'
 
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
+  debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
+  releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
 
-    kapt 'com.google.dagger:dagger-compiler:2.11'
-    kapt 'com.arello-mobile:moxy-compiler:1.5.3'
+  kapt 'com.google.dagger:dagger-compiler:2.11'
+  kapt 'com.arello-mobile:moxy-compiler:1.5.3'
 }
-
