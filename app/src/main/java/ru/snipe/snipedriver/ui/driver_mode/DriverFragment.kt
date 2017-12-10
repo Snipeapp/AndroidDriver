@@ -57,7 +57,6 @@ class DriverFragment : BaseMvpFragment<Unit>(), DriverView, OnMapReadyCallback {
   }
 
   override fun initView(view: View) {
-    toolbar.titleText = ""
     toolbar.navigationType = NavigationIconType.None
     toolbar.optionItems = listOf(
       OptionsItem(R.string.driver_options_call.asString(context), 0, { _, _ ->

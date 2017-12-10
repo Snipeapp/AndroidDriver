@@ -9,8 +9,7 @@
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:openDrawer="start">
+        android:layout_height="match_parent">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -30,7 +29,10 @@
                     <ru.snipe.snipedriver.ui.views.ToolbarCompat
                         android:id="@+id/toolbar"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        app:tcShowElevation="false"
+                        app:tcShowNavigationIcon="false"
+                        app:tcShowTitle="false">
 
                         <TextView
                             android:id="@+id/toolbar_button"

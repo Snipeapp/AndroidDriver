@@ -41,7 +41,6 @@ class FreeDriverActivity : BaseContentActivity<FreeDriverMainFragment>(), FreeDr
   override fun provideContent() = FreeDriverMainFragment()
 
   override fun initView(view: Activity) {
-    toolbar.titleText = ""
     toolbar.navigationClickAction = { drawer.openDrawer(GravityCompat.START) }
     toolbar.navigationType = NavigationIconType.Menu
     navigationView.setNavigationItemSelectedListener(this)

@@ -32,6 +32,7 @@ class ToolbarCompat : RelativeLayout {
     set(value) {
       field = value
       titleView.text = titleText
+      titleView.isInvisible = titleText.isBlank()
     }
 
   @ColorInt
@@ -88,6 +89,7 @@ class ToolbarCompat : RelativeLayout {
   private val navigationView: ImageView
   private val titleView: TextView
   private val optionsView: TextView
+  private val elevation: View
 
   private var optionsMenu: PopupMenu? = null
 
@@ -98,10 +100,12 @@ class ToolbarCompat : RelativeLayout {
     navigationView = findView(R.id.toolbar_icon)
     titleView = findView(R.id.toolbar_title)
     optionsView = findView(R.id.toolbar_options)
-    initView(context)
+    elevation = findView(R.id.toolbar_elevation)
+
+    initView(context, attrs)
   }
 
-  private fun initView(context: Context) {
+  private fun initView(context: Context, attrs: AttributeSet?) {
     val colorPrimary = context.getThemeColor(R.attr.colorPrimary)
     val titleTextColor = context.getThemeColor(R.attr.titleTextColor)
     val toolbarColor = context.getThemeColor(R.attr.toolbarBarColor)
@@ -110,12 +114,20 @@ class ToolbarCompat : RelativeLayout {
     titleColor = titleTextColor
     optionsColor = colorPrimary
     setBackgroundColor(toolbarColor)
-    optionItem = null
-    optionItems = null
-    optionsMenu = null
+
     titleText = R.string.app_name.asString(context)
     optionsView.showRipple(60)
     navigationView.setDebouncingOnClickListener { navigationClickAction?.invoke(it) }
     navigationType = NavigationIconType.Back
+
+    context.obtainStyledAttributes(attrs, R.styleable.ToolbarCompat)?.run {
+      val showNavigation = getBoolean(R.styleable.ToolbarCompat_tcShowNavigationIcon, true)
+      val showTitle = getBoolean(R.styleable.ToolbarCompat_tcShowTitle, true)
+      val showElevation = getBoolean(R.styleable.ToolbarCompat_tcShowElevation, true)
+      navigationView.isVisible = showNavigation
+      titleView.isVisible = showTitle
+      elevation.isVisible = showElevation
+      recycle()
+    }
   }
 }

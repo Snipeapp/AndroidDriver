@@ -47,6 +47,7 @@
         tools:text="Далее"/>
 
     <View
+        android:id="@+id/toolbar_elevation"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_2dp"
         android:layout_alignParentBottom="true"
