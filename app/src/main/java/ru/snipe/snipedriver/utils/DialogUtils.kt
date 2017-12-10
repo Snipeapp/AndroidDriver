@@ -10,9 +10,9 @@ import ru.snipe.snipedriver.R
 
 fun <T> Context.createListWindow(items: List<T>,
                                  anchorView: View,
+                                 onWindowItemClickAction: (item: T, itemPosition: Int) -> Unit,
                                  @Px widthPx: Int = this.dpToPx(POP_UP_WINDOWS_WIDTH_DP),
-                                 @LayoutRes itemLayoutRes: Int = R.layout.item_spinner,
-                                 onWindowItemClickAction: (item: T, itemPosition: Int) -> Unit): ListPopupWindow {
+                                 @LayoutRes itemLayoutRes: Int = R.layout.item_spinner): ListPopupWindow {
   val itemsAdapter = ArrayAdapter<T>(this, itemLayoutRes).apply { addAll(items) }
 
   val window = ListPopupWindow(this)

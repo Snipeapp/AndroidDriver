@@ -17,12 +17,8 @@ import ru.snipe.snipedriver.getAppComponent
 import ru.snipe.snipedriver.ui.base.FragmentContentDelegate
 import ru.snipe.snipedriver.ui.base_mvp.BaseMvpFragment
 import ru.snipe.snipedriver.ui.verify_code.VerifyCodeActivity
-import ru.snipe.snipedriver.ui.views.OptionsItem
 import ru.snipe.snipedriver.ui.views.ToolbarCompat
-import ru.snipe.snipedriver.utils.ContentConfig
-import ru.snipe.snipedriver.utils.asString
-import ru.snipe.snipedriver.utils.hideKeyboard
-import ru.snipe.snipedriver.utils.showKeyboard
+import ru.snipe.snipedriver.utils.*
 
 class PhoneNumberFragment : BaseMvpFragment<Unit>(), PhoneNumberView {
   override val contentDelegate = FragmentContentDelegate(this,
@@ -45,7 +41,7 @@ class PhoneNumberFragment : BaseMvpFragment<Unit>(), PhoneNumberView {
   override fun initView(view: View) {
     toolbar.titleText = R.string.phone_number_title.asString(context)
     toolbar.iconClickAction = { activity?.hideKeyboard(); activity?.onBackPressed() }
-    toolbar.optionsItem = OptionsItem(R.string.all_next.asString(context), 0, { processNextClick() })
+    toolbar.optionItem = OptionsItem(R.string.all_next.asString(context), 0, { processNextClick() })
     numberInput.addTextChangedListener(PhoneNumberFormattingTextWatcher())
     numberInput.setOnEditorActionListener({ _, actionId, _ ->
       if (actionId == EditorInfo.IME_ACTION_NEXT) {

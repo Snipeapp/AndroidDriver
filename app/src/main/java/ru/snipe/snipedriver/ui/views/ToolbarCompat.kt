@@ -13,12 +13,20 @@ import android.support.v4.widget.TextViewCompat
 import android.util.AttributeSet
 import android.view.View
 import android.widget.ImageView
+import android.widget.ListPopupWindow
 import android.widget.RelativeLayout
 import android.widget.TextView
 import ru.snipe.snipedriver.R
 import ru.snipe.snipedriver.utils.*
 
 class ToolbarCompat : RelativeLayout {
+
+  var titleText: String = ""
+    set(value) {
+      field = value
+      titleView.text = titleText
+    }
+
   @ColorInt
   var iconColor: Int = 0
     set(value) {
@@ -26,19 +34,11 @@ class ToolbarCompat : RelativeLayout {
       iconView.setImageDrawable(iconView.drawable.withTint(value))
     }
 
-  var iconClickAction: ((View) -> Unit)? = null
-
   @ColorInt
   var titleColor: Int = 0
     set(value) {
       field = value
       titleView.setTextColor(value)
-    }
-
-  var titleText: String = ""
-    set(value) {
-      field = value
-      titleView.text = titleText
     }
 
   @ColorInt
@@ -48,9 +48,11 @@ class ToolbarCompat : RelativeLayout {
       titleView.setTextColor(value)
     }
 
+  var iconClickAction: ((View) -> Unit)? = null
+
   var optionsClickAction: ((View) -> Unit)? = null
 
-  var optionsItem: OptionsItem? = null
+  var optionItem: OptionsItem? = null
     set(value) {
       field = value
       optionsView.isVisible = value != null
@@ -60,6 +62,23 @@ class ToolbarCompat : RelativeLayout {
       optionsView.setDebouncingOnClickListener { value?.clickAction?.invoke(this) }
     }
 
+  var optionItems: List<OptionsItem>? = null
+    set(value) {
+      field = value
+      optionsView.isVisible = value != null
+      if (value == null) {
+        optionsWindow = null
+        optionsView.setOnClickListener(null)
+      } else {
+        optionsWindow = context.createListWindow(value, optionsView, { item, position -> })
+        optionsView.setDebouncingOnClickListener { optionsWindow?.show() }
+      }
+      val endDrawableRes = if (value == null) 0 else R.drawable.ic_more_vert_black
+      TextViewCompat.setCompoundDrawablesRelativeWithIntrinsicBounds(optionsView, 0, 0, endDrawableRes, 0)
+      optionsView.text = ""
+    }
+
+  private var optionsWindow: ListPopupWindow? = null
   private val iconView: ImageView
   private val titleView: TextView
   private val optionsView: TextView
@@ -82,7 +101,7 @@ class ToolbarCompat : RelativeLayout {
     iconColor = colorPrimary
     titleColor = titleTextColor
     optionsColor = colorPrimary
-    optionsItem = null
+    optionItem = null
     titleText = R.string.app_name.asString(context)
     iconView.setDebouncingOnClickListener { iconClickAction?.invoke(it) }
     optionsView.setDebouncingOnClickListener { optionsClickAction?.invoke(it) }

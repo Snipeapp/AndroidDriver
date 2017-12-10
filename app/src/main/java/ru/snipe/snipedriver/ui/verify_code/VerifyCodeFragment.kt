@@ -21,7 +21,6 @@ import ru.snipe.snipedriver.getAppComponent
 import ru.snipe.snipedriver.ui.base.FragmentContentDelegate
 import ru.snipe.snipedriver.ui.base_mvp.BaseMvpFragment
 import ru.snipe.snipedriver.ui.free_driver_mode.FreeDriverActivity
-import ru.snipe.snipedriver.ui.views.OptionsItem
 import ru.snipe.snipedriver.ui.views.SimpleClickableSpan
 import ru.snipe.snipedriver.ui.views.ToolbarCompat
 import ru.snipe.snipedriver.utils.*
@@ -54,7 +53,7 @@ class VerifyCodeFragment : BaseMvpFragment<Unit>(), VerifyCodeView {
   override fun initView(view: View) {
     toolbar.titleText = R.string.verify_code_title.asString(context)
     toolbar.iconClickAction = { activity?.hideKeyboard(); activity?.onBackPressed() }
-    toolbar.optionsItem = OptionsItem(R.string.all_ready.asString(context), 0, { processReadyClick() })
+    toolbar.optionItem = OptionsItem(R.string.all_ready.asString(context), 0, { processReadyClick() })
 
     description.movementMethod = LinkMovementMethod()
     description.highlightColor = Color.TRANSPARENT
