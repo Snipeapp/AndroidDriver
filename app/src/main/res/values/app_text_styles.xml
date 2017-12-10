@@ -36,7 +36,7 @@
         <item name="android:textSize">20sp</item>
         <item name="android:fontFamily">@font/sans_serif_medium</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textColor">@color/dark_grey_blue</item>
+        <item name="android:textColor">@color/cool_grey</item>
     </style>
 
     <style name="M36Black">
@@ -114,6 +114,14 @@
     <style name="R82Black">
         <item name="android:textSize">41sp</item>
         <item name="android:fontFamily">@font/sans_serif</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/almost_black</item>
+    </style>
+
+    <style name="R74Black">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textSize">37sp</item>
+        <item name="android:fontFamily">sans-serif</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/almost_black</item>
     </style>

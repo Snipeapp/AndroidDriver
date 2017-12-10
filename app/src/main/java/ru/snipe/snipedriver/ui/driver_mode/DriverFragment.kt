@@ -3,10 +3,8 @@ package ru.snipe.snipedriver.ui.driver_mode
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
-import android.support.design.widget.BottomSheetDialog
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.ActivityOptionsCompat
-import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
@@ -31,6 +29,7 @@ import ru.snipe.snipedriver.ui.free_driver_mode.FreeDriverActivity
 import ru.snipe.snipedriver.ui.popup.PopupActivity
 import ru.snipe.snipedriver.utils.ContentConfig
 import ru.snipe.snipedriver.utils.asString
+import ru.snipe.snipedriver.utils.createBottomSheetThemed
 import ru.snipe.snipedriver.utils.setDebouncingOnClickListener
 
 private const val REQUEST_A = 20
@@ -103,21 +102,16 @@ class DriverFragment : BaseMvpFragment<Unit>(), DriverView, OnMapReadyCallback {
   }
 
   override fun goToRatingScreen() {
-    val bottomSheetDialog = BottomSheetDialog(context!!)
+    val bottomSheetDialog = context.createBottomSheetThemed()
     bottomSheetDialog.setContentView(R.layout.layout_sheet_rating)
 
-    val ratingBar = bottomSheetDialog.findViewById<RatingBar>(R.id.rating_bottom_sheet_rating)
-    val btn = bottomSheetDialog.findViewById<Button>(R.id.btn_bottom_sheet_rating_ready)
-    ratingBar?.setOnRatingBarChangeListener { _, _, _ ->
-      btn?.setBackgroundColor(ContextCompat.getColor(context!!, R.color.colorAccent))
-      btn?.alpha = 1f
-      btn?.isEnabled = true
-    }
-    btn?.setDebouncingOnClickListener {
+    val ratingBar = bottomSheetDialog.findViewById<RatingBar>(R.id.rating_bottom_sheet_rating)!!
+    val btn = bottomSheetDialog.findViewById<Button>(R.id.btn_bottom_sheet_rating_ready)!!
+    ratingBar.setOnRatingBarChangeListener { _, _, _ -> btn.isEnabled = true }
+    btn.setDebouncingOnClickListener {
       bottomSheetDialog.dismiss()
       presenter.customerRated()
     }
-
     bottomSheetDialog.setCancelable(false)
     bottomSheetDialog.show()
   }

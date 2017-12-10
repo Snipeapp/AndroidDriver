@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.support.annotation.LayoutRes
 import android.support.annotation.Px
+import android.support.design.widget.BottomSheetDialog
 import android.support.v7.widget.ListPopupWindow
 import android.support.v7.widget.PopupMenu
 import android.view.ContextThemeWrapper
@@ -12,6 +13,12 @@ import android.view.Menu
 import android.view.View
 import android.widget.ArrayAdapter
 import ru.snipe.snipedriver.R
+
+//TODO: Исправить подтягивание стилей из темы для диалога
+fun Context?.createBottomSheetThemed(): BottomSheetDialog {
+  val wrapper = ContextThemeWrapper(this, R.style.AppTheme)
+  return BottomSheetDialog(wrapper)
+}
 
 @SuppressLint("RestrictedApi")
 fun <T> Context.createListWindow(titleItems: List<T>,

@@ -22,6 +22,7 @@
         <item name="android:borderlessButtonStyle">@style/Widget.Button.Borderless</item>
         <item name="roundedButtonStyle">@style/Widget.Button.Rounded</item>
         <item name="buttonStyle">@style/Widget.Button</item>
+        <item name="android:buttonStyle">@style/Widget.Button</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
         <item name="actionOverflowButtonStyle">@style/OverflowButtonStyle</item>
     </style>
