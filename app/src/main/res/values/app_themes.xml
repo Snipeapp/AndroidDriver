@@ -23,7 +23,6 @@
         <item name="buttonStyle">@style/Widget.Button</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
         <item name="actionOverflowButtonStyle">@style/OverflowButtonStyle</item>
-        <item name="android:tabWidgetStyle">@style/TabLayoutStyle</item>
     </style>
 
     <style name="AppTheme" parent="BaseTheme"/>

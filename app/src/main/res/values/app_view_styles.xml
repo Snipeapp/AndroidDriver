@@ -15,10 +15,14 @@
         <item name="itemTextColor">@drawable/cs_nav_item_state</item>
     </style>
 
-    <style name="TabLayoutStyle" parent="Widget.Design.TabLayout">
-        <item name="tabIndicatorColor">@color/colorPrimaryDark</item>
-        <item name="tabSelectedTextColor">@color/colorPrimaryDark</item>
-        <item name="tabTextColor">@color/colorPrimaryLight</item>
+    <style name="TabLayoutStyle" parent="Base.Widget.Design.TabLayout">
+        <item name="tabTextAppearance">@style/TabTextAppearance</item>
+        <item name="tabTextColor">@color/bluish_grey</item>
+        <item name="tabIndicatorColor">?attr/colorPrimaryDark</item>
+    </style>
+
+    <style name="TabTextAppearance" parent="M28Black">
+        <item name="android:textAllCaps">true</item>
     </style>
 
     <style name="DrawerArrowStyle" parent="@style/Widget.AppCompat.DrawerArrowToggle">
