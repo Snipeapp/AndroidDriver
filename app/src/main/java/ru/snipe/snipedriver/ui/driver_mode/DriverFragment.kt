@@ -36,7 +36,7 @@ class DriverFragment : BaseMvpFragment<Unit>(), DriverView, OnMapReadyCallback {
     ContentConfig(R.layout.content_driver))
 
   private val toolbar by bindView<ToolbarCompat>(R.id.toolbar_driver)
-  private val progressLayout by bindView<View>(R.id.layout_driver_loading)
+  private val progressLayout by bindView<View>(R.id.progress_container)
   private val title by bindView<TextView>(R.id.tv_driver_bottom_sheet_title)
   private val bottomSheet by bindView<View>(R.id.layout_driver_bottom_sheet)
   private val toolbarRiding by bindView<View>(R.id.layout_driver_toolbar_riding)

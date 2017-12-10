@@ -36,7 +36,7 @@ class VerifyCodeFragment : BaseMvpFragment<Unit>(), VerifyCodeView {
   private val toolbar by bindView<ToolbarCompat>(R.id.toolbar)
   private val codeInput by bindView<EditText>(R.id.verify_code_input_phone)
   private val description by bindView<TextView>(R.id.verify_code_txt_description)
-  private val loadingLayout by bindView<View>(R.id.layout_verify_code_loading)
+  private val loadingLayout by bindView<View>(R.id.progress_container)
 
   private val phone by lazy { arguments!!.getString(EXTRA_PHONE, null) }
 

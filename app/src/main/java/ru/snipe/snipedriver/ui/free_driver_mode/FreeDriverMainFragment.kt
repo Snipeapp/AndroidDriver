@@ -26,7 +26,7 @@ class FreeDriverMainFragment : BaseMvpFragment<Unit>(), FreeDriverMainView {
     ContentConfig(R.layout.content_main_free_driver))
 
   private val shadow by bindView<View>(R.id.view_free_driver_shadow)
-  private val progressLayout by bindView<View>(R.id.layout_free_driver_loading)
+  private val progressLayout by bindView<View>(R.id.progress_container)
   private val bottomNavigationView by bindView<BottomNavigationView>(R.id.bottom_nav_view_free_driver)
 
   private var toolbarButton by bindProperty<TextView>()

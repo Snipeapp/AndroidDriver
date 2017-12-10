@@ -26,7 +26,7 @@ class PhoneNumberFragment : BaseMvpFragment<Unit>(), PhoneNumberView {
 
   private val toolbar by bindView<ToolbarCompat>(R.id.toolbar)
   private val numberInput by bindView<EditText>(R.id.phone_number_input_phone)
-  private val loadingLayout by bindView<View>(R.id.layout_phone_number_loading)
+  private val loadingLayout by bindView<View>(R.id.progress_container)
 
   @InjectPresenter
   lateinit var presenter: PhoneNumberPresenter
