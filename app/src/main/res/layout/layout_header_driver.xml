@@ -11,25 +11,24 @@
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimaryDark"
         android:columnCount="2"
-        android:paddingBottom="32dp"
+        android:paddingBottom="@dimen/dimen_32dp"
         android:paddingLeft="@dimen/dimen_16dp"
         android:paddingRight="@dimen/dimen_16dp"
-        android:paddingTop="40dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark">
+        android:paddingTop="@dimen/dimen_40dp">
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="@dimen/dimen_60dp"
+            android:layout_height="@dimen/dimen_60dp"
             android:layout_gravity="bottom"
-            android:layout_marginRight="16dp"
+            android:layout_marginRight="@dimen/dimen_16dp"
             android:layout_rowSpan="2"
             app:srcCompat="@android:drawable/sym_def_app_icon"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/dimen_9dp"
             android:text="@string/header_driver_stub_driver_name"
             android:textAppearance="@style/M36White"/>
     </GridLayout>
