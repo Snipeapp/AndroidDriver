@@ -29,7 +29,7 @@ class FreeDriverMainFragment : BaseMvpFragment<Unit>(), FreeDriverMainView {
   private val progressLayout by bindView<View>(R.id.layout_free_driver_loading)
   private val bottomNavigationView by bindView<BottomNavigationView>(R.id.bottom_nav_view_free_driver)
 
-  private var toolbarTitle by bindProperty<TextView>()
+  private var toolbarButton by bindProperty<TextView>()
 
   @InjectPresenter
   internal lateinit var presenter: FreeDriverMainPresenter
@@ -44,8 +44,8 @@ class FreeDriverMainFragment : BaseMvpFragment<Unit>(), FreeDriverMainView {
   override fun initView(view: View) {
     val toolbar = (activity as FreeDriverMainHolder).toolbar
     toolbar.isVisible = true
-    toolbarTitle = toolbar.findViewById(R.id.toolbar_title)
-    toolbarTitle.setDebouncingOnClickListener { presenter.statusClicked() }
+    toolbarButton = toolbar.findViewById(R.id.toolbar_button)
+    toolbarButton.setDebouncingOnClickListener { presenter.statusClicked() }
 
     bottomNavigationView.setOnNavigationItemSelectedListener { item ->
       when (item.itemId) {
@@ -81,7 +81,7 @@ class FreeDriverMainFragment : BaseMvpFragment<Unit>(), FreeDriverMainView {
   }
 
   override fun setStatus(activated: Boolean) {
-    toolbarTitle.isActivated = activated
+    toolbarButton.isActivated = activated
     if (activated) {
       shadow.visibility = View.GONE
       bottomNavigationView.visibility = View.GONE

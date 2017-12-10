@@ -10,7 +10,7 @@
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:openDrawer="left">
+        tools:openDrawer="right">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -27,29 +27,26 @@
                     android:theme="@style/AppTheme.AppBarOverlay"
                     app:elevation="0dp">
 
-                    <android.support.v7.widget.Toolbar
+                    <ru.snipe.snipedriver.ui.views.ToolbarCompat
                         android:id="@+id/toolbar"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:popupTheme="@style/AppTheme.PopupOverlay">
+                        android:clipChildren="false"
+                        android:layout_height="wrap_content">
 
                         <TextView
-                            android:id="@+id/toolbar_title"
+                            android:id="@+id/toolbar_button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginBottom="12dp"
-                            android:layout_marginLeft="-28dp"
-                            android:layout_marginTop="12dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
                             android:background="@drawable/cs_toolbar_text"
                             android:paddingBottom="7dp"
                             android:paddingEnd="24dp"
                             android:paddingStart="24dp"
+                            android:textAppearance="@style/M32Black"
                             android:paddingTop="7dp"
-                            android:text="@string/free_driver_free_title"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="16dp"/>
-                    </android.support.v7.widget.Toolbar>
+                            android:text="@string/free_driver_free_title"/>
+                    </ru.snipe.snipedriver.ui.views.ToolbarCompat>
                 </android.support.design.widget.AppBarLayout>
 
                 <FrameLayout

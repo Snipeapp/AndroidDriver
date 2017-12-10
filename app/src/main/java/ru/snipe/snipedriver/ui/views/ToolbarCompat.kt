@@ -25,6 +25,7 @@ class ToolbarCompat : RelativeLayout {
       }
       drawableRes?.let { navigationView.setImageResource(it) }
       navigationView.isInvisible = drawableRes == null
+      navigationView.showRipple(20)
     }
 
   var titleText: String = ""
@@ -113,9 +114,8 @@ class ToolbarCompat : RelativeLayout {
     optionItems = null
     optionsMenu = null
     titleText = R.string.app_name.asString(context)
-    navigationView.setDebouncingOnClickListener { navigationClickAction?.invoke(it) }
-    navigationView.showRipple(20)
     optionsView.showRipple(60)
+    navigationView.setDebouncingOnClickListener { navigationClickAction?.invoke(it) }
     navigationType = NavigationIconType.Back
   }
 }
