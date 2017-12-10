@@ -5,7 +5,9 @@ import android.content.Context
 import android.support.annotation.LayoutRes
 import android.support.annotation.Px
 import android.support.v7.widget.ListPopupWindow
+import android.support.v7.widget.PopupMenu
 import android.view.Gravity
+import android.view.Menu
 import android.view.View
 import android.widget.ArrayAdapter
 import ru.snipe.snipedriver.R
@@ -31,6 +33,21 @@ fun <T> Context.createListWindow(titleItems: List<T>,
   window.setOverlapAnchor(true)
   window.setBackgroundDrawable(getDrawableCompat(R.drawable.bg_popup))
   return window.withHorizontalOffset(-POP_UP_WINDOWS_HORIZONTAL_OFFSET_PX)
+}
+
+fun <T> Context.createPopupMenu(titleItems: List<T>,
+                                anchorView: View,
+                                onItemClickAction: (view: View?, titleItem: T, itemPosition: Int) -> Unit): PopupMenu {
+  val wrapper = android.view.ContextThemeWrapper(this, R.style.PopupMenuStyle)
+  return PopupMenu(wrapper, anchorView).apply {
+    titleItems.forEachIndexed { index, title ->
+      menu.add(Menu.NONE, index, index, title.toString())
+    }
+    setOnMenuItemClickListener { menuItem ->
+      onItemClickAction.invoke(null, titleItems[menuItem.itemId], menuItem.itemId)
+      true
+    }
+  }
 }
 
 fun ListPopupWindow.withVerticalOffset(@Px verticalOffsetPx: Int = this.anchorView!!.height): ListPopupWindow {

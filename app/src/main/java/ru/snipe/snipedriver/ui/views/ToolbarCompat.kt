@@ -3,7 +3,7 @@ package ru.snipe.snipedriver.ui.views
 import android.content.Context
 import android.support.annotation.ColorInt
 import android.support.v4.widget.TextViewCompat
-import android.support.v7.widget.ListPopupWindow
+import android.support.v7.widget.PopupMenu
 import android.util.AttributeSet
 import android.view.View
 import android.widget.ImageView
@@ -60,20 +60,20 @@ class ToolbarCompat : RelativeLayout {
       field = value
       optionsView.isVisible = value != null
       if (value == null) {
-        optionsWindow = null
+        optionsMenu = null
         optionsView.setOnClickListener(null)
       } else {
-        optionsWindow = context.createListWindow(value.map { it.optionTitle }, optionsView, { view, _, position ->
+        optionsMenu = context.createPopupMenu(value.map { it.optionTitle }, optionsView, { view, _, position ->
           value[position].clickAction?.invoke(view, position)
         })
-        optionsView.setDebouncingOnClickListener { optionsWindow?.show() }
+        optionsView.setDebouncingOnClickListener { optionsMenu?.show() }
       }
       val endDrawableRes = if (value == null) 0 else R.drawable.ic_more_vert_black
       TextViewCompat.setCompoundDrawablesRelativeWithIntrinsicBounds(optionsView, 0, 0, endDrawableRes, 0)
       optionsView.text = ""
     }
 
-  private var optionsWindow: ListPopupWindow? = null
+  private var optionsMenu: PopupMenu? = null
   private val iconView: ImageView
   private val titleView: TextView
   private val optionsView: TextView

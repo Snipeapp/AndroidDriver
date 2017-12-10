@@ -1,4 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="PopupMenuStyle" parent="Widget.AppCompat.Light.PopupMenu">
+        <item name="overlapAnchor">true</item>
+        <item name="android:popupBackground">@drawable/bg_popup</item>
+        <item name="android:popupElevation" tools:targetApi="lollipop">2dp</item>
+    </style>
+
     <style name="OverflowButtonStyle" parent="Widget.AppCompat.ActionButton.Overflow">
         <item name="android:tint">@color/colorPrimaryDark</item>
     </style>
