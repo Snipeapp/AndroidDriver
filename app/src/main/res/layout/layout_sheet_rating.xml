@@ -39,13 +39,17 @@
         android:text="@string/sheet_rating_stub_sum"
         android:textAppearance="@style/R74Black"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/dividerHeight"
+        android:layout_marginTop="@dimen/dimen_32dp"
+        android:background="@color/dividerColor"/>
+
     <Button
         android:id="@+id/btn_bottom_sheet_rating_ready"
         style="@style/Widget.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_32dp"
         android:enabled="false"
-        android:text="@string/sheet_rating_finish_button_title"
-    />
+        android:text="@string/sheet_rating_finish_button_title"/>
 </LinearLayout>

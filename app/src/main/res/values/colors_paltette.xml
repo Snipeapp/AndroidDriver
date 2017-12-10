@@ -14,4 +14,5 @@
     <color name="silver">#d5d9de</color>
     <color name="cool_grey">#abb4be</color>
     <color name="dark_grey_blue">#2c405b</color>
+    <color name="black_50">#80000000</color>
 </resources>

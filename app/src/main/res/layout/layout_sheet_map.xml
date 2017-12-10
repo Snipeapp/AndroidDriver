@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:id="@+id/layout_bottom_sheet_map"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_bottom_sheet_map"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:elevation="@dimen/dimen_9dp"
@@ -16,17 +16,16 @@
         android:layout_marginTop="@dimen/dimen_6dp"
         android:text="@string/sheet_map_accept_order_title"
         android:textAppearance="@style/M42Black"
-        android:textColor="@color/colorPrimary"
-        />
+        android:textColor="@color/colorPrimary"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_9dp"
         android:text="@string/sheet_map_stub_distance"
+        android:textAllCaps="true"
         android:textAppearance="@style/R26Black"
-        android:textColor="@color/colorPrimary"
-        />
+        android:textColor="@color/colorPrimary"/>
 
     <ImageView
         android:layout_width="152dp"
@@ -40,6 +39,5 @@
         android:layout_marginTop="@dimen/dimen_20dp"
         android:text="@string/sheet_map_stub_client_name"
         android:textAppearance="@style/R32Black"
-        android:textColor="@color/colorPrimary"
-        />
+        android:textColor="@color/colorPrimary"/>
 </LinearLayout>
