@@ -7,4 +7,5 @@
     <color name="textColorPrimary">@color/black</color>
     <color name="textColorSecondary">@color/athens_gray</color>
     <color name="textColorHint">@color/cool_grey</color>
+    <color name="dividerColor">@color/athens_gray</color>
 </resources>

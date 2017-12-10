@@ -20,7 +20,7 @@
         <View
             android:id="@+id/view_free_driver_shadow"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="@dimen/dimen_2dp"
             android:rotation="180"/>
 
         <android.support.design.widget.BottomNavigationView

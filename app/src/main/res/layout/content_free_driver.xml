@@ -10,7 +10,7 @@
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:openDrawer="right">
+        tools:openDrawer="start">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -40,11 +40,11 @@
                             android:layout_centerHorizontal="true"
                             android:layout_centerVertical="true"
                             android:background="@drawable/cs_toolbar_text"
-                            android:paddingBottom="7dp"
-                            android:paddingEnd="24dp"
-                            android:paddingStart="24dp"
+                            android:paddingBottom="@dimen/dimen_7dp"
+                            android:paddingEnd="@dimen/dimen_24dp"
+                            android:paddingStart="@dimen/dimen_24dp"
                             android:textAppearance="@style/M32Black"
-                            android:paddingTop="7dp"
+                            android:paddingTop="@dimen/dimen_7dp"
                             android:text="@string/free_driver_free_title"/>
                     </ru.snipe.snipedriver.ui.views.ToolbarCompat>
                 </android.support.design.widget.AppBarLayout>
