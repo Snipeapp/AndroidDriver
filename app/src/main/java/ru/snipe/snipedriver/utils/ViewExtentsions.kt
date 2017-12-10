@@ -1,7 +1,12 @@
 package ru.snipe.snipedriver.utils
 
+import android.content.res.ColorStateList
 import android.graphics.*
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.RippleDrawable
+import android.graphics.drawable.StateListDrawable
+import android.os.Build
 import android.os.SystemClock
 import android.support.annotation.AttrRes
 import android.support.annotation.ColorInt
@@ -16,6 +21,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.ImageView
+import ru.snipe.snipedriver.R
+import ru.snipe.snipedriver.ui.views.SimpleDrawable
 
 fun View.layoutInflater(): LayoutInflater = this.context.layoutInflater()
 
@@ -146,5 +153,31 @@ private class DebouncingOnClickListener(private val targetListener: (View) -> Un
     }
     lastClickTime = SystemClock.elapsedRealtime()
     targetListener.invoke(v)
+  }
+}
+
+fun View.showRipple(rippleSizeDp: Int) {
+  val colorHighlight = context.getThemeColor(R.attr.colorControlHighlight)
+  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+    background = RippleDrawable(
+      ColorStateList.valueOf(colorHighlight),
+      null,
+      object : SimpleDrawable() {
+
+        private val paint = Paint()
+        private val size = context.dpToPx(rippleSizeDp).toFloat()
+
+        override fun draw(canvas: Canvas?) {
+          canvas?.drawCircle(
+            bounds.centerX().toFloat(),
+            bounds.centerY().toFloat(),
+            size,
+            paint)
+        }
+      })
+  } else {
+    background = StateListDrawable().apply {
+      addState(intArrayOf(android.R.attr.state_pressed), ColorDrawable(colorHighlight))
+    }
   }
 }

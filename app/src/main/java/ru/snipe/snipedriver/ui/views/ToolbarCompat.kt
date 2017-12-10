@@ -1,13 +1,6 @@
 package ru.snipe.snipedriver.ui.views
 
 import android.content.Context
-import android.content.res.ColorStateList
-import android.graphics.Canvas
-import android.graphics.Paint
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.RippleDrawable
-import android.graphics.drawable.StateListDrawable
-import android.os.Build
 import android.support.annotation.ColorInt
 import android.support.v4.widget.TextViewCompat
 import android.util.AttributeSet
@@ -59,7 +52,7 @@ class ToolbarCompat : RelativeLayout {
       optionsView.text = value?.optionTitle ?: ""
       val endDrawableRes = value?.optionImage ?: 0
       TextViewCompat.setCompoundDrawablesRelativeWithIntrinsicBounds(optionsView, 0, 0, endDrawableRes, 0)
-      optionsView.setDebouncingOnClickListener { value?.clickAction?.invoke(this) }
+      optionsView.setDebouncingOnClickListener { value?.clickAction?.invoke(this, 0) }
     }
 
   var optionItems: List<OptionsItem>? = null
@@ -70,7 +63,9 @@ class ToolbarCompat : RelativeLayout {
         optionsWindow = null
         optionsView.setOnClickListener(null)
       } else {
-        optionsWindow = context.createListWindow(value, optionsView, { item, position -> })
+        optionsWindow = context.createListWindow(value.map { it.optionTitle }, optionsView, { view, _, position ->
+          value[position].clickAction?.invoke(view, position)
+        })
         optionsView.setDebouncingOnClickListener { optionsWindow?.show() }
       }
       val endDrawableRes = if (value == null) 0 else R.drawable.ic_more_vert_black
@@ -108,31 +103,5 @@ class ToolbarCompat : RelativeLayout {
     setBackgroundColor(toolbarColor)
     iconView.showRipple(20)
     optionsView.showRipple(60)
-  }
-
-  private fun View.showRipple(rippleSizeDp: Int) {
-    val colorHighlight = context.getThemeColor(R.attr.colorControlHighlight)
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-      background = RippleDrawable(
-        ColorStateList.valueOf(colorHighlight),
-        null,
-        object : SimpleDrawable() {
-
-          private val paint = Paint()
-          private val size = context.dpToPx(rippleSizeDp).toFloat()
-
-          override fun draw(canvas: Canvas?) {
-            canvas?.drawCircle(
-              bounds.centerX().toFloat(),
-              bounds.centerY().toFloat(),
-              size,
-              paint)
-          }
-        })
-    } else {
-      background = StateListDrawable().apply {
-        addState(intArrayOf(android.R.attr.state_pressed), ColorDrawable(colorHighlight))
-      }
-    }
   }
 }

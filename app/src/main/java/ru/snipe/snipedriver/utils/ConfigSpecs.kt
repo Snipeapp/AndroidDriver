@@ -54,7 +54,7 @@ enum class NavigationIconType {
 
 data class OptionsItem(val optionTitle: String?,
                        @DrawableRes val optionImage: Int,
-                       val clickAction: ((View) -> Unit)?)
+                       val clickAction: ((view: View, position: Int) -> Unit)?)
 
 data class AppConfig(
   val isReleaseBuild: Boolean

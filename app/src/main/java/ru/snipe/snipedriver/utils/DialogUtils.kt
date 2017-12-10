@@ -8,18 +8,18 @@ import android.widget.ArrayAdapter
 import android.widget.ListPopupWindow
 import ru.snipe.snipedriver.R
 
-fun <T> Context.createListWindow(items: List<T>,
+fun <T> Context.createListWindow(titleItems: List<T>,
                                  anchorView: View,
-                                 onWindowItemClickAction: (item: T, itemPosition: Int) -> Unit,
+                                 onWindowItemClickAction: (view: View, titleItem: T, itemPosition: Int) -> Unit,
                                  @Px widthPx: Int = this.dpToPx(POP_UP_WINDOWS_WIDTH_DP),
                                  @LayoutRes itemLayoutRes: Int = R.layout.item_spinner): ListPopupWindow {
-  val itemsAdapter = ArrayAdapter<T>(this, itemLayoutRes).apply { addAll(items) }
+  val itemsAdapter = ArrayAdapter<T>(this, itemLayoutRes).apply { addAll(titleItems) }
 
   val window = ListPopupWindow(this)
   window.setAdapter(itemsAdapter)
   window.setOnItemClickListener { adapterView, view, position, l ->
     window.dismiss()
-    onWindowItemClickAction(items[position], position)
+    onWindowItemClickAction(adapterView, titleItems[position], position)
   }
   window.width = widthPx
   window.anchorView = anchorView
