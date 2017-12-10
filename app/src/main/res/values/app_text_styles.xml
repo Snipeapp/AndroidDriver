@@ -9,6 +9,13 @@
         <item name="android:textColor">@color/almost_black</item>
     </style>
 
+    <style name="B28Black">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/sans_serif</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/almost_black</item>
+    </style>
+
     <style name="B24Black">
         <item name="android:textSize">12sp</item>
         <item name="android:fontFamily">@font/sans_serif</item>

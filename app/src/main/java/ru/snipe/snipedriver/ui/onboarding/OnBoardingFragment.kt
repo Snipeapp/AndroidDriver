@@ -57,7 +57,7 @@ class OnBoardingFragment : BaseMvpFragment<Unit>(), OnBoardingView {
       .appendSpace()
       .withSpans(R.string.onboarding_login_title_login_word.asString(context),
         SimpleClickableSpan({ presenter.onLoginButtonClicked() }),
-        TextAppearanceSpan(context, R.style.M28Black))
+        TextAppearanceSpan(context, R.style.B28Black))
   }
 
   override fun switchToPhoneInsertScreen() {

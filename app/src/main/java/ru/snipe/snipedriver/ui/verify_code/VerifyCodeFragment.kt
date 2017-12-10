@@ -76,7 +76,7 @@ class VerifyCodeFragment : BaseMvpFragment<Unit>(), VerifyCodeView {
       .appendSpace()
       .withSpans(R.string.verify_code_send_new.asString(context),
         SimpleClickableSpan({ presenter.onResendButtonClicked() }),
-        TextAppearanceSpan(context, R.style.M24Black))
+        TextAppearanceSpan(context, R.style.B24Black))
   }
 
   private fun processReadyClick() {

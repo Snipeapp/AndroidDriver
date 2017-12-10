@@ -41,7 +41,7 @@
     <string name="verify_code_title">Подтверждение</string>
     <string name="verify_code_code">Код подтверждения</string>
     <string name="verify_code_description">Мы отправили вам код на %1s\nНе получили?</string>
-    <string name="verify_code_send_new">Отправить новый</string>
+    <string name="verify_code_send_new">Отправить новый.</string>
     <string name="verify_code_sent_code">Код отправлен</string>
     <string name="verify_code_correct_code">Код верный</string>
 
