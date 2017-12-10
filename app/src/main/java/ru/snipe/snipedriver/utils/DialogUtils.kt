@@ -6,6 +6,7 @@ import android.support.annotation.LayoutRes
 import android.support.annotation.Px
 import android.support.v7.widget.ListPopupWindow
 import android.support.v7.widget.PopupMenu
+import android.view.ContextThemeWrapper
 import android.view.Gravity
 import android.view.Menu
 import android.view.View
@@ -38,7 +39,7 @@ fun <T> Context.createListWindow(titleItems: List<T>,
 fun <T> Context.createPopupMenu(titleItems: List<T>,
                                 anchorView: View,
                                 onItemClickAction: (view: View?, titleItem: T, itemPosition: Int) -> Unit): PopupMenu {
-  val wrapper = android.view.ContextThemeWrapper(this, R.style.PopupMenuStyle)
+  val wrapper = ContextThemeWrapper(this, R.style.PopupMenuStyle)
   return PopupMenu(wrapper, anchorView).apply {
     titleItems.forEachIndexed { index, title ->
       menu.add(Menu.NONE, index, index, title.toString())

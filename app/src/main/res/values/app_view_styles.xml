@@ -3,6 +3,7 @@
         <item name="overlapAnchor">true</item>
         <item name="android:popupBackground">@drawable/bg_popup</item>
         <item name="android:popupElevation" tools:targetApi="lollipop">2dp</item>
+        <item name="android:itemTextAppearance">@style/M30Black</item>
     </style>
 
     <style name="OverflowButtonStyle" parent="Widget.AppCompat.ActionButton.Overflow">

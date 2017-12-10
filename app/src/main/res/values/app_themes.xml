@@ -10,7 +10,7 @@
         <item name="colorButtonNormal">@color/colorAccent</item>
         <item name="toolbarBarColor">@color/white</item>
 
-        <item name="popupMenuStyle">@style/OverflowButtonStyle</item>
+        <item name="popupMenuStyle">@style/PopupMenuStyle</item>
         <item name="android:textColorPrimary">@color/textColorPrimary</item>
         <item name="android:textColorSecondary">@color/textColorSecondary</item>
         <item name="android:textColorHint">@color/textColorHint</item>
