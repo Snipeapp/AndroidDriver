@@ -269,15 +269,14 @@
         android:id="@+id/layout_driver_loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.7"
-        android:background="#2a3d53"
+        android:background="@color/black_50"
         android:clickable="true"
         android:visibility="gone">
 
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:indeterminateTint="#97a1ae"/>
+            android:indeterminateTint="?attr/colorAccent"
+            android:layout_gravity="center"/>
     </FrameLayout>
 </android.support.design.widget.CoordinatorLayout>
