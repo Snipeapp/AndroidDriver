@@ -24,12 +24,12 @@
                 <android.support.design.widget.AppBarLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:elevation="0dp"
                     app:elevation="0dp">
 
                     <ru.snipe.snipedriver.ui.views.ToolbarCompat
                         android:id="@+id/toolbar"
                         android:layout_width="match_parent"
-                        android:clipChildren="false"
                         android:layout_height="wrap_content">
 
                         <TextView
@@ -42,9 +42,9 @@
                             android:paddingBottom="@dimen/dimen_7dp"
                             android:paddingEnd="@dimen/dimen_24dp"
                             android:paddingStart="@dimen/dimen_24dp"
-                            android:textAppearance="@style/M32Black"
                             android:paddingTop="@dimen/dimen_7dp"
-                            android:text="@string/free_driver_free_title"/>
+                            android:text="@string/free_driver_free_title"
+                            android:textAppearance="@style/M32Black"/>
                     </ru.snipe.snipedriver.ui.views.ToolbarCompat>
                 </android.support.design.widget.AppBarLayout>
 
