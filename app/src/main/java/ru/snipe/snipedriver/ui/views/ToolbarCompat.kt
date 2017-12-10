@@ -9,7 +9,6 @@ import android.graphics.drawable.RippleDrawable
 import android.graphics.drawable.StateListDrawable
 import android.os.Build
 import android.support.annotation.ColorInt
-import android.support.annotation.DrawableRes
 import android.support.v4.widget.TextViewCompat
 import android.util.AttributeSet
 import android.view.View
@@ -18,10 +17,6 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import ru.snipe.snipedriver.R
 import ru.snipe.snipedriver.utils.*
-
-data class OptionsItem(val optionTitle: String?,
-                       @DrawableRes val optionImage: Int,
-                       val clickAction: ((View) -> Unit)?)
 
 class ToolbarCompat : RelativeLayout {
   @ColorInt
@@ -92,11 +87,11 @@ class ToolbarCompat : RelativeLayout {
     iconView.setOnClickListener { iconClickAction?.invoke(it) }
     optionsView.setOnClickListener { optionsClickAction?.invoke(it) }
     setBackgroundColor(toolbarColor)
-    iconView.showRipple()
+    iconView.showRipple(20)
     optionsView.showRipple(60)
   }
 
-  private fun View.showRipple(sizeDp: Int = 20) {
+  private fun View.showRipple(rippleSizeDp: Int) {
     val colorHighlight = context.getThemeColor(R.attr.colorControlHighlight)
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
       background = RippleDrawable(
@@ -105,7 +100,7 @@ class ToolbarCompat : RelativeLayout {
         object : SimpleDrawable() {
 
           private val paint = Paint()
-          private val size = context.dpToPx(sizeDp).toFloat()
+          private val size = context.dpToPx(rippleSizeDp).toFloat()
 
           override fun draw(canvas: Canvas?) {
             canvas?.drawCircle(

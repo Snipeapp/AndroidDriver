@@ -68,8 +68,7 @@
             android:layout_gravity="start"
             android:background="@color/colorPrimaryDark"
             app:headerLayout="@layout/layout_header_driver"
-            app:itemIconTint="@color/colorAccent"
-            app:itemTextAppearance="@style/TextAppearance.AppCompat.Inverse"
+            app:itemTextAppearance="@style/R34White"
             app:menu="@menu/item_free_driver_drawer"/>
 
     </android.support.v4.widget.DrawerLayout>

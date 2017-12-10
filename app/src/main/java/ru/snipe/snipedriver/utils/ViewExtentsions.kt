@@ -2,6 +2,7 @@ package ru.snipe.snipedriver.utils
 
 import android.graphics.*
 import android.graphics.drawable.Drawable
+import android.os.SystemClock
 import android.support.annotation.AttrRes
 import android.support.annotation.ColorInt
 import android.support.design.widget.TabLayout
@@ -127,4 +128,23 @@ fun View.toBitmap(): Bitmap {
     targetCanvas.drawColor(Color.WHITE)
   this.draw(targetCanvas)
   return returnedBitmap
+}
+
+/**
+ * Sets up a click listener so that it will be protected from multiple subsequent clicks which come very fast.
+ * It will ignore clicks which are too close in time (1 second by default)
+ */
+fun View.setDebouncingOnClickListener(listener: ((View) -> Unit)?) {
+  setOnClickListener(if (listener != null) DebouncingOnClickListener(targetListener = listener) else null)
+}
+
+private class DebouncingOnClickListener(private val targetListener: (View) -> Unit) : View.OnClickListener {
+  private var lastClickTime = 0L
+  override fun onClick(v: View) {
+    if (SystemClock.elapsedRealtime() - lastClickTime < CLICK_DELAY_MS) {
+      return // clicking too fast, not allowed
+    }
+    lastClickTime = SystemClock.elapsedRealtime()
+    targetListener.invoke(v)
+  }
 }

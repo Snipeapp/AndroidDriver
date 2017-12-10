@@ -31,15 +31,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/header_driver_stub_driver_name"
-            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"/>
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="9dp"
-            android:text="@string/header_driver_show_profile_title"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            app:layout_gravity="fill_vertical"/>
+            android:textAppearance="@style/M36White"/>
     </GridLayout>
 </LinearLayout>
