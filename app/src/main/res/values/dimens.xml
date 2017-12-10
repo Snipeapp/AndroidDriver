@@ -14,4 +14,8 @@
     <dimen name="dimen_28sp">28sp</dimen>
     <dimen name="dimen_7dp">7dp</dimen>
     <dimen name="dimen_60dp">60dp</dimen>
+    <dimen name="dimen_28dp">28dp</dimen>
+    <dimen name="dimen_12dp">12dp</dimen>
+    <dimen name="dimen_10dp">10dp</dimen>
+    <dimen name="dimen_112dp">112dp</dimen>
 </resources>

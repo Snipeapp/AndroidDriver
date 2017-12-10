@@ -6,7 +6,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="@dimen/dimen_2dp"
         android:background="@drawable/gd_toolbar_dropshadow"/>
 
     <fragment
